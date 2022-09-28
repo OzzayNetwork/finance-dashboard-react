@@ -456,7 +456,8 @@ body[data-layout=horizontal] .footer {
     position: relative;
     font-size: 13px;
     -webkit-transition: all .4s;
-    transition: all .4s
+    transition: all .4s;
+    border-right:4px solid transparent;
 }
 
 #sidebar-menu ul li a i {
@@ -601,6 +602,9 @@ body[data-layout=horizontal] .footer {
 .vertical-collpsed .vertical-menu #sidebar-menu .has-arrow:after {
     display: none
 }
+.vertical-collpsed .vertical-menu #sidebar-menu .side-card{
+display: none;
+}
 
 .vertical-collpsed .vertical-menu #sidebar-menu>ul>li {
     position: relative;
@@ -709,11 +713,11 @@ body[data-sidebar=dark] .vertical-menu {
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li a {
-    color: #989da0
+    color: #4E4E4E
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li a i {
-    color: #989da0
+    color: #4E4E4E
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li a:hover {
@@ -725,7 +729,7 @@ body[data-sidebar=dark] #sidebar-menu ul li a:hover i {
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li ul.sub-menu li a {
-    color: #79829c
+    color: #eff2f773;
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li ul.sub-menu li a:hover {

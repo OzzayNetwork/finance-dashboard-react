@@ -58,8 +58,8 @@ const AuthMainContainer =()=>{
                                                                       <div className="d-flex justify-content-center align-items-center flex-column">
                                                                           
                                                                           <img src="assets/images/logo-files/blink-white.svg" alt="Nouveta Logo" className="img mb-3" style={{ width: "140px" }}/>
-                                                                          <h2 className="mb-0 pb-1"><strong className="text-white fw-medium">Guardian's Portal</strong></h2>
-                                                                          <h6 className="text-uppercase"><strong className="text-white text-capitalize fw-light">manage your Dependants' Pocket Money from anywhere easily & Efficiently</strong></h6>
+                                                                          <h2 className="mb-0 pb-1"><strong className="text-white fw-medium">Admin Portal</strong></h2>
+                                                                          <h6 className="text-uppercase"><strong className="text-white text-capitalize fw-light">Mangement and reporting on Blink Perfomance</strong></h6>
                                                                       </div>
                                                                   </div>
   
@@ -106,7 +106,7 @@ const AuthMainContainer =()=>{
   
                                       <div className="mt-4 mt-md-5 text-center">
                                           <p className="mb-0">©
-                                          <span className="this-year"></span> Blink! <strong>Student Digital wallet</strong></p>
+                                          <span className="this-year"></span> Blink! <strong>Admin Portal</strong></p>
                                       </div>
                                   </div>
   

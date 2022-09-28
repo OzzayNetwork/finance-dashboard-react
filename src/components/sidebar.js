@@ -29,8 +29,23 @@ const Sidebar=()=>{
                   {/* <!--- Sidemenu --> */}
                   <div id="sidebar-menu">
                       {/* <!-- Left Menu Start --> */}
+                      
                       <ul className="metismenu list-unstyled" id="side-menu">
-                          <li className="side-bar-button" >
+
+                        <div className="px-3 pt-3 side-card">
+                            <div className="card bg-primary bg-primary-blink blink-card-bg blink-card-bg2 mx-0 mx-sm-3 rad-sm-8px overflow-hidden">
+                                <div className="card-body blink-car rad-sm-8px">
+                                    <div className="d-flex align-content-center align-items-center">
+                                        <div className="flex-grow-1">
+                                            <p className="m-0 p-0 text-white-50 text-uppercase">Current Balance</p>
+                                            <h3 className="mb-0 text-white text-uppercase pb-3">KES 547,569.00</h3>
+                                            <small className="text-white">+23,000 Today</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                          <li className="side-bar-button d-none" >
                               <a href="#" className="waves-effect btn btn-light btn-rounded text-left write-msg-btn" data-bs-toggle="modal" data-bs-target="#walletTopUp">
                                   <i className=""><img src="assets/images/plus-icon.svg" alt=""/></i>
                                   <span className="text-capitalize">Top up account</span>
@@ -41,11 +56,83 @@ const Sidebar=()=>{
   
                           <li className={`${ StdFunctions.equalTo(currentWindow,"/")? "mm-active" : ""}`}>
                               <Link to="/" className={`waves-effect ${ StdFunctions.equalTo(currentWindow,"/")? "active" : ""}`}>
-                                  <i className="bx bx-home-circle"></i><span>Home</span>
+                                  <i className="mdi mdi-view-grid-outline"></i><span>Home</span>
                               </Link>
                           </li>
 
-                          <li className={`${ StdFunctions.equalTo(currentWindow,"/MyBlinkers")? "mm-active" : ""}`}>
+                          <li>
+                              <a to="/" className={`waves-effect ${ StdFunctions.equalTo(currentWindow,"/Applications")? "active" : ""}`}>
+                                  <i className="mdi mdi-paperclip"></i><span>Applications</span>
+                              </a>
+                          </li>
+
+                          <li className="d-non">
+                              <a  className="waves-effect has-arrow">
+                                  <i className="mdi mdi-transfer"></i>
+                                  <span>Payment Transfer</span>
+                              </a>
+                              <ul className="sub-menu" aria-expanded="false">
+                                  <li><a href="donation-active.html">Edit a Transaction</a></li>
+                                  <li><a href="donation-closed.html">Transfer Reports</a></li>
+                              </ul>
+                          </li>
+                        
+
+                          <li className="d-non">
+                              <a  className="waves-effect has-arrow">
+                              <span class="badge rounded-pill bg-primary float-end">10</span>
+                                  <i className="mdi mdi-school-outline"></i>
+                                  
+                                  <span>Schools</span>
+                              </a>
+                              <ul className="sub-menu" aria-expanded="false">
+                                  <li><a href="donation-active.html">All Schools</a></li>
+                                  <li><a href="donation-closed.html">Rockfilelds</a></li>
+                                  <li><a href="donations-mine.html">Another School</a></li>
+                              </ul>
+                          </li>
+
+                          <li className="d-non">
+                              <a  className="waves-effect has-arrow">
+                                  <i className="mdi mdi-account-group"></i>
+                                  <span>Blink Users</span>
+                              </a>
+                              <ul className="sub-menu" aria-expanded="false">
+                                  <li><a href="donation-active.html">Blinkers</a></li>
+                                  <li><a href="donation-closed.html">Guardians</a></li>
+                                  <li><a href="donations-mine.html">Tack shop</a></li>
+                                  <li><a href="donations-mine.html">Bursers</a></li>
+                                  <li><a href="donations-mine.html">School Admins</a></li>
+                              </ul>
+                          </li>
+
+                          <li className="d-non">
+                              <a  className="waves-effect has-arrow">
+                                  <i className="dripicons-to-do"></i>
+                                  <span>Reports</span>
+                              </a>
+                              <ul className="sub-menu" aria-expanded="false">
+                                  <li><a href="donation-active.html">Transactions</a></li>
+                                  <li><a href="donation-closed.html">Transaction Edits</a></li>
+                                  <li><a href="donations-mine.html">Collections</a></li>
+                              </ul>
+                          </li>
+
+                          <li className="d-non">
+                              <a  className="waves-effect has-arrow">
+                                  <i className="mdi mdi-shield-account-outline"></i>
+                                  <span>System Admins</span>
+                              </a>
+                              <ul className="sub-menu" aria-expanded="false">
+                                  <li><a href="donation-active.html">New User</a></li>
+                                  <li><a href="donation-closed.html">Active Users</a></li>
+                                  <li><a href="donations-mine.html">Blocked Users</a></li>
+                              </ul>
+                          </li>
+
+                         
+
+                          <li className={`d-none ${ StdFunctions.equalTo(currentWindow,"/MyBlinkers")? "mm-active" : ""}`}>
                               <Link to="/MyBlinkers" className={`waves-effect ${ StdFunctions.equalTo(currentWindow,"/MyBlinkers")? "active" : ""}`}>
                               <i className="mdi mdi-account-child"></i><span>My blinkers</span>
                               </Link>
@@ -53,17 +140,7 @@ const Sidebar=()=>{
                           
   
   
-                          <li className="d-none">
-                              <a  className="waves-effect has-arrow">
-                                  <i className="mdi dripicons-heart"></i>
-                                  <span>Donation Programs</span>
-                              </a>
-                              <ul className="sub-menu" aria-expanded="false">
-                                  <li><a href="donation-active.html">Active Programmes</a></li>
-                                  <li><a href="donation-closed.html">Closed Programmes</a></li>
-                                  <li><a href="donations-mine.html">My Contributions</a></li>
-                              </ul>
-                          </li>
+                         
   
                           <li className="d-none">
                               <a  className="waves-effect has-arrow">
@@ -78,7 +155,7 @@ const Sidebar=()=>{
                               </ul>
                           </li>
   
-                          <li className={`${ StdFunctions.strIncludes(currentWindow,"/Transactions")? "mm-active" : ""}`}>
+                          <li className={`d-none  ${ StdFunctions.strIncludes(currentWindow,"/Transactions")? "mm-active" : ""}`}>
                               <Link to="/Transactions" className={`waves-effect ${ StdFunctions.strIncludes(currentWindow,"/Transactions")? "active" : ""}`}>
                                   <i className="mdi-progress-clock mdi"></i>
                                   <span>Transactions</span>

@@ -142,7 +142,7 @@ const Header=()=>{
                 </span>
                 <span className="logo-lg">
                   <img
-                    src="assets/images/logo-files/blink-orange.svg"
+                    src="assets/images/logo-files/blink-white.svg"
                     alt=""
                     height="50"
                   />
@@ -153,13 +153,13 @@ const Header=()=>{
 
             <button
               type="button"
-              className="btn btn-sm px-3 font-size-16 header-item waves-effect d-sm-none d-md-inline"
+              className="btn btn-sm px-3 font-size-16 header-item waves-effect  d-md-inline"
               id="vertical-menu-btn"
             >
               <i className="fa fa-fw fa-bars"></i>
             </button>
 
-            <span className="fw-medium text-black d-sm-flex d-md-none">
+            <span className="fw-medium text-black d-sm-flex d-md-none d-flex align-items-center">
               {currentWindow==="/Transactions" &&
                 <h5 className="ms-3 mb-0 pb-0 text-black">Transactions</h5>
                 
@@ -436,92 +436,7 @@ const Header=()=>{
         </div>
       </header>
 
-      {/* mobile navigation starts here */}
-    <header id="bottom-nav" className="px-3 d-none d-md-none d-sm-flex">
-        <div className="navbar-header d-flex w-100">
-          <div className="d-flex justify-content-between d-flex w-100 align-items-center">
-            <div className="dropdown d-inline-block ms-2">
-            <Link to="/" className={`btn header-item noti-icon waves-effect d-flex align-content-center justify-items-center align-items-center d-flex justify-content-center ${ StdFunctions.equalTo(currentWindow,"/")? "active" : ""}`}>
-                <i className='bx bx-home-circle font-size-24' className={`bx font-size-24 ${ StdFunctions.equalTo(currentWindow,"/")? "bxs-home-circle" : "bx-home-circle"}`}></i>
-              </Link>
-              
-              <div
-                className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                aria-labelledby="page-header-search-dropdown"
-              >
-               
-              </div>
-            </div>
-
-            
-
-            <div className="dropdown d-inline-block ms-2">
-              <Link to="/Transactions"
-                className={`btn header-item noti-icon waves-effect d-flex align-content-center justify-items-center align-items-center d-flex justify-content-center ${ StdFunctions.strIncludes(currentWindow,"/Transactions")? "active" : ""}`}                
-              >
-                <i className={`mdi font-size-24 ${ StdFunctions.equalTo(currentWindow,"/Transactions")? "mdi-clock" : "mdi-clock-time-four-outline"}`}></i>
-              </Link>
-              
-              <div
-                className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                aria-labelledby="page-header-search-dropdown"
-              >
-               
-              </div>
-            </div>
-
-            <div class="avatar-sm  send-money-mobile">
-              <span data-bs-toggle="offcanvas" data-bs-target="#offcanvas-send-money" class="avatar-title rounded-circle bg-primary-blink font-size-16 profile-abriv">
-                <img src="assets/images/plus-white.svg" alt=""/>
-              </span>
-            </div>
-
-            <div className="dropdown d-inline-block ms-2">
-              <Link to="/"
-                className="btn header-item noti-icon waves-effect d-flex align-content-center justify-items-center align-items-center d-flex justify-content-center "
-              >
-                <i className="bx bx-heart font-size-24"></i>
-              </Link>
-              
-              <div
-                className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                aria-labelledby="page-header-search-dropdown"
-              >
-               
-              </div>
-            </div>
-
-           
-
-            <div className="dropdown d-inline-block ms-2">
-              <Link to="/Transactions"
-                className="btn header-item noti-icon waves-effect d-flex align-content-center justify-items-center align-items-center d-flex justify-content-center "
-                
-              >
-                <i className="bx bx-user font-size-24"></i>
-              </Link>
-              
-              <div
-                className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                aria-labelledby="page-header-search-dropdown"
-              >
-               
-              </div>
-            </div>
-
-            <div className="dropdown d-none d-lg-inline-block ms-1">
-              <button
-                type="button"
-                className="btn header-item noti-icon waves-effect"
-                data-bs-toggle="fullscreen"
-              >
-                <i className="bx bx-fullscreen"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-    {/* mobile navigation end */}
+      
 
     <div className={`h-100 offline-page p-5 ${areWeOffline? "top-0 scale-1" : ""}`} className="h-100 offline-page p-5">
       <div className="card-body d-flex flex-column justify-items-center align-items-center text-center">
