@@ -100,7 +100,7 @@ const Sidebar=()=>{
                               <ul className="sub-menu" aria-expanded="false">
                                   <li><a href="donation-active.html">Blinkers</a></li>
                                   <li><a href="donation-closed.html">Guardians</a></li>
-                                  <li><a href="donations-mine.html">Tack shop</a></li>
+                                  <li><a href="donations-mine.html">Merchants</a></li>
                                   <li><a href="donations-mine.html">Bursers</a></li>
                                   <li><a href="donations-mine.html">School Admins</a></li>
                               </ul>
@@ -121,15 +121,34 @@ const Sidebar=()=>{
                           <li className="d-non">
                               <a  className="waves-effect has-arrow">
                                   <i className="mdi mdi-shield-account-outline"></i>
-                                  <span>System Admins</span>
+                                  <span>My Account</span>
                               </a>
                               <ul className="sub-menu" aria-expanded="false">
-                                  <li><a href="donation-active.html">New User</a></li>
-                                  <li><a href="donation-closed.html">Active Users</a></li>
-                                  <li><a href="donations-mine.html">Blocked Users</a></li>
+                                  <li><a href="donation-active.html">My Logs</a></li>
+                                  <li><a href="donation-closed.html">Account Details</a></li>
+                                  <li><a href="donations-mine.html">Update account</a></li>
                               </ul>
                           </li>
 
+                          <li className="d-non">
+                              <a  className="waves-effect has-arrow">
+                                  <i className="mdi mdi-cog-outline"></i>
+                                  <span>Administration Options</span>
+                              </a>
+                              <ul className="sub-menu" aria-expanded="false">
+                                  <li><a href="donation-active.html">Deactivate school</a></li>
+                                  <li><a href="donation-closed.html">Add Admin</a></li>
+                                  <li><a href="donations-mine.html">Edit an admin's account</a></li>
+                                  <li><a href="donations-mine.html">All Admins</a></li>
+                              </ul>
+                          </li>
+
+
+                          
+
+                          
+
+                         
                          
 
                           <li className={`d-none ${ StdFunctions.equalTo(currentWindow,"/MyBlinkers")? "mm-active" : ""}`}>
