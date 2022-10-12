@@ -358,15 +358,13 @@ class stdFunctions {
         }
     }
 
-     parentId=localStorage.getItem("parentId")
-     parentEmail= localStorage.getItem("parentEmail")
-     parentUserName= localStorage.getItem("parentUserName")
-     parentFName=localStorage.getItem("parentUserFName")
-     parentLName=localStorage.getItem("parentUserLName")
-     parentWalletBal=localStorage.getItem("guardianWalletBal")
-     ActiveBlinker=parseInt(localStorage.getItem("activeBlinker"))
-     ActiveBlinkerIndex=parseInt(localStorage.getItem("activeBlinkerIndex"))
-     parentPhoneNo=localStorage.getItem("parentPhone")
+     adminId=localStorage.getItem("adminId")
+     adminEmail= localStorage.getItem("adminEmail")
+     adminUserName= localStorage.getItem("adminUserName")
+     adminFName=localStorage.getItem("adminFName")
+     adminMidName=localStorage.getItem("adminMidName")
+     adminLName=localStorage.getItem("adminLName")     
+     adminPhoneNo=localStorage.getItem("adminPhone")
 }
 
 export default new stdFunctions();

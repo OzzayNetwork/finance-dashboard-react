@@ -59,21 +59,21 @@ function App() {
   //     })
   // }
 
-  // const [parentId,setParentId]=useState("")
-  // setParentId("Passed from parent");
+  // const [adminId,setadminId]=useState("")
+  // setadminId("Passed from parent");
 
   useEffect(() => {
-    let loggedParentId = localStorage.getItem("parentId");
-    //console.log(loggedParentId);
+    let loggedadminId = localStorage.getItem("adminId");
+    //console.log(loggedadminId);
   });
 
-  const [theParentId, setTheParentId] = useState("0K");
+  const [theadminId, setTheadminId] = useState("0K");
   const [isActive, setIsActive] = useState(false);
   
  
-  //alert("main hook "+theParentId)
+  //alert("main hook "+theadminId)
 
-  // useEffect(setParentId(JSON.parse(localStorage.getItem('parentId')),parentId))
+  // useEffect(setadminId(JSON.parse(localStorage.getItem('adminId')),adminId))
 
   const handleClick = (event) => {
     // 👇️ toggle isActive state on click
@@ -91,7 +91,7 @@ function App() {
         {/* <div className="d-sm-none d-md-flex"><Loader /></div> */}
         <Routes>
           {/* show this if the person is not logged in */}
-          {!localStorage.getItem("parentId") ? (
+          {!localStorage.getItem("adminId") ? (
            <> <Route exact path={"/Login"} element={<AuthMainContainer />}>
               <Route
                 exact

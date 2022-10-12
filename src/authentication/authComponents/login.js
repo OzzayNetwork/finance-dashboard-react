@@ -30,47 +30,32 @@ const[midName,setMidName]=useState("")
     let data = {
       email: username,
       password: passWord,
-      userType: "Parent",
+      userType: "BlinkAdmin",
     };
 
     let data2 = {
       msisdn: username,
       password: passWord,
-      userType: "Parent",
+      userType: "BlinkAdmin",
     };
-    
     console.log(data)
     AuthService.logIn(data).then((res) => {
         console.log(res);
-        
         if(res.status===200){
             seterrorMsg(res.data.statusDescription)
             if(res.data.data.passwordSet===true){
               //alert("we are logging in")
                //setting the local storage with some data
-              localStorage.setItem("parentId", res.data.data.userId)
-              localStorage.setItem("parentEmail", res.data.data.email)
-              localStorage.setItem("parentPhone", res.data.data.msisdn)
-              localStorage.setItem("parentUserName", res.data.data.userName)
-              localStorage.setItem("parentUserFName", res.data.data.userProfile.firstName)
-              localStorage.setItem("parentUserLName", res.data.data.userProfile.lastName)
-              if(res.data.data.userProfile.blinkaccounts.length !=0){
-                //alert("It is not null")
-                localStorage.setItem("guardianWalletBal", res.data.data.userProfile.blinkaccounts[0].currentBalance)
-              }
-              else{
-                //alert("It is null")
-                localStorage.setItem("guardianWalletBal", 0)
+              localStorage.setItem("adminId", res.data.data.userId)
+              localStorage.setItem("adminEmail", res.data.data.email)
+              localStorage.setItem("adminPhone", res.data.data.msisdn)
 
-              }
-              localStorage.setItem("guardianBlinkers", JSON.stringify(res.data.data.associates))
-              //localStorage.setItem("parentFName",res.data.userProfile.firstName);
 
-              //setting active blinker
-
-              localStorage.setItem("activeBlinker", JSON.stringify(res.data.data.associates[res.data.data.associates.length-1].userId))
-              localStorage.setItem("activeBlinkerIndex", JSON.stringify(res.data.data.associates.length-1))
-
+              localStorage.setItem("adminUserName", res.data.data.userName)
+              localStorage.setItem("adminFName", res.data.data.userProfile.firstName)
+              localStorage.setItem("adminMidName", res.data.data.userProfile.middleName)
+              localStorage.setItem("adminLName", res.data.data.userProfile.lastName)
+              
 
             //alert(  localStorage.setItem("parentId", res.data.data.userId))
               console.log(localStorage)
@@ -78,9 +63,9 @@ const[midName,setMidName]=useState("")
             // alert( localStorage.setItem("parentFName",res.data.userProfile.firstName))
 
               $('#login-msg').show().addClass('show').addClass('alert-success').removeClass('d-none').removeClass('alert-danger').children('i').addClass('mdi-check-all').removeClass('mdi-block-helper');
-              setUsername(data.email);
+              setUsername(res.data.data.email);
             //alert(res.data.data.userId);
-             window.location.reload()
+              window.location.reload()
               console.log(localStorage);
               //setTheParentId(res.data.data.userId);
               //alert(theParentId = {parentId})
@@ -106,23 +91,20 @@ const[midName,setMidName]=useState("")
             console.log(res2)
             if(res2.data.data.passwordSet===true){
               //setting the local storage with some data
-              localStorage.setItem("parentId", res2.data.data.userId)
-              localStorage.setItem("parentEmail", res2.data.data.email)
-              localStorage.setItem("parentPhone", res2.data.data.msisdn)
-              localStorage.setItem("parentUserName", res2.data.data.userName)
-              localStorage.setItem("parentUserFName", res2.data.data.userProfile.firstName)
-              localStorage.setItem("parentUserLName", res2.data.data.userProfile.lastName)
-              localStorage.setItem("guardianWalletBal", res2.data.data.userProfile.blinkaccounts[0].currentBalance)
-              localStorage.setItem("guardianBlinkers", JSON.stringify(res2.data.data.associates))
-              //localStorage.setItem("parentFName",res.data.userProfile.firstName);
-              //setting active blinker
-              localStorage.setItem("activeBlinker", JSON.stringify(res2.data.data.associates[res2.data.data.associates.length-1].userId))
-              localStorage.setItem("activeBlinkerIndex", JSON.stringify(res2.data.data.associates.length-1))
-              //alert(  localStorage.setItem("parentId", res.data.data.userId))
+              localStorage.setItem("adminId", res2.data.data.userId)
+              localStorage.setItem("adminEmail", res2.data.data.email)
+              localStorage.setItem("adminPhone", res2.data.data.msisdn)
+
+
+              localStorage.setItem("adminUserName", res2.data.data.userName)
+              localStorage.setItem("adminFName", res2.data.data.userProfile.firstName)
+              localStorage.setItem("adminMidName", res2.data.data.userProfile.middleName)
+              localStorage.setItem("adminLName", res2.data.data.userProfile.lastName)
+              
               console.log(localStorage)
               // alert( localStorage.setItem("parentFName",res.data.userProfile.firstName))
               $('#login-msg').show().addClass('show').addClass('alert-success').removeClass('d-none').removeClass('alert-danger').children('i').addClass('mdi-check-all').removeClass('mdi-block-helper');
-              setUsername(data.email);
+              setUsername(res2.data.data.email);
               //alert(res.data.data.userId);
               window.location.reload()
               console.log(localStorage);

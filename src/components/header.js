@@ -16,11 +16,12 @@ const Header=()=>{
   const[theLocation,setTheLocation]=useState([])
 
   // loged in parent details
-  const parentId=localStorage.getItem("parentId")
-  const parentEmail= localStorage.getItem("parentEmail")
-  const parentUserName= localStorage.getItem("parentUserName")
-  const parentFName=localStorage.getItem("parentUserFName")
-  const parentLName=localStorage.getItem("parentUserLName")
+  const adminId=localStorage.getItem("adminId")
+  const adminEmail= localStorage.getItem("adminEmail")
+  const adminUserName= localStorage.getItem("adminUserName")
+  const adminFName=localStorage.getItem("adminFName")
+  const adminLName=localStorage.getItem("adminLName")
+  const adminMidName=localStorage.getItem("adminMidName")
   // console.log(localStorage)
   const[onlineWeb,setOnlineWeb]=useState("")
   const[offlineWeb,setOfflineWeb]=useState("")
@@ -167,7 +168,7 @@ const Header=()=>{
               
 
               { StdFunctions.equalTo(currentWindow,"/") &&
-              <h5 className="ms-3 mb-0 pb-0 text-black">Hi,  {parentFName}</h5>
+              <h5 className="ms-3 mb-0 pb-0 text-black">Hi,  {adminFName}</h5>
                 
               }
 
@@ -397,14 +398,19 @@ const Header=()=>{
                   alt="Header Avatar"
                 />
                 <div className="avatar-sm mx-auto ">
-                    <span className="avatar-title rounded-circle bg-primary-blink font-size-16 profile-abriv">
-                        {parentFName.charAt(0)+parentLName.charAt(0)}
+                    <span className="avatar-title rounded-circle bg-primary-blink font-size-16 profile-abriv text-uppercase">
+                        {adminFName.charAt(0)+adminMidName.charAt(0)}
                     </span>
                 </div>
-                <span className="d-none d-xl-inline-block ms-1 prof-name" key="t-henry">
-                  {parentFName+" "+parentLName}
-                </span>
-                <i className="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                <div className="d-flex flex-column text-left">
+                  <div>
+                    <span className="d-none d-xl-inline-block ms-1 prof-name text-capitalize" key="t-henry">
+                      {adminFName+" "+adminMidName}
+                    </span>
+                    <i className="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                  </div>
+                  <small className="d-none d-xl-inline-block ms-1 prof-name">{adminEmail}</small>
+                </div>
               </button>
               <div className="dropdown-menu dropdown-menu-end">
                 {/* <!-- item--> */}
