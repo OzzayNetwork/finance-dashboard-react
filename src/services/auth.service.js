@@ -83,6 +83,20 @@ class AuthService {
       return axiosInstance.get(baseUrl+"/api/v2/blinkerAccountLimits/getAccountLimits/"+accountId)
    }
 
+   //Fund transfer
+   fundTransfer(data){
+      return axiosInstance.post(baseUrl+"/api/v2/payments/blinkMpesaCallBack"+data)
+   }
+
+   //getting system users
+   getBlinkUsers(userType,pageSize){
+      return axiosInstance.get(baseUrl+"/api/v2/accounts/searchUserAccounts?pageSize="+pageSize+"&userType="+userType)
+   }
+
+   //editing mpesa transaction
+   editMpesaTransaction(data){
+      return axiosInstance.post(baseUrl+"/api/v2/payments/blinkMpesaCallBack",data)
+   }
 
 
 

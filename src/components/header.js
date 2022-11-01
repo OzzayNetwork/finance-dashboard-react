@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Helmet } from "react-helmet";
 import {Link,useLocation,matchRoutes} from "react-router-dom"
-import StdFunctions from "../services/standard.functions";
+import StdFunctions from "../services/standard.functions"
 import ChatWidget from "./chatWidget";
 import $ from 'jquery';
 

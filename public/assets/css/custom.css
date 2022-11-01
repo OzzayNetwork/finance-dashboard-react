@@ -1695,6 +1695,10 @@
                     background: #fffbc5 !important;
                 }
 
+                .options-cont-info{
+                    background: #B7DDFE !important;
+                }
+
                 .options-cont-warning:hover{
                     background: #fcf276 !important;
                 }
@@ -1705,6 +1709,10 @@
 
                 .options-cont-danger:hover{
                     background: #ffc8cb !important;
+                }
+
+                .options-cont-info:hover{
+                    background: #8ac8fc !important;
                 }
 
                 .offline-page{
@@ -1751,7 +1759,7 @@
                     border-radius: .2rem;
                 }
                 .offcanvas,.modal,.toast{
-                    z-index:2000000000000000;
+                    /* z-index:2000000000000000; */
                 }
                 .toast{
                     z-index: 20000000000000000000 !important;
@@ -1759,7 +1767,64 @@
                 #the-toast{
                     background-color:#202124 !important;
                 }
-               
+                .h-calc-15px{
+                    height:calc(100% - 23px)
+                }
+                .bg-grad{
+                    background-image: linear-gradient(to right, #ee5700c4, #f9000085);
+                    /* background: linear-gradient(90deg, #edc0bf 0,#c4caef 58%); */
+                    background-position: fixed;
+                   
+                    
+                    position: relative;
+                    overflow: hidden;
+                    z-index: 100;
+                    
+                }
+               .bg-grad::before{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                background-image: url(../images/card-bg2.jpg);
+                content: "";
+                background-size: cover;
+                    background-repeat: no-repeat;
+                    -webkit-backdrop-filter: blur(35px);
+                    backdrop-filter: blur(35px);
+                    opacity: 70%;
+                    background-position: top;
+                    /* background-attachment: fixed; */
+               }
+
+               .glass-car {
+                /* other styles */
+                background: rgba(255, 255, 255, .7);
+                -webkit-backdrop-filter: blur(10px);
+                backdrop-filter: blur(10px);
+
+                background: rgba(255,255,255,0.7);
+                backdrop-filter: blur(10px);
+                /* border-radius: 10px; */
+                border: 0px solid rgba(255,255,255,0.2);
+                overflow: hidden;
+            }
+
+            .purple-bg{
+                background-image: linear-gradient(to right, #7F3CF5, #A51EC6) !important;
+            }
+
+            .orange-bg{
+                background-image: linear-gradient(to right, #FE5836, #FF1227) !important;
+            }
+            .mb-24px{
+                margin-bottom: 24px;
+            }
+            .highcharts-credits{
+                display: none !important;
+            }
 
                 
                
