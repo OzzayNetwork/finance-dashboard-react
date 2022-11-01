@@ -11,7 +11,7 @@ import Footer from "../components/Footer.js";
 import Sidebar from "../components/sidebar.js";
 import SendMoney from "../components/sendMoney.js";
 import ErrorBoundary from "../components/ErrorBoundary.js";
-import Transactions from "./transactions/Transactions.js";
+import Transactions from "./reports/transactions.reports.js";
 import AllBlinkers from "./myBlinkers/allBlinkers.js";
 import BlinkerDetails from "./myBlinkers/blinkerDetails.js";
 

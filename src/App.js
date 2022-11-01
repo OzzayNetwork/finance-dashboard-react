@@ -13,7 +13,7 @@ import PasswordReset from "./authentication/authComponents/passwordReset.js";
 import OTPVerification from "./authentication/authComponents/otpVerification.js";
 import NewPassword from "./authentication/authComponents/newPassword.js";
 import Dashboard from "./pages/Dashboard.js";
-import Transactions from "./pages/transactions/Transactions.js";
+import Transactions from "./pages/reports/transactions.reports.js";
 import Protected from "./components/protected";
 import AllBlinkers from "./pages/myBlinkers/allBlinkers.js";
 import BlinkerDetails from "./pages/myBlinkers/blinkerDetails.js";

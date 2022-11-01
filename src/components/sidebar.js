@@ -112,7 +112,12 @@ const Sidebar=()=>{
                                   <span>Reports</span>
                               </a>
                               <ul className="sub-menu" aria-expanded="false">
-                                  <li><a href="donation-active.html">Transactions</a></li>
+                                  <li className={`${ StdFunctions.equalTo(currentWindow,"/Transactions")? "mm-active" : ""}`}>
+                                        <Link to="Transactions" className={`waves-effect ${ StdFunctions.equalTo(currentWindow,"/Transactions")? "active" : ""}`}>
+                                            Transactions
+                                        </Link>
+                                    </li>
+
                                   <li><a href="donation-closed.html">Transaction Edits</a></li>
                                   <li><a href="donations-mine.html">Collections</a></li>
                               </ul>
