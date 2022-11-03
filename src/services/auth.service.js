@@ -98,6 +98,19 @@ class AuthService {
       return axiosInstance.post(baseUrl+"/api/v2/payments/blinkMpesaCallBack",data)
    }
 
+    //Editing MPESA transactions second API
+    editMpesaTransaction2(data){
+      return axiosInstance.post(baseUrl+"/api/v2/payments/correctPayment",data)
+   }
+
+
+
+   //getting institutions
+   getInstitutions(){
+      return axiosInstance.get(baseUrl+"/api/v2/institutions/getInstitutionsSummaryData")
+   }
+
+
 
 
 }

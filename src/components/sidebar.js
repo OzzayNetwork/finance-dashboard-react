@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState, useEffect} from 'react';
 import { Helmet } from "react-helmet";
 import {Link,useLocation,matchRoutes} from "react-router-dom";
 import StdFunctions from "../services/standard.functions";
+import AuthService from "../services/auth.service";
 
 // import $ from 'jquery';
 
@@ -9,6 +10,16 @@ const Sidebar=()=>{
 
     const location = useLocation();
     let currentWindow=location.pathname;
+    const[numOfInstitutions,setNumOfInstitutions]=useState(0);
+    const [theSchools,setTheschools]=useState([]);
+
+    useEffect(()=>{
+        AuthService.getInstitutions().then((res)=>{            
+            setNumOfInstitutions(res.data.data.length)  
+            setTheschools(res.data.data.sort((a, b) => b.totalStudents - a.totalStudents))  
+            console.log(res.data.data.sort((a, b) => b.totalStudents - a.totalStudents))     
+        })
+    },[])
 
 
 
@@ -80,15 +91,21 @@ const Sidebar=()=>{
 
                           <li className="d-non">
                               <a  className="waves-effect has-arrow">
-                              <span class="badge rounded-pill bg-primary float-end">10</span>
+                              <span class="badge rounded-pill bg-primary float-end">{numOfInstitutions}</span>
                                   <i className="mdi mdi-school-outline"></i>
                                   
                                   <span>Schools</span>
                               </a>
-                              <ul className="sub-menu" aria-expanded="false">
-                                  <li><a href="donation-active.html">All Schools</a></li>
-                                  <li><a href="donation-closed.html">Rockfilelds</a></li>
-                                  <li><a href="donations-mine.html">Another School</a></li>
+                              <ul className="sub-menu text-capitalize" aria-expanded="false">
+
+                             
+                              <li><a href="#" class="btn btn-primary text-center mx-4 px-3 text-white  mb-3 "><i class="mdi mdi-plus text-white m-0 p-0"></i>Add A school</a></li>
+                                {theSchools.map((school, index)=>(
+                                        <li><a href="#">{school.institutionName}</a></li>
+                                    ))
+                                        
+                                }    
+                                
                               </ul>
                           </li>
 

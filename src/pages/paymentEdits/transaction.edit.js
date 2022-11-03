@@ -46,7 +46,7 @@ const TransactionEdit =()=> {
             "userId":loggedAdmin
         }
 
-        AuthService.editMpesaTransaction(data).then((res)=>{
+        AuthService.editMpesaTransaction2(data).then((res)=>{
             console.log(res)
             if(res.data.statusCode===200){
 
@@ -125,7 +125,7 @@ const TransactionEdit =()=> {
                         <div class="col-12">
                             <div class="form-group mb-4">
                                 <label>MPESA Transaction code</label>
-                                <input type="text" placeholder="Enter Mpesa Transaction Code" class="form-control" onChange={(event)=>setMpesaTransactionCode(event.target.value)} required/>
+                                <input type="text" placeholder="Enter Mpesa Transaction Code" class="form-control text-uppercase" onChange={(event)=>setMpesaTransactionCode(event.target.value)} required/>
                             </div>
                         </div>
 
