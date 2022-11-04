@@ -1825,6 +1825,9 @@
             .highcharts-credits{
                 display: none !important;
             }
+            .tb-verticle-middle td{
+                vertical-align:middle
+            }
 
                 
                

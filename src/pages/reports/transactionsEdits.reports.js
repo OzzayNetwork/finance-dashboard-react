@@ -5,22 +5,8 @@ import StdFunctions from "../../services/standard.functions";
 import Moment from 'moment'
 import {Link,useLocation,matchRoutes} from "react-router-dom";
 
-
-// react bootstrap starts here
-import {
-    DatatableWrapper,
-    Filter,
-    Pagination,
-    PaginationOptions,
-    TableBody,
-    TableHeader
-   
-} from 'react-bs-datatable';
-import { Button, Col, Row, Table } from "react-bootstrap";
-import TABLE_BODY from "./data.test.json";
-
-
-
+// bootstrap datatable
+import BootstrapTable from 'react-bootstrap-table-next';
 
 import $ from 'jquery';
 
@@ -29,49 +15,12 @@ type ArrayElementType = typeof TABLE_BODY[number] & {
   };
 
 // import   JquerryAccordion   from "./customPlugins/jquerryAccordion";
-const Transactions =()=> {
+const TransactionsEdits =()=> {
 
     const [loading, setLoading] = useState(false);
-    // Create table headers consisting of 4 columns.
-    const STORY_HEADERS: TableColumnType<ArrayElementType>[] = [
-        {
-        prop: "name",
-        title: "Name",
-        isFilterable: true
-        },
-        {
-        prop: "username",
-        title: "Username"
-        },
-        {
-        prop: "location",
-        title: "Location"
-        },
-        {
-        prop: "date",
-        title: "Last Update",
-        isSortable: true
-        },
-        {
-        prop: "score",
-        title: "Score",
-        isSortable: true
-        },
-        {
-        prop: "button",
-        cell: (row) => (
-            <Button
-            variant="outline-primary"
-            size="sm"
-            onClick={() => {
-                alert(`${row.username}'s score is ${row.score}`);
-            }}
-            >
-            Click me
-            </Button>
-        )
-        }
-    ];
+
+    
+    
 
    
     return ( 
@@ -107,7 +56,7 @@ const Transactions =()=> {
         <div className="row d-sm-none d-md-flex">
             <div className="col-12">
                 <div className="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 className="mb-sm-0 font-size-18">Blink transactions </h4>
+                    <h4 className="mb-sm-0 font-size-18">Transaction Edits </h4>
 
                     <div className="page-title-right d-sm-none d-md-flex">
                         <ol className="breadcrumb m-0">
@@ -122,7 +71,7 @@ const Transactions =()=> {
 
         <div className="row d-sm-none d-md-none ">
             <div className="col-12">
-                <h4 className="text-black pt-4 pb-3 p-3 border-bottom-1px fw-medium ">Transactions</h4>
+                <h4 className="text-black pt-4 pb-3 p-3 border-bottom-1px fw-medium ">Transactions Edits</h4>
             </div>
         </div>
         {/* <!-- end page title --> */}
@@ -165,52 +114,7 @@ const Transactions =()=> {
                     
                     </div>
                     <div className="card-body  min-h-90 px-0">
-                    
-                    <DatatableWrapper
-                                body={TABLE_BODY}
-                                headers={STORY_HEADERS}
-                                headerClasses="header-class"
-                                paginationOptionsProps={{
-                                    initialState: {
-                                    rowsPerPage: 10,
-                                    options: [5, 10, 15, 20]
-                                    }
-                                }}
-
-                                
-                                >
-                                <div className="mb-4 d-flex px-3">
-                                    <Col
-                                    xs={12}
-                                    lg={4}
-                                    className="d-flex flex-col justify-content-end align-items-end"
-                                    >
-                                    <Filter className="d-none" />
-                                    </Col>
-                                    <Col
-                                    xs={12}
-                                    sm={6}
-                                    lg={4}
-                                    className="d-flex flex-col justify-content-lg-center align-items-center justify-content-sm-start mb-2 mb-sm-0"
-                                    >
-                                    <PaginationOptions />
-                                    </Col>
-                                    <Col
-                                    xs={12}
-                                    sm={6}
-                                    lg={4}
-                                    className="d-flex flex-col justify-content-end align-items-end"
-                                    >
-                                    <Pagination />
-                                    </Col>
-                                </div>
-                                <Table   hover responsive className="tb-verticle-middle">
-                                    <TableHeader variant="dark" className="text-primary thead-dark table-light">
-                                      
-                                    </TableHeader>
-                                    <TableBody />
-                                </Table>
-                            </DatatableWrapper>
+                                       
                     </div>
                     
                 </div>
@@ -226,4 +130,4 @@ const Transactions =()=> {
         </>
     );
 }
-export default Transactions;
+export default TransactionsEdits;

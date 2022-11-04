@@ -12,6 +12,8 @@ import Sidebar from "../components/sidebar.js";
 import SendMoney from "../components/sendMoney.js";
 import ErrorBoundary from "../components/ErrorBoundary.js";
 import Transactions from "./reports/transactions.reports.js";
+import TransactionsEditsReport from "./reports/transactionsEdits.reports.js";
+
 import AllBlinkers from "./myBlinkers/allBlinkers.js";
 import BlinkerDetails from "./myBlinkers/blinkerDetails.js";
 
@@ -53,6 +55,7 @@ const Dashboard=()=>{
                 <Routes>
                   <Route exact path={"/"} element={<ErrorBoundary><Home/></ErrorBoundary>}></Route>
                   <Route exact path={"/Transactions"} element={<ErrorBoundary><Transactions/></ErrorBoundary>}></Route>
+                  <Route exact path={"/TransactionsEditsReport"} element={<ErrorBoundary><TransactionsEditsReport/></ErrorBoundary>}></Route>
                   <Route exact path={"/MyBlinkers"} element={<ErrorBoundary><AllBlinkers/></ErrorBoundary>}></Route>
                   <Route exact path={"/BlinkerDetails/:id"} element={<ErrorBoundary><BlinkerDetails/></ErrorBoundary>}></Route>
                 </Routes>

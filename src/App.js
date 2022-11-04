@@ -14,6 +14,7 @@ import OTPVerification from "./authentication/authComponents/otpVerification.js"
 import NewPassword from "./authentication/authComponents/newPassword.js";
 import Dashboard from "./pages/Dashboard.js";
 import Transactions from "./pages/reports/transactions.reports.js";
+import TransactionsEditsReport from "./pages/reports/transactionsEdits.reports.js";
 import Protected from "./components/protected";
 import AllBlinkers from "./pages/myBlinkers/allBlinkers.js";
 import BlinkerDetails from "./pages/myBlinkers/blinkerDetails.js";
@@ -117,6 +118,7 @@ function App() {
            <> 
               <Route exact path={"/"} element={<Dashboard />}>
                 <Route exact path={"Transactions"} element={<Transactions />}></Route>
+                <Route exact path={"TransactionsEditsReport"} element={<TransactionsEditsReport />}></Route>
                 <Route exact path={"MyBlinkers"} element={<AllBlinkers />}></Route>
                 <Route exact path={"BlinkerDetails/:id"} element={<BlinkerDetails />}></Route>
               </Route>
