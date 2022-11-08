@@ -1845,6 +1845,11 @@
             }
             thead .sortable{
                 cursor: pointer;
+                
+            }
+            thead .sortable span{
+                color: #808080a3;
+                vertical-align: middle;
             }
             .kev-pagination .pagination-rounded .page-link{
                 height: 40px;
@@ -1855,6 +1860,17 @@
                 display: flex;
                 transition: all 0.4s ease 0s;
                
+            }
+            .font-20px{
+                font-size: 20px !important;
+            }
+            .font-23px{
+                font-size: 23px !important;
+            }
+            .kev-header tr th{
+                vertical-align: middle;
+                color: black;
+                text-transform: capitalize;
             }
                 
                

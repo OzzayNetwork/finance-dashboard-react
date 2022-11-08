@@ -4,6 +4,8 @@ import AuthService from "../../services/auth.service";
 import StdFunctions from "../../services/standard.functions";
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import 'bootstrap-daterangepicker/daterangepicker.css';
+import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
 import Moment from 'moment'
 import moment from 'moment';
 import {Link,useLocation,matchRoutes} from "react-router-dom";
@@ -23,6 +25,10 @@ type ArrayElementType = typeof TABLE_BODY[number] & {
 const TransactionsEdits =()=> {
 
     const [loading, setLoading] = useState(false);
+    const headerSortingStyle = { 
+        color: 'rgb(85,110,230)',
+        
+    };
 
     const columns = [{
         dataField: 'name',
@@ -32,17 +38,49 @@ const TransactionsEdits =()=> {
         text: 'User Name'
       }, {
         dataField: 'location',
-        text: 'Planet'
+        text: 'Planet',
+        sort: true,  
+        headerSortingStyle,
+        sortCaret: (order, column) => {
+            if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
+            else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);
+            else if (order === 'desc') return (<span class="font-23px"><i class="mdi mdi-menu-up d-none"></i><i class="mdi mdi-menu-down text-primary"></i></span>);
+            return null;
+          }   
       },{
         dataField: 'date',
-        text: 'Date'
+        text: 'Date',
+        sort:true,
+        headerSortingStyle,
+        sortCaret: (order, column) => {
+            if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
+            else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);
+            else if (order === 'desc') return (<span class="font-23px"><i class="mdi mdi-menu-up d-none"></i><i class="mdi mdi-menu-down text-primary"></i></span>);
+            return null;
+          } ,
+          sortFunc: (a, b, order) => {
+            if (order === "asc") {
+              return Date.parse(a) - Date.parse(b);
+            } else if (order === "desc") {
+              return Date.parse(b) - Date.parse(a);
+            }
+          }  
       },
       {
         dataField: 'score',
         text: 'Score',
-        sort: true
+        sort: true,  
+        headerSortingStyle,
+        sortCaret: (order, column) => {
+            if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
+            else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);
+            else if (order === 'desc') return (<span class="font-23px"><i class="mdi mdi-menu-up d-none"></i><i class="mdi mdi-menu-down text-primary"></i></span>);
+            return null;
+          }    
+        
       }];
 
+      
       const defaultSorted = [{
         dataField: 'score',
         order: 'desc'
@@ -67,6 +105,32 @@ const TransactionsEdits =()=> {
         
 
         // date filtering end
+
+        function priceFormatter(column, colIndex, { sortElement, filterElement }) {
+            return (
+              <div style={ { display: 'flex', flexDirection: 'column' } }>
+                { filterElement }
+                { column.text }
+                { sortElement }
+              </div>
+            );
+          }
+
+        //empty data table
+        function indication() {
+            return(
+                <>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex align-items-center justify-content-center text-center">
+                                <p>No Results Found</p>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )
+          }
+        //end of empty data table
     
 
    
@@ -176,7 +240,7 @@ const TransactionsEdits =()=> {
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="d-flex tbl-filter-container justify-content-between align-items-center py-0">
+                            <div class="d-flex tbl-filter-container justify-content-between align-items-center py-0 my-4">
                                 <div class="d-flex the-filters">
                                     <div>
                                         <div className="dropdown d-inline-block">
@@ -354,15 +418,17 @@ const TransactionsEdits =()=> {
                             responsive
                             bootstrap4
                             hover 
-                            
+                            classes=""
+                            bodyClasses=""
                             variant="dark"
                             bordered={ false }  
                             keyField='id' 
                             data={ products } 
                             columns={ columns }
                             defaultSorted={ defaultSorted }
-                            headerClasses="thead-light thead-dark" 
-                            
+                            headerClasses="table-light " 
+                            headerWrapperClasses="kev-header"
+                            noDataIndication={ indication }
                         /> 
 
                         {/* table footer starts here         */}
