@@ -1828,7 +1828,34 @@
             .tb-verticle-middle td{
                 vertical-align:middle
             }
-
+            .tbl-filter-container {
+                /* padding: 1rem; */
+                border: 1px solid #e8e8e8;
+                margin:.75rem .75rem;
+            }
+            .the-filters .dropdown-menu{
+                border-radius: 0px;
+                border-top: 3px solid orangered;
+            }
+            .the-filters button i{
+                border-right: 1px solid #e8e8e8; 
+            }
+            .daterangepicker .ranges li.active{
+                 background:orangered !important
+            }
+            thead .sortable{
+                cursor: pointer;
+            }
+            .kev-pagination .pagination-rounded .page-link{
+                height: 40px;
+                width: 40px;
+                padding: 8px; 
+                align-items: center;
+                justify-content: center;
+                display: flex;
+                transition: all 0.4s ease 0s;
+               
+            }
                 
                
                   

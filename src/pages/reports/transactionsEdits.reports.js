@@ -2,13 +2,18 @@ import React, {useState, useEffect} from 'react';
 import {Helmet} from "react-helmet";
 import AuthService from "../../services/auth.service";
 import StdFunctions from "../../services/standard.functions";
+import DateRangePicker from 'react-bootstrap-daterangepicker';
+import 'bootstrap-daterangepicker/daterangepicker.css';
 import Moment from 'moment'
+import moment from 'moment';
 import {Link,useLocation,matchRoutes} from "react-router-dom";
 
 // bootstrap datatable
 import BootstrapTable from 'react-bootstrap-table-next';
 
+
 import $ from 'jquery';
+import TABLE_BODY from "./data.test.json";
 
 type ArrayElementType = typeof TABLE_BODY[number] & {
     button: any;
@@ -19,7 +24,49 @@ const TransactionsEdits =()=> {
 
     const [loading, setLoading] = useState(false);
 
-    
+    const columns = [{
+        dataField: 'name',
+        text: 'Name'
+      }, {
+        dataField: 'username',
+        text: 'User Name'
+      }, {
+        dataField: 'location',
+        text: 'Planet'
+      },{
+        dataField: 'date',
+        text: 'Date'
+      },
+      {
+        dataField: 'score',
+        text: 'Score',
+        sort: true
+      }];
+
+      const defaultSorted = [{
+        dataField: 'score',
+        order: 'desc'
+      }];
+
+      const rowStyle = { backgroundColor: '#c8e6c9' };
+      const products=TABLE_BODY
+
+        //   date filtering start
+        const [state, setState] = useState({
+            start: moment().subtract(29, 'days'),
+            end: moment(),
+        });
+
+        const { start, end } = state;
+            const handleCallback = (start, end) => {
+            setState({ start, end });
+        };
+
+        const label =start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY');
+                    
+        
+
+        // date filtering end
     
 
    
@@ -49,6 +96,7 @@ const TransactionsEdits =()=> {
 
         <Helmet>
         <title>Blink! | All Transatcions</title>
+       
         </Helmet>    {/* the modals container */}
         <div className="container-fluid">
 
@@ -77,44 +125,283 @@ const TransactionsEdits =()=> {
         {/* <!-- end page title --> */}
         <div className="row">
             <div className="col-12">
-                    <div className="card no-shadow-sm">
-                        <div className="card-header pt-2 bg-white w-100 d-flex justify-content-between align-items-center w-100 border-bottom">
-                            <div className="col-sm-12 w-100 col-md-6 col-lg-8 col-xl-5">
-                            <div className="dropdown d-inline-block w-100 d-flex align-items-center">
-                               
-
-                            </div>
+                <div className="card no-shadow-sm">
+                       
+                    <div className="card-header bg-white p-3 d-flex justify-content-between align-items-center w-100 border-bottom d-sm-none d-md-flex">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-lg-2">
+                                    <div class="">
+                                        <select class="form-select">
+                                            <option>10 Rows</option>
+                                            <option>15 Rows</option>
+                                            <option>20 Rows</option>
+                                            <option>25 Rows</option>
+                                            <option>30 Rows</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-md-7 col-lg-8 d-flex align-items-center pr-0 pl-0">
+                                    <div className="dataTables_filter   px-3 flex-grow-1">
+                                        <label>
+                                            <input type="search" className="form-control form-control-sm emailSearch w-100" placeholder="Search through Records ..." aria-controls="datatable-buttons"/>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className="card-header bg-white pt-0 pr-0 p-0 d-flex justify-content-between align-items-center w-100 border-bottom d-sm-none d-md-flex">
+                    </div>
+                    <div className="card-body  min-h-90 px-0 pt-0">
+                    <div class="row">
+                        <div class="col-12 pb-2 d-none">
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-lg-2">
+                                    <div class="pl-3">
+                                        <select class="form-select">
+                                            <option>10 Rows</option>
+                                            <option>15 Rows</option>
+                                            <option>20 Rows</option>
+                                            <option>25 Rows</option>
+                                            <option>30 Rows</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-md-7 col-lg-8 d-flex align-items-center pr-0 pl-0">
+                                    <div className="dataTables_filter   px-3 flex-grow-1">
+                                        <label>
+                                            <input type="search" className="form-control form-control-sm emailSearch w-100" placeholder="Search through Records ..." aria-controls="datatable-buttons"/>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="d-flex tbl-filter-container justify-content-between align-items-center py-0">
+                                <div class="d-flex the-filters">
+                                    <div>
+                                        <div className="dropdown d-inline-block">
+                                            <button
+                                                type="button"
+                                                className="btn header-item h-auto px-4 waves-effect d-flex justify-content-center align-items-center pb-4 pt-4 pr-0"
+                                                data-bs-toggle="dropdown"
+                                                aria-haspopup="true"
+                                                aria-expanded="false"
+                                            >                                           
+                                            
+                                                <span className="d-none d-xl-inline-block ms-1 prof-name text-left mr-3 pe-4" key="t-henry">
+                                                    <span class="text-primary">Filter By School</span>
+                                                    <h5 class="mb-0 pb-0 text-black">All Schools</h5>
+                                                </span>
+                                                <i className="mdi mdi-chevron-down d-xl-inline-block font-size-20 pl-4 pr-4"></i>
+                                            </button>
 
-                        <div className="btn-toolbar p-3 d-flex justify-content-between align-items-center w-100" role="toolbar">
-                            <div className="d-md-flex d-none align-items-center">
-                                
-                                <div class="btn-group select-tbl-filter" role="group" aria-label="Basic example">
-                                    <button  type="button" class="btn active btn-outline-primary waves-light waves-effect d-flex align-items-center justify-content-center">View All</button>
-                                    <button  type="button" class="btn btn-outline-primary waves-light waves-effect d-flex align-items-center justify-content-center"><i className="mdi mdi-arrow-down-bold font-size-16"></i><span className="pl-1 d-none d-lg-inline d-md-inline">Money In</span></button>
-                                    <button  type="button" class="btn btn-outline-primary  waves-light waves-effect d-flex align-items-center justify-content-center"><i className="mdi mdi-arrow-up-bold font-size-16"></i> <span className="pl-1 d-none d-lg-inline d-md-inline">Expenses</span></button>
+                                            <div className="dropdown-menu dropdown-menu-end w-100 text-capitalize">
+                                                {/* <!-- item--> */}
+                                                <a className="dropdown-item" href="#">                                            
+                                                    <span key="t-profile">All Schools</span>
+                                                </a>
+                                                <a className="dropdown-item" href="#">                                            
+                                                    <span key="t-profile">School one</span>
+                                                </a>
+                                                <a className="dropdown-item" href="#">                                            
+                                                    <span key="t-lock-screen">School Two</span>
+                                                </a>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div className="dropdown d-inline-block">
+                                            <button
+                                                type="button"
+                                                className="btn header-item h-auto px-4 waves-effect d-flex justify-content-center align-items-center pb-4 pt-4 pr-0"
+                                                data-bs-toggle="dropdown"
+                                                aria-haspopup="true"
+                                                aria-expanded="false"
+                                            >                                           
+                                            
+                                                <span className="d-none d-xl-inline-block ms-1 prof-name text-left mr-3 pe-4" key="t-henry">
+                                                    <span class="text-primary">Filter By User type</span>
+                                                    <h5 class="mb-0 pb-0 text-black">All Users</h5>
+                                                </span>
+                                                <i className="mdi mdi-chevron-down d-xl-inline-block font-size-20 pl-4 pr-4"></i>
+                                            </button>
+
+                                            <div className="dropdown-menu dropdown-menu-end w-100 text-capitalize">
+                                                {/* <!-- item--> */}
+                                                <a className="dropdown-item" href="#">                                            
+                                                    <span key="t-profile">Guardians</span>
+                                                </a>
+                                                <a className="dropdown-item" href="#">                                            
+                                                    <span key="t-profile">Blinkers</span>
+                                                </a>
+                                                <a className="dropdown-item" href="#">                                            
+                                                    <span key="t-lock-screen">Merchants</span>
+                                                </a>
+                                                <a className="dropdown-item" href="#">                                            
+                                                    <span key="t-lock-screen">Bursers</span>
+                                                </a>
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div className="dropdown d-inline-block">
+                                            <button
+                                                type="button"
+                                                className="btn header-item h-auto px-4 waves-effect d-flex justify-content-center align-items-center pb-4 pt-4 pr-0"
+                                                data-bs-toggle="dropdown"
+                                                aria-haspopup="true"
+                                                aria-expanded="false"
+                                            >                                           
+                                            
+                                                <span className="d-none d-xl-inline-block ms-1 prof-name text-left mr-3 pe-4" key="t-henry">
+                                                    <span class="text-primary">Filter By Transaction Type</span>
+                                                    <h5 class="mb-0 pb-0 text-black">All Transactions</h5>
+                                                </span>
+                                                <i className="mdi mdi-chevron-down d-xl-inline-block font-size-20 pl-4 pr-4"></i>
+                                            </button>
+
+                                            <div className="dropdown-menu dropdown-menu-end w-100 text-capitalize">
+                                                {/* <!-- item--> */}
+                                                <a className="dropdown-item" href="#">                                            
+                                                    <span key="t-profile">Deposit</span>
+                                                </a>
+                                                <a className="dropdown-item" href="#">                                            
+                                                    <span key="t-profile">Transafer</span>
+                                                </a>
+                                                <a className="dropdown-item" href="#">                                            
+                                                    <span key="t-lock-screen">Merchants</span>
+                                                </a>
+                                                <a className="dropdown-item" href="#">                                            
+                                                    <span key="t-lock-screen">Bursers</span>
+                                                </a>
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div>
+                                        <DateRangePicker
+                                            initialSettings={{
+                                            startDate: start.toDate(),
+                                            endDate: end.toDate(),
+                                            ranges: {
+                                                Today: [moment().toDate(), moment().toDate()],
+                                                Yesterday: [
+                                                moment().subtract(1, 'days').toDate(),
+                                                moment().subtract(1, 'days').toDate(),
+                                                ],
+                                                'Last 7 Days': [
+                                                moment().subtract(6, 'days').toDate(),
+                                                moment().toDate(),
+                                                ],
+                                                'Last 30 Days': [
+                                                moment().subtract(29, 'days').toDate(),
+                                                moment().toDate(),
+                                                ],
+                                                'This Month': [
+                                                moment().startOf('month').toDate(),
+                                                moment().endOf('month').toDate(),
+                                                ],
+                                                'Last Month': [
+                                                moment().subtract(1, 'month').startOf('month').toDate(),
+                                                moment().subtract(1, 'month').endOf('month').toDate(),
+                                                ],
+                                            },
+                                            }}
+                                            onCallback={handleCallback}
+                                        >
+                                            <div className="dropdown d-inline-block">
+                                            <button
+                                                type="button"
+                                                className="btn header-item h-auto px-4 waves-effect d-flex justify-content-center align-items-center pb-4 pt-4 pr-0"
+                                                data-bs-toggle="dropdown"
+                                                aria-haspopup="true"
+                                                aria-expanded="false"
+                                                id="reportrange"
+                                            >                                           
+                                            
+                                                <span className="d-none d-xl-inline-block ms-1 prof-name text-left mr-3 pe-4" key="t-henry">
+                                                    <span class="text-primary">Filter By Date</span>
+                                                    <h5 class="mb-0 pb-0 text-black selected-date">{label}</h5>
+                                                </span>
+                                                <i className="mdi mdi-chevron-down d-xl-inline-block font-size-20 pl-4 pr-4"></i>
+                                            </button>
+                                        </div>
+                                        </DateRangePicker>
+                                    </div>
+
+                                    
+
+                                    
                                 </div>
 
+                                <div class="text-right text-uppercase pr-4">
+                                    <button type="button" class="btn btn-outline-white waves-effect waves-light text-uppercase">
+                                        <i class="mdi mdi-refresh font-size-24 align-middle me-2"></i> Reset Filters
+                                    </button>
+                                </div>
                             </div>
-                            <div className="dataTables_filter   px-3 flex-grow-1">
-                                <label>
-                                    <input type="search" className="form-control form-control-sm emailSearch w-100" placeholder="Search through Records ..." aria-controls="datatable-buttons"/>
-                                </label>
-                            </div>
-                            <div className="">
-                                <a href="property-new.html" type="button" className="btn btn-dark dropdown-toggle option-selector d-flex align-items-center justify-content-center">
-                                    <i className="bx bx-slider-alt  font-size-16"></i> <span className="pl-1 d-md-inline">Filter Table</span>
-                                </a>
-                            </div>
-
-
                         </div>
-                    
                     </div>
-                    <div className="card-body  min-h-90 px-0">
-                                       
+                        <BootstrapTable 
+                            responsive
+                            bootstrap4
+                            hover 
+                            
+                            variant="dark"
+                            bordered={ false }  
+                            keyField='id' 
+                            data={ products } 
+                            columns={ columns }
+                            defaultSorted={ defaultSorted }
+                            headerClasses="thead-light thead-dark" 
+                            
+                        /> 
+
+                        {/* table footer starts here         */}
+                        <div class="col-12">
+                            <div class="w-100 d-flex p-3 align-items-center text-grey font-13px justify-content-end">
+                                    <div class="d-flex align-items-center">
+                                        <span class="pr-3 pb-0 mb-0 font-13px"><span>Rows Per Page</span></span>
+                                        <select class="form-select w-auto font-13px ">
+                                            <option>10</option>
+                                            <option>15</option>
+                                            <option>20</option>
+                                            <option>25</option>
+                                            <option>30</option>
+                                        </select>
+                                    </div> 
+                                    <div class="px-4">
+                                        <span>1-10 of 145</span>
+                                    </div> 
+                                    <div>
+                                       <div class="kev-pagination">
+                                       <ul class="pagination pagination-rounded justify-content-center mb-0 font-24px">
+                                            <li class="page-item disabled">
+                                                <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-page-first"></i></a>
+                                            </li>
+                                            <li class="page-item disabled">
+                                                <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                                            </li>
+                                           
+                                            <li class="page-item">
+                                                <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-page-last"></i></a>
+                                            </li>
+                                        </ul> 
+                                       </div> 
+                                    </div>      
+                            </div>
+                        </div>
                     </div>
                     
                 </div>

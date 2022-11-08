@@ -102,7 +102,9 @@ const TransactionEdit =()=> {
         <>
 
         <Helmet>
-        <title>Blink! | Edit Transaction</title>
+            <title>Blink! | Edit Transaction</title>
+            
+            
         </Helmet>    
         {/* the modals container */}
 
