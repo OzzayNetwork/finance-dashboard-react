@@ -32,21 +32,14 @@ const TransactionsEdits =()=> {
     const[pageNo,setPageNo]=useState(1)
     const[totalPages,setTotalPages]=useState("")
     const[totalTransactions,setTotalTransactions]=useState("")
-    const[transactionsHistory,setTheTransactionsHistory]=useState({})
-
-    const[canGoNext,setCanGoNext]=useState(true)
-    const[canGoPrev,setCanGoPrev]=useState(false)
-    const[canGoLast,setCanGoLast]=useState(true)
-    const[canGoFirst,setCanGoFirst]=useState(false)
 
 
     //getting the transactions
     useEffect(()=>{
        AuthService.getTransactionsByDate(historyStartDate,historyEndDate,historyPageSize,pageNo).then((res)=>{
-        console.log(res.data.data)
+        console.log(res)
         setTotalPages(res.data.totalPages)
         setTotalTransactions(res.data.totalElements)
-        setTheTransactionsHistory(res.data.data)       
 
        }).catch((err)=>{
             console.log(err)            
@@ -54,214 +47,21 @@ const TransactionsEdits =()=> {
 
     },[historyEndDate,historyStartDate,pageNo,historyPageSize])
 
-   
-    //===================================///
-    //**** Pagination functions start */
-    //=======================================//
-
-    //last page
-    const lastPage=(event)=>{
-      
-        
-        setPageNo(totalPages)
-        
-
-        setCanGoLast(false)
-        setCanGoFirst(true)
-        setCanGoNext(false)
-        setCanGoPrev(true)
-    }
-
-    const firstPage=(event)=>{
-        setPageNo(1)
-
-        setCanGoLast(true)
-        setCanGoFirst(false)
-        setCanGoNext(true)
-        setCanGoPrev(false)
-    }
-
-    const prevPage=(event)=>{
-       
-        const prevPage=pageNo-1
-        
-
-        if(prevPage>1){
-            setPageNo(prevPage)
-            setCanGoNext(true)
-            setCanGoLast(true)            
-        }
-
-        if(prevPage=>2){
-            setPageNo(prevPage)
-            setCanGoNext(true)
-            setCanGoLast(true)
-            setCanGoPrev(true) 
-            setCanGoFirst(true)           
-        }
-
-        if(prevPage===1){
-            setCanGoLast(true)
-            setCanGoFirst(false)
-            setCanGoNext(true)
-            setCanGoPrev(false)
-            setPageNo(1)
-        }
-        
-    }
-
-    const nextPage=(event)=>{
-        const nextPage=pageNo+1
-
-        if(nextPage===totalPages){
-            setCanGoLast(false)
-            setCanGoFirst(true)
-            setCanGoNext(false)
-            setCanGoPrev(true)
-        }
-
-        if(nextPage<totalPages){
-            setCanGoLast(true)
-            setCanGoFirst(true)
-            setCanGoNext(true)
-            setCanGoPrev(true)
-        }
-
-        if(nextPage<=totalPages){
-          setPageNo(pageNo+1)          
-        }
-        
-        
-    }
-
-    //===================================///
-    //**** Pagination functions End */
-    //=======================================//
-
-    // formating the date
-    const dateFormatter=(cell, row)=>{
-       return Moment(cell).add(3, 'hours').calendar(null, {sameElse: 'DD MMM YYYY  hh:mm A'})
-    }
-    const isIncome=(cell,row,rowIndex)=>{
-        const transactionType=row.transType
-        if(transactionType==="Merchant_Pay"){
-            return ""
-        }
-
-        if(transactionType==="Blink_Deposit_Charge"){
-            return ""
-        }
-
-        if(transactionType==="Withdrawal_To_Mpesa"){
-            return ""
-        }
-
-        if(transactionType==="Deposit"){
-            return StdFunctions.kenyaCurrency(cell)
-        }
-        
-    }
-
-    const isMoneyOut=(cell,row,rowIndex)=>{
-        const transactionType=row.transType
-        if(transactionType==="Merchant_Pay"){
-            return "-"+StdFunctions.kenyaCurrency(cell)
-        }
-
-        if(transactionType==="Blink_Deposit_Charge"){
-            return "-"+StdFunctions.kenyaCurrency(cell)
-        }
-
-        if(transactionType==="Blink_Deposit_Charge"){
-            return "-"+StdFunctions.kenyaCurrency(cell)
-        }
-
-        if(transactionType==="Blink_Withdrawal_Charge"){
-            return "-"+StdFunctions.kenyaCurrency(cell)
-        }
-
-        if(transactionType==="Withdrawal_To_Mpesa"){
-            return "-"+StdFunctions.kenyaCurrency(cell)
-        }
-
-        if(transactionType==="Deposit"){
-            return ""
-        }
-        
-    }
-
-    const accFormatter=(cell, row)=>{
-        return StdFunctions.creditCard2(cell)
-     }
-
-    const currencyForamtter=(cell, row)=>{
-        return StdFunctions.kenyaCurrency(cell)
-    }
-    const removeUnderscore=(cell, row)=>{
-        return StdFunctions.removeUnderscore(cell)
-    }
-    const statusForamtter=(cell, row)=>{
-        if(cell==="Successful"){
-            return(
-                <>
-                  <span class="badge badge-soft-success">{cell}</span>  
-                </>
-            )
-        }
-
-        if(cell==="Failed"){
-            return(
-                <>
-                  <span class="badge badge-soft-danger">{cell}</span>  
-                </>
-            )
-        }
-
-        if(cell==="Pending"){
-            return(
-                <>
-                  <span class="badge badge-soft-warning">{cell}</span>  
-                </>
-            )
-        }
-        else{
-            return(
-                <>
-                  <span class="badge badge-soft-info">{cell}</span>  
-                </>
-            )  
-        }
-     }
 
     const headerSortingStyle = { 
         color: 'rgb(85,110,230)',
         
     };
-    const textRight={
-        textTransfotm:'right'
-    }
 
     const columns = [{
-        dataField: 'receiptNumber',
-        text: 'Receipt No.',
-        sort: true,  
-        classes: 'fw-bold text-black',
-        headerSortingStyle,
-        sortCaret: (order, column) => {
-            if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
-            else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);
-            else if (order === 'desc') return (<span class="font-23px"><i class="mdi mdi-menu-up d-none"></i><i class="mdi mdi-menu-down text-primary"></i></span>);
-            return null;
-          }  
+        dataField: 'name',
+        text: 'Name'
       }, {
-        dataField: 'userAccount.blinkId',
-        text: 'Blink ID',
-        classes:'text-uppercase',
-        formatter:accFormatter
+        dataField: 'username',
+        text: 'User Name'
       }, {
-        dataField: 'transType',
-        text: 'Transaction',
-        formatter:removeUnderscore,
+        dataField: 'location',
+        text: 'Planet',
         sort: true,  
         headerSortingStyle,
         sortCaret: (order, column) => {
@@ -269,11 +69,10 @@ const TransactionsEdits =()=> {
             else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);
             else if (order === 'desc') return (<span class="font-23px"><i class="mdi mdi-menu-up d-none"></i><i class="mdi mdi-menu-down text-primary"></i></span>);
             return null;
-          },
+          }   
       },{
-        dataField: 'dateCreated',
+        dataField: 'date',
         text: 'Date',
-        classes: 'text-capitalize',
         sort:true,
         headerSortingStyle,
         sortCaret: (order, column) => {
@@ -282,19 +81,17 @@ const TransactionsEdits =()=> {
             else if (order === 'desc') return (<span class="font-23px"><i class="mdi mdi-menu-up d-none"></i><i class="mdi mdi-menu-down text-primary"></i></span>);
             return null;
           } ,
-        sortFunc: (a, b, order) => {
+          sortFunc: (a, b, order) => {
             if (order === "asc") {
               return Date.parse(a) - Date.parse(b);
             } else if (order === "desc") {
               return Date.parse(b) - Date.parse(a);
             }
-          },
-          formatter: dateFormatter  
+          }  
       },
       {
-        dataField: 'transactionStatus',
-        text: 'Transaction Status',
-        classes: 'text-uppercase', 
+        dataField: 'score',
+        text: 'Score',
         sort: true,  
         headerSortingStyle,
         sortCaret: (order, column) => {
@@ -302,48 +99,13 @@ const TransactionsEdits =()=> {
             else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);
             else if (order === 'desc') return (<span class="font-23px"><i class="mdi mdi-menu-up d-none"></i><i class="mdi mdi-menu-down text-primary"></i></span>);
             return null;
-          },
-          formatter:statusForamtter    
+          }    
         
-      }, {
-        dataField: 'amount',
-        text: 'Paid In',
-        classes: 'text-right text-black',
-        headerClasses: 'text-right', 
-        sort: true,  
-        headerSortingStyle,
-        textRight,
-        sortCaret: (order, column) => {
-            if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
-            else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);
-            else if (order === 'desc') return (<span class="font-23px"><i class="mdi mdi-menu-up d-none"></i><i class="mdi mdi-menu-down text-primary"></i></span>);
-            return null;
-          } ,
-          formatter: isIncome   
-      }, {
-        dataField: 'amount',
-        text: 'Withdrawn',
-        classes: 'text-right text-black', 
-        headerClasses: 'text-right',       
-        sort: true, 
-        
-        headerSortingStyle,
-        textRight,
-        sortCaret: (order, column) => {
-            if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
-            else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);
-            else if (order === 'desc') return (<span class="font-23px"><i class="mdi mdi-menu-up d-none"></i><i class="mdi mdi-menu-down text-primary"></i></span>);
-            return null;
-          },
-          formatter: isMoneyOut   
-      },{
-        dataField: '',
-        text: ''
       }];
 
       
       const defaultSorted = [{
-        dataField: 'dateCreated',
+        dataField: 'date',
         order: 'desc'
       }];
 
@@ -359,8 +121,6 @@ const TransactionsEdits =()=> {
         const { start, end } = state;
             const handleCallback = (start, end) => {
             setState({ start, end });
-            setHistoryStartDate(start.format('YYYY-MM-DD 00:00:00'))
-            setHistoryEndDate(end.format('YYYY-MM-DD 00:00:00'))
         };
 
         const label =start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY');
@@ -459,15 +219,12 @@ const TransactionsEdits =()=> {
                             <div class="row">
                                 <div class="col-sm-4 col-md-3 col-lg-2">
                                     <div class="">
-                                        <select value={historyPageSize} class="form-select" onChange={(event)=>{
-                                        setHistoryPageSize(event.target.value)
-                                        setPageNo(1)}} >
-                                            <option value="10">10 Rows</option>
-                                            <option value="25">25 Rows</option>
-                                            <option value="50">50 Rows</option>
-                                            <option value="100">100 Rows</option>
-                                            <option value="150">150 Rows</option>
-                                            <option value="200">200 Rows</option>
+                                        <select class="form-select">
+                                            <option>10 Rows</option>
+                                            <option>15 Rows</option>
+                                            <option>20 Rows</option>
+                                            <option>25 Rows</option>
+                                            <option>30 Rows</option>
                                         </select>
                                     </div>
                                 </div>
@@ -487,13 +244,12 @@ const TransactionsEdits =()=> {
                             <div class="row">
                                 <div class="col-sm-4 col-md-3 col-lg-2">
                                     <div class="pl-3">
-                                        <select value={historyPageSize} class="form-select" onChange={(event)=>setHistoryPageSize(event.target.value)} >
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                            <option value="150">150</option>
-                                            <option value="200">200</option>
+                                        <select class="form-select">
+                                            <option>10 Rows</option>
+                                            <option>15 Rows</option>
+                                            <option>20 Rows</option>
+                                            <option>25 Rows</option>
+                                            <option>30 Rows</option>
                                         </select>
                                     </div>
                                 </div>
@@ -520,7 +276,7 @@ const TransactionsEdits =()=> {
                                             >                                           
                                             
                                                 <span className="d-none d-xl-inline-block ms-1 prof-name text-left mr-3 pe-4" key="t-henry">
-                                                    <span class="text-primary">Filter By Institution</span>
+                                                    <span class="text-primary">Filter By School</span>
                                                     <h5 class="mb-0 pb-0 text-black">All Schools</h5>
                                                 </span>
                                                 <i className="mdi mdi-chevron-down d-xl-inline-block font-size-20 pl-4 pr-4"></i>
@@ -690,7 +446,7 @@ const TransactionsEdits =()=> {
                             variant="dark"
                             bordered={ false }  
                             keyField='id' 
-                            data={ transactionsHistory } 
+                            data={ products } 
                             columns={ columns }
                             defaultSorted={ defaultSorted }
                             headerClasses="table-light " 
@@ -703,16 +459,12 @@ const TransactionsEdits =()=> {
                             <div class="w-100 d-flex p-3 align-items-center text-grey font-13px justify-content-end">
                                     <div class="d-flex align-items-center">
                                         <span class="pr-3 pb-0 mb-0 font-13px"><span>Rows Per Page</span></span>
-                                        <select value={historyPageSize} class="form-select w-auto font-13px " onChange={(event)=>{
-                                            setHistoryPageSize(event.target.value)
-                                            setPageNo(1)
-                                        }}>
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                            <option value="150">150</option>
-                                            <option value="200">200</option>
+                                        <select class="form-select w-auto font-13px ">
+                                            <option>10</option>
+                                            <option>15</option>
+                                            <option>20</option>
+                                            <option>25</option>
+                                            <option>30</option>
                                         </select>
                                     </div> 
                                     <div class="px-4">
@@ -721,17 +473,17 @@ const TransactionsEdits =()=> {
                                     <div>
                                        <div class="kev-pagination">
                                        <ul class="pagination pagination-rounded justify-content-center mb-0 font-24px">
-                                            <li  className={`page-item ${canGoFirst ? "" : "disabled"}`} onClick={firstPage}>
+                                            <li class="page-item disabled">
                                                 <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-page-first"></i></a>
                                             </li>
-                                            <li className={`page-item ${canGoPrev ? "" : "disabled"}`} onClick={prevPage}>
+                                            <li class="page-item disabled">
                                                 <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
                                             </li>
                                            
-                                            <li className={`page-item ${canGoNext ? "" : "disabled"}`}  onClick={nextPage}>
+                                            <li class="page-item">
                                                 <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
                                             </li>
-                                            <li className={`page-item ${canGoLast ? "" : "disabled"}`} onClick={lastPage}>
+                                            <li class="page-item">
                                                 <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-page-last"></i></a>
                                             </li>
                                         </ul> 

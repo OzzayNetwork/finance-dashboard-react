@@ -172,6 +172,7 @@ class stdFunctions {
         let cleaned = ('_' + str).replace(/\D/g, ' ');
 
         str=str.replace('_',' ')
+        str=str.replace('_',' ')
         return str;
     }
 

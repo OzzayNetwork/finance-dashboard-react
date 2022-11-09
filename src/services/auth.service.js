@@ -110,6 +110,11 @@ class AuthService {
       return axiosInstance.get(baseUrl+"/api/v2/institutions/getInstitutionsSummaryData")
    }
 
+   //get all transactions
+   getTransactionsByDate(startDate,endDate,pageSize,pageNo){
+      //alert("the Blinker id brought forward is "+blinkAccountId)
+      return axiosInstance.get(baseUrl + "/api/v2/transactions/searchTransaction?pageNo="+pageNo+"&pageSize="+pageSize+"&fromDateTime="+startDate+"&toDateTime="+endDate);
+   }
 
 
 
