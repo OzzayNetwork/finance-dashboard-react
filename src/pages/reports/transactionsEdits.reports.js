@@ -6,6 +6,7 @@ import DateRangePicker from 'react-bootstrap-daterangepicker';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
+import overlayFactory from 'react-bootstrap-table2-overlay';
 import Moment from 'moment'
 import moment from 'moment';
 import {Link,useLocation,matchRoutes} from "react-router-dom";
@@ -39,17 +40,68 @@ const TransactionsEdits =()=> {
     const[canGoLast,setCanGoLast]=useState(true)
     const[canGoFirst,setCanGoFirst]=useState(false)
 
+    const[tableLoadingStatus,setTableLoadingStatus]=useState(true)
+    const[resultsFound,setResultsFound]=useState(false)
+
 
     //getting the transactions
     useEffect(()=>{
+        setTableLoadingStatus(true)     
        AuthService.getTransactionsByDate(historyStartDate,historyEndDate,historyPageSize,pageNo).then((res)=>{
+
         console.log(res.data.data)
-        setTotalPages(res.data.totalPages)
-        setTotalTransactions(res.data.totalElements)
-        setTheTransactionsHistory(res.data.data)       
+
+        if(res.data.statusCode===200){
+            // alert("results found")
+            setTotalPages(res.data.totalPages)
+            setTotalTransactions(res.data.totalElements)
+            setTheTransactionsHistory(res.data.data) 
+            setTableLoadingStatus(false)
+            
+
+            if(res.data.data.length===0){
+                // the toast
+                $('#the-toast').addClass('show').addClass('bg-success').removeClass('bg-danger').removeClass('animate__fadeOutDown')
+                $('#the-toast .toast-body').text("No Results Found")
+                setTimeout(() => {                  
+                    $('#the-toast').addClass('animate__fadeOutDown')
+                }, 4000);  
+                setTimeout(() => {                  
+                    $('#the-toast').removeClass('show')
+                }, 5000);
+                setResultsFound(false)
+            }
+            else{
+                setResultsFound(true)
+            }
+            
+           
+        }
+        else{
+            // the toast
+            $('#the-toast').addClass('show').addClass('bg-success').removeClass('bg-danger').removeClass('animate__fadeOutDown')
+                $('#the-toast .toast-body').text("Try again Later")
+                setTimeout(() => {                  
+                    $('#the-toast').addClass('animate__fadeOutDown')
+                  }, 4000);  
+                  setTimeout(() => {                  
+                    $('#the-toast').removeClass('show')
+                  }, 5000);
+        }
+       
+              
 
        }).catch((err)=>{
-            console.log(err)            
+            console.log(err) 
+            // the toast
+            $('#the-toast').addClass('show').addClass('bg-success').removeClass('bg-danger').removeClass('animate__fadeOutDown')
+                $('#the-toast .toast-body').text("Unexpected error")
+                setTimeout(() => {                  
+                    $('#the-toast').addClass('animate__fadeOutDown')
+                  }, 4000);  
+                  setTimeout(() => {                  
+                    $('#the-toast').removeClass('show')
+                  }, 5000);           
         })
 
     },[historyEndDate,historyStartDate,pageNo,historyPageSize])
@@ -257,7 +309,15 @@ const TransactionsEdits =()=> {
         dataField: 'userAccount.blinkId',
         text: 'Blink ID',
         classes:'text-uppercase',
-        formatter:accFormatter
+        formatter:accFormatter,
+        sort: true,  
+        headerSortingStyle,
+        sortCaret: (order, column) => {
+            if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
+            else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);
+            else if (order === 'desc') return (<span class="font-23px"><i class="mdi mdi-menu-up d-none"></i><i class="mdi mdi-menu-down text-primary"></i></span>);
+            return null;
+          },
       }, {
         dataField: 'transType',
         text: 'Transaction',
@@ -383,12 +443,12 @@ const TransactionsEdits =()=> {
         function indication() {
             return(
                 <>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="d-flex align-items-center justify-content-center text-center">
-                                <p>No Results Found</p>
-                            </div>
+                    <div className="card-body d-sm-none d-md-block px-5 d-flex flex-column justify-items-center align-items-center text-center">
+                        <div className="p-5 py-0 pt-3">
+                            <img src="assets/images/filter-imgs/no-results.svg" className="img mb-4" alt="No search results" height="207px" />
                         </div>
+                        <h4>No Results To Show</h4>
+                        <p>We couldnt find what you are looking for, try changing the filters.</p>
                     </div>
                 </>
             )
@@ -482,266 +542,273 @@ const TransactionsEdits =()=> {
                         </div>
                     </div>
                     <div className="card-body  min-h-90 px-0 pt-0">
-                    <div class="row">
-                        <div class="col-12 pb-2 d-none">
-                            <div class="row">
-                                <div class="col-sm-4 col-md-3 col-lg-2">
-                                    <div class="pl-3">
-                                        <select value={historyPageSize} class="form-select" onChange={(event)=>setHistoryPageSize(event.target.value)} >
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                            <option value="150">150</option>
-                                            <option value="200">200</option>
-                                        </select>
+                        <div class="row">
+                            <div class="col-12 pb-2 d-none">
+                                <div class="row">
+                                    <div class="col-sm-4 col-md-3 col-lg-2">
+                                        <div class="pl-3">
+                                            <select value={historyPageSize} class="form-select" onChange={(event)=>setHistoryPageSize(event.target.value)} >
+                                                <option value="10">10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                                <option value="150">150</option>
+                                                <option value="200">200</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-4 col-md-7 col-lg-8 d-flex align-items-center pr-0 pl-0">
-                                    <div className="dataTables_filter   px-3 flex-grow-1">
-                                        <label>
-                                            <input type="search" className="form-control form-control-sm emailSearch w-100" placeholder="Search through Records ..." aria-controls="datatable-buttons"/>
-                                        </label>
+                                    <div class="col-sm-4 col-md-7 col-lg-8 d-flex align-items-center pr-0 pl-0">
+                                        <div className="dataTables_filter   px-3 flex-grow-1">
+                                            <label>
+                                                <input type="search" className="form-control form-control-sm emailSearch w-100" placeholder="Search through Records ..." aria-controls="datatable-buttons"/>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="d-flex tbl-filter-container justify-content-between align-items-center py-0 my-4">
-                                <div class="d-flex the-filters">
-                                    <div>
-                                        <div className="dropdown d-inline-block">
-                                            <button
-                                                type="button"
-                                                className="btn header-item h-auto px-4 waves-effect d-flex justify-content-center align-items-center pb-4 pt-4 pr-0"
-                                                data-bs-toggle="dropdown"
-                                                aria-haspopup="true"
-                                                aria-expanded="false"
-                                            >                                           
-                                            
-                                                <span className="d-none d-xl-inline-block ms-1 prof-name text-left mr-3 pe-4" key="t-henry">
-                                                    <span class="text-primary">Filter By Institution</span>
-                                                    <h5 class="mb-0 pb-0 text-black">All Schools</h5>
-                                                </span>
-                                                <i className="mdi mdi-chevron-down d-xl-inline-block font-size-20 pl-4 pr-4"></i>
-                                            </button>
-
-                                            <div className="dropdown-menu dropdown-menu-end w-100 text-capitalize">
-                                                {/* <!-- item--> */}
-                                                <a className="dropdown-item" href="#">                                            
-                                                    <span key="t-profile">All Schools</span>
-                                                </a>
-                                                <a className="dropdown-item" href="#">                                            
-                                                    <span key="t-profile">School one</span>
-                                                </a>
-                                                <a className="dropdown-item" href="#">                                            
-                                                    <span key="t-lock-screen">School Two</span>
-                                                </a>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <div className="dropdown d-inline-block">
-                                            <button
-                                                type="button"
-                                                className="btn header-item h-auto px-4 waves-effect d-flex justify-content-center align-items-center pb-4 pt-4 pr-0"
-                                                data-bs-toggle="dropdown"
-                                                aria-haspopup="true"
-                                                aria-expanded="false"
-                                            >                                           
-                                            
-                                                <span className="d-none d-xl-inline-block ms-1 prof-name text-left mr-3 pe-4" key="t-henry">
-                                                    <span class="text-primary">Filter By User type</span>
-                                                    <h5 class="mb-0 pb-0 text-black">All Users</h5>
-                                                </span>
-                                                <i className="mdi mdi-chevron-down d-xl-inline-block font-size-20 pl-4 pr-4"></i>
-                                            </button>
-
-                                            <div className="dropdown-menu dropdown-menu-end w-100 text-capitalize">
-                                                {/* <!-- item--> */}
-                                                <a className="dropdown-item" href="#">                                            
-                                                    <span key="t-profile">Guardians</span>
-                                                </a>
-                                                <a className="dropdown-item" href="#">                                            
-                                                    <span key="t-profile">Blinkers</span>
-                                                </a>
-                                                <a className="dropdown-item" href="#">                                            
-                                                    <span key="t-lock-screen">Merchants</span>
-                                                </a>
-                                                <a className="dropdown-item" href="#">                                            
-                                                    <span key="t-lock-screen">Bursers</span>
-                                                </a>
-                                                
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <div className="dropdown d-inline-block">
-                                            <button
-                                                type="button"
-                                                className="btn header-item h-auto px-4 waves-effect d-flex justify-content-center align-items-center pb-4 pt-4 pr-0"
-                                                data-bs-toggle="dropdown"
-                                                aria-haspopup="true"
-                                                aria-expanded="false"
-                                            >                                           
-                                            
-                                                <span className="d-none d-xl-inline-block ms-1 prof-name text-left mr-3 pe-4" key="t-henry">
-                                                    <span class="text-primary">Filter By Transaction Type</span>
-                                                    <h5 class="mb-0 pb-0 text-black">All Transactions</h5>
-                                                </span>
-                                                <i className="mdi mdi-chevron-down d-xl-inline-block font-size-20 pl-4 pr-4"></i>
-                                            </button>
-
-                                            <div className="dropdown-menu dropdown-menu-end w-100 text-capitalize">
-                                                {/* <!-- item--> */}
-                                                <a className="dropdown-item" href="#">                                            
-                                                    <span key="t-profile">Deposit</span>
-                                                </a>
-                                                <a className="dropdown-item" href="#">                                            
-                                                    <span key="t-profile">Transafer</span>
-                                                </a>
-                                                <a className="dropdown-item" href="#">                                            
-                                                    <span key="t-lock-screen">Merchants</span>
-                                                </a>
-                                                <a className="dropdown-item" href="#">                                            
-                                                    <span key="t-lock-screen">Bursers</span>
-                                                </a>
-                                                
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div>
-                                        <DateRangePicker
-                                            initialSettings={{
-                                            startDate: start.toDate(),
-                                            endDate: end.toDate(),
-                                            ranges: {
-                                                Today: [moment().toDate(), moment().toDate()],
-                                                Yesterday: [
-                                                moment().subtract(1, 'days').toDate(),
-                                                moment().subtract(1, 'days').toDate(),
-                                                ],
-                                                'Last 7 Days': [
-                                                moment().subtract(6, 'days').toDate(),
-                                                moment().toDate(),
-                                                ],
-                                                'Last 30 Days': [
-                                                moment().subtract(29, 'days').toDate(),
-                                                moment().toDate(),
-                                                ],
-                                                'This Month': [
-                                                moment().startOf('month').toDate(),
-                                                moment().endOf('month').toDate(),
-                                                ],
-                                                'Last Month': [
-                                                moment().subtract(1, 'month').startOf('month').toDate(),
-                                                moment().subtract(1, 'month').endOf('month').toDate(),
-                                                ],
-                                            },
-                                            }}
-                                            onCallback={handleCallback}
-                                        >
+                            <div class="col-12">
+                                <div class="d-flex tbl-filter-container justify-content-between align-items-center py-0 my-4">
+                                    <div class="d-flex the-filters">
+                                        <div>
                                             <div className="dropdown d-inline-block">
-                                            <button
-                                                type="button"
-                                                className="btn header-item h-auto px-4 waves-effect d-flex justify-content-center align-items-center pb-4 pt-4 pr-0"
-                                                data-bs-toggle="dropdown"
-                                                aria-haspopup="true"
-                                                aria-expanded="false"
-                                                id="reportrange"
-                                            >                                           
-                                            
-                                                <span className="d-none d-xl-inline-block ms-1 prof-name text-left mr-3 pe-4" key="t-henry">
-                                                    <span class="text-primary">Filter By Date</span>
-                                                    <h5 class="mb-0 pb-0 text-black selected-date">{label}</h5>
-                                                </span>
-                                                <i className="mdi mdi-chevron-down d-xl-inline-block font-size-20 pl-4 pr-4"></i>
-                                            </button>
+                                                <button
+                                                    type="button"
+                                                    className="btn header-item h-auto px-4 waves-effect d-flex justify-content-center align-items-center pb-4 pt-4 pr-0"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false"
+                                                >                                           
+                                                
+                                                    <span className="d-none d-xl-inline-block ms-1 prof-name text-left mr-3 pe-4" key="t-henry">
+                                                        <span class="text-primary">Filter By Institution</span>
+                                                        <h5 class="mb-0 pb-0 text-black">All Schools</h5>
+                                                    </span>
+                                                    <i className="mdi mdi-chevron-down d-xl-inline-block font-size-20 pl-4 pr-4"></i>
+                                                </button>
+
+                                                <div className="dropdown-menu dropdown-menu-end w-100 text-capitalize">
+                                                    {/* <!-- item--> */}
+                                                    <a className="dropdown-item" href="#">                                            
+                                                        <span key="t-profile">All Schools</span>
+                                                    </a>
+                                                    <a className="dropdown-item" href="#">                                            
+                                                        <span key="t-profile">School one</span>
+                                                    </a>
+                                                    <a className="dropdown-item" href="#">                                            
+                                                        <span key="t-lock-screen">School Two</span>
+                                                    </a>
+                                                    
+                                                </div>
+                                            </div>
                                         </div>
-                                        </DateRangePicker>
+
+                                        <div>
+                                            <div className="dropdown d-inline-block">
+                                                <button
+                                                    type="button"
+                                                    className="btn header-item h-auto px-4 waves-effect d-flex justify-content-center align-items-center pb-4 pt-4 pr-0"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false"
+                                                >                                           
+                                                
+                                                    <span className="d-none d-xl-inline-block ms-1 prof-name text-left mr-3 pe-4" key="t-henry">
+                                                        <span class="text-primary">Filter By User type</span>
+                                                        <h5 class="mb-0 pb-0 text-black">All Users</h5>
+                                                    </span>
+                                                    <i className="mdi mdi-chevron-down d-xl-inline-block font-size-20 pl-4 pr-4"></i>
+                                                </button>
+
+                                                <div className="dropdown-menu dropdown-menu-end w-100 text-capitalize">
+                                                    {/* <!-- item--> */}
+                                                    <a className="dropdown-item" href="#">                                            
+                                                        <span key="t-profile">Guardians</span>
+                                                    </a>
+                                                    <a className="dropdown-item" href="#">                                            
+                                                        <span key="t-profile">Blinkers</span>
+                                                    </a>
+                                                    <a className="dropdown-item" href="#">                                            
+                                                        <span key="t-lock-screen">Merchants</span>
+                                                    </a>
+                                                    <a className="dropdown-item" href="#">                                            
+                                                        <span key="t-lock-screen">Bursers</span>
+                                                    </a>
+                                                    
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div className="dropdown d-inline-block">
+                                                <button
+                                                    type="button"
+                                                    className="btn header-item h-auto px-4 waves-effect d-flex justify-content-center align-items-center pb-4 pt-4 pr-0"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false"
+                                                >                                           
+                                                
+                                                    <span className="d-none d-xl-inline-block ms-1 prof-name text-left mr-3 pe-4" key="t-henry">
+                                                        <span class="text-primary">Filter By Transaction Type</span>
+                                                        <h5 class="mb-0 pb-0 text-black">All Transactions</h5>
+                                                    </span>
+                                                    <i className="mdi mdi-chevron-down d-xl-inline-block font-size-20 pl-4 pr-4"></i>
+                                                </button>
+
+                                                <div className="dropdown-menu dropdown-menu-end w-100 text-capitalize">
+                                                    {/* <!-- item--> */}
+                                                    <a className="dropdown-item" href="#">                                            
+                                                        <span key="t-profile">Deposit</span>
+                                                    </a>
+                                                    <a className="dropdown-item" href="#">                                            
+                                                        <span key="t-profile">Transafer</span>
+                                                    </a>
+                                                    <a className="dropdown-item" href="#">                                            
+                                                        <span key="t-lock-screen">Merchants</span>
+                                                    </a>
+                                                    <a className="dropdown-item" href="#">                                            
+                                                        <span key="t-lock-screen">Bursers</span>
+                                                    </a>
+                                                    
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div>
+                                            <DateRangePicker
+                                                initialSettings={{
+                                                startDate: start.toDate(),
+                                                endDate: end.toDate(),
+                                                ranges: {
+                                                    Today: [moment().toDate(), moment().toDate()],
+                                                    Yesterday: [
+                                                    moment().subtract(1, 'days').toDate(),
+                                                    moment().subtract(1, 'days').toDate(),
+                                                    ],
+                                                    'Last 7 Days': [
+                                                    moment().subtract(6, 'days').toDate(),
+                                                    moment().toDate(),
+                                                    ],
+                                                    'Last 30 Days': [
+                                                    moment().subtract(29, 'days').toDate(),
+                                                    moment().toDate(),
+                                                    ],
+                                                    'This Month': [
+                                                    moment().startOf('month').toDate(),
+                                                    moment().endOf('month').toDate(),
+                                                    ],
+                                                    'Last Month': [
+                                                    moment().subtract(1, 'month').startOf('month').toDate(),
+                                                    moment().subtract(1, 'month').endOf('month').toDate(),
+                                                    ],
+                                                },
+                                                }}
+                                                onCallback={handleCallback}
+                                            >
+                                                <div className="dropdown d-inline-block">
+                                                <button
+                                                    type="button"
+                                                    className="btn header-item h-auto px-4 waves-effect d-flex justify-content-center align-items-center pb-4 pt-4 pr-0"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false"
+                                                    id="reportrange"
+                                                >                                           
+                                                
+                                                    <span className="d-none d-xl-inline-block ms-1 prof-name text-left mr-3 pe-4" key="t-henry">
+                                                        <span class="text-primary">Filter By Date</span>
+                                                        <h5 class="mb-0 pb-0 text-black selected-date">{label}</h5>
+                                                    </span>
+                                                    <i className="mdi mdi-chevron-down d-xl-inline-block font-size-20 pl-4 pr-4"></i>
+                                                </button>
+                                            </div>
+                                            </DateRangePicker>
+                                        </div>
+
+                                        
+
+                                        
                                     </div>
 
-                                    
-
-                                    
-                                </div>
-
-                                <div class="text-right text-uppercase pr-4">
-                                    <button type="button" class="btn btn-outline-white waves-effect waves-light text-uppercase">
-                                        <i class="mdi mdi-refresh font-size-24 align-middle me-2"></i> Reset Filters
-                                    </button>
+                                    <div class="text-right text-uppercase pr-4">
+                                        <button type="button" class="btn btn-outline-white waves-effect waves-light text-uppercase">
+                                            <i class="mdi mdi-refresh font-size-24 align-middle me-2"></i> Reset Filters
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                        <BootstrapTable 
-                            responsive
-                            bootstrap4
-                            hover 
-                            classes=""
-                            bodyClasses=""
-                            variant="dark"
-                            bordered={ false }  
-                            keyField='id' 
-                            data={ transactionsHistory } 
-                            columns={ columns }
-                            defaultSorted={ defaultSorted }
-                            headerClasses="table-light " 
-                            headerWrapperClasses="kev-header"
-                            noDataIndication={ indication }
-                        /> 
+                            <BootstrapTable 
+                                responsive
+                                bootstrap4
+                                hover 
+                                classes=""
+                                bodyClasses=""
+                                variant="dark"
+                                bordered={ false }  
+                                keyField='id' 
+                                data={ transactionsHistory } 
+                                columns={ columns }
+                                defaultSorted={ defaultSorted }
+                                headerClasses="table-light " 
+                                headerWrapperClasses="kev-header"
+                                noDataIndication={ indication }
+                                loading={tableLoadingStatus}
+                                overlay={ overlayFactory({ spinner: true, background: 'rgba(192,192,192,0.3)' }) }
+                            /> 
 
-                        {/* table footer starts here         */}
-                        <div class="col-12">
-                            <div class="w-100 d-flex p-3 align-items-center text-grey font-13px justify-content-end">
-                                    <div class="d-flex align-items-center">
-                                        <span class="pr-3 pb-0 mb-0 font-13px"><span>Rows Per Page</span></span>
-                                        <select value={historyPageSize} class="form-select w-auto font-13px " onChange={(event)=>{
-                                            setHistoryPageSize(event.target.value)
-                                            setPageNo(1)
-                                        }}>
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                            <option value="150">150</option>
-                                            <option value="200">200</option>
-                                        </select>
-                                    </div> 
-                                    <div class="px-4">
-                                        <span>{(historyPageSize*pageNo)-historyPageSize+1}-{historyPageSize*pageNo} of {totalTransactions}</span>
-                                    </div> 
-                                    <div>
-                                       <div class="kev-pagination">
-                                       <ul class="pagination pagination-rounded justify-content-center mb-0 font-24px">
-                                            <li  className={`page-item ${canGoFirst ? "" : "disabled"}`} onClick={firstPage}>
-                                                <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-page-first"></i></a>
-                                            </li>
-                                            <li className={`page-item ${canGoPrev ? "" : "disabled"}`} onClick={prevPage}>
-                                                <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
-                                            </li>
-                                           
-                                            <li className={`page-item ${canGoNext ? "" : "disabled"}`}  onClick={nextPage}>
-                                                <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
-                                            </li>
-                                            <li className={`page-item ${canGoLast ? "" : "disabled"}`} onClick={lastPage}>
-                                                <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-page-last"></i></a>
-                                            </li>
-                                        </ul> 
-                                       </div> 
-                                    </div>      
+                            
+                        </div>
+
+                        <div class="card-footer bg-white">
+                            {/* table footer starts here         */}
+                            <div className={`col-12 ${resultsFound ? "" : "d-none"}`}>
+                                <div class="w-100 d-flex p-3 align-items-center text-grey font-13px justify-content-end">
+                                        <div class="d-flex align-items-center">
+                                            <span class="pr-3 pb-0 mb-0 font-13px"><span>Rows Per Page</span></span>
+                                            <select value={historyPageSize} class="form-select w-auto font-13px " onChange={(event)=>{
+                                                setHistoryPageSize(event.target.value)
+                                                setPageNo(1)
+                                            }}>
+                                                <option value="10">10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                                <option value="150">150</option>
+                                                <option value="200">200</option>
+                                            </select>
+                                        </div> 
+                                        <div class="px-4">
+                                            <span>{(historyPageSize*pageNo)-historyPageSize+1}-{historyPageSize*pageNo} of {totalTransactions}</span>
+                                        </div> 
+                                        <div>
+                                        <div class="kev-pagination">
+                                        <ul class="pagination pagination-rounded justify-content-center mb-0 font-24px">
+                                                <li  className={`page-item ${canGoFirst ? "" : "disabled"}`} onClick={firstPage}>
+                                                    <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-page-first"></i></a>
+                                                </li>
+                                                <li className={`page-item ${canGoPrev ? "" : "disabled"}`} onClick={prevPage}>
+                                                    <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                                                </li>
+                                            
+                                                <li className={`page-item ${canGoNext ? "" : "disabled"}`}  onClick={nextPage}>
+                                                    <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
+                                                </li>
+                                                <li className={`page-item ${canGoLast ? "" : "disabled"}`} onClick={lastPage}>
+                                                    <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-page-last"></i></a>
+                                                </li>
+                                            </ul> 
+                                        </div> 
+                                        </div>      
+                                </div>
                             </div>
                         </div>
+                        
                     </div>
-                    
-                </div>
+                   
             </div>
             {/* <!-- end col --> */}
         </div>
