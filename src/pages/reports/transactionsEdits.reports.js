@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {Helmet} from "react-helmet";
 import AuthService from "../../services/auth.service";
 import StdFunctions from "../../services/standard.functions";
+import ListItems from "../../services/listItems";
+
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
@@ -42,14 +44,43 @@ const TransactionsEdits =()=> {
 
     const[tableLoadingStatus,setTableLoadingStatus]=useState(true)
     const[resultsFound,setResultsFound]=useState(false)
+    const[transType,setTransType]=useState("")
+
+    //filter items
+    const[listOfSchools,setListOfSchools]=useState([])
+    const[activeSchoolText,setActiveSchoolText]=useState("All Schools")
+    const[userTypeText,setUserTypeText]=useState("All Users")
+    const[userType,setUserType]=useState("")
+    const[transactionsText,setTransactionsSet]=useState("All Transactions")
+
+    const[]=useState()
+
+    const[listOfTransTypes,setListOfTransaType]=useState([])
+
+    //setting list of schools
+    useEffect(()=>{
+        AuthService.getInstitutions().then((res)=>{            
+            
+            setListOfSchools(res.data.data.sort((a, b) => b.totalStudents - a.totalStudents))  
+            //console.log(res.data.data.sort((a, b) => b.totalStudents - a.totalStudents))     
+        })
+    },[])
+
+    //changing the institution
+    const changeInstitution=(schoolId,schoolName)=>{
+       
+        setActiveSchoolText(schoolName.toLowerCase())
+    }
 
 
     //getting the transactions
     useEffect(()=>{
         setTableLoadingStatus(true)     
-       AuthService.getTransactionsByDate(historyStartDate,historyEndDate,historyPageSize,pageNo).then((res)=>{
+       AuthService.getTransactionsByDate(historyStartDate,historyEndDate,historyPageSize,pageNo,transType,userType).then((res)=>{
 
-        console.log(res.data.data)
+        // console.log(res.data.data)
+        //console.log(ListItems.theSchools)
+
 
         if(res.data.statusCode===200){
             // alert("results found")
@@ -79,14 +110,15 @@ const TransactionsEdits =()=> {
         }
         else{
             // the toast
+            setTableLoadingStatus(false)
             $('#the-toast').addClass('show').addClass('bg-success').removeClass('bg-danger').removeClass('animate__fadeOutDown')
                 $('#the-toast .toast-body').text("Try again Later")
                 setTimeout(() => {                  
                     $('#the-toast').addClass('animate__fadeOutDown')
                   }, 4000);  
-                  setTimeout(() => {                  
+                setTimeout(() => {                  
                     $('#the-toast').removeClass('show')
-                  }, 5000);
+                }, 5000);
         }
        
               
@@ -94,8 +126,9 @@ const TransactionsEdits =()=> {
        }).catch((err)=>{
             console.log(err) 
             // the toast
+            setTableLoadingStatus(false)
             $('#the-toast').addClass('show').addClass('bg-success').removeClass('bg-danger').removeClass('animate__fadeOutDown')
-                $('#the-toast .toast-body').text("Unexpected error")
+                $('#the-toast .toast-body').text("Unexpected Error")
                 setTimeout(() => {                  
                     $('#the-toast').addClass('animate__fadeOutDown')
                   }, 4000);  
@@ -104,7 +137,7 @@ const TransactionsEdits =()=> {
                   }, 5000);           
         })
 
-    },[historyEndDate,historyStartDate,pageNo,historyPageSize])
+    },[historyEndDate,historyStartDate,pageNo,historyPageSize,transType,userType])
 
    
     //===================================///
@@ -581,22 +614,28 @@ const TransactionsEdits =()=> {
                                                 
                                                     <span className="d-none d-xl-inline-block ms-1 prof-name text-left mr-3 pe-4" key="t-henry">
                                                         <span class="text-primary">Filter By Institution</span>
-                                                        <h5 class="mb-0 pb-0 text-black">All Schools</h5>
+                                                        <h5 class="mb-0 pb-0 text-black text-capitalize">{activeSchoolText}</h5>
                                                     </span>
                                                     <i className="mdi mdi-chevron-down d-xl-inline-block font-size-20 pl-4 pr-4"></i>
                                                 </button>
 
                                                 <div className="dropdown-menu dropdown-menu-end w-100 text-capitalize">
                                                     {/* <!-- item--> */}
-                                                    <a className="dropdown-item" href="#">                                            
+                                                    <a className="d-flex px-3 pb-2 waves-effect dropdown-item" href="javascript: void(0);">                                            
                                                         <span key="t-profile">All Schools</span>
-                                                    </a>
-                                                    <a className="dropdown-item" href="#">                                            
-                                                        <span key="t-profile">School one</span>
-                                                    </a>
-                                                    <a className="dropdown-item" href="#">                                            
-                                                        <span key="t-lock-screen">School Two</span>
-                                                    </a>
+                                                    </a>                                                  
+                                                    
+
+                                                    {listOfSchools.map((school, index)=>(
+                                                        <a onClick={()=> changeInstitution(school.institutionName,school.institutionName)}  className="d-flex px-3 pb-2 waves-effect dropdown-item" href="javascript: void(0);"  >                                            
+                                                            <span key="t-lock-screen">{
+                                                                school.institutionName.toLowerCase()
+                                                                
+                                                                }</span>
+                                                        </a>
+                                                        ))
+                                                            
+                                                    }  
                                                     
                                                 </div>
                                             </div>
@@ -614,24 +653,45 @@ const TransactionsEdits =()=> {
                                                 
                                                     <span className="d-none d-xl-inline-block ms-1 prof-name text-left mr-3 pe-4" key="t-henry">
                                                         <span class="text-primary">Filter By User type</span>
-                                                        <h5 class="mb-0 pb-0 text-black">All Users</h5>
+                                                        <h5 class="mb-0 pb-0 text-black text-capitalize">{userTypeText}</h5>
                                                     </span>
                                                     <i className="mdi mdi-chevron-down d-xl-inline-block font-size-20 pl-4 pr-4"></i>
                                                 </button>
 
                                                 <div className="dropdown-menu dropdown-menu-end w-100 text-capitalize">
                                                     {/* <!-- item--> */}
-                                                    <a className="dropdown-item" href="#">                                            
+                                                    <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
+                                                        setUserType("")
+                                                        setUserTypeText("All users")
+                                                    }}>                                                                                        
+                                                        <span key="t-profile">All Users</span>
+                                                    </a>
+                                                    <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
+                                                         setUserType("Parent")
+                                                        setUserTypeText("Guardians")
+                                                    }}>                                                                                        
                                                         <span key="t-profile">Guardians</span>
                                                     </a>
-                                                    <a className="dropdown-item" href="#">                                            
+
+                                                    <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
+                                                         setUserType("Student")
+                                                        setUserTypeText("Blinkers")
+                                                    }}>                                                                                        
                                                         <span key="t-profile">Blinkers</span>
                                                     </a>
-                                                    <a className="dropdown-item" href="#">                                            
-                                                        <span key="t-lock-screen">Merchants</span>
+
+                                                    <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
+                                                         setUserType("TuckShopAttendant")
+                                                        setUserTypeText("Blinkers")
+                                                    }}>                                                                                        
+                                                        <span key="t-profile">Merchants</span>
                                                     </a>
-                                                    <a className="dropdown-item" href="#">                                            
-                                                        <span key="t-lock-screen">Bursers</span>
+
+                                                    <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
+                                                         setUserType("Burser")
+                                                        setUserTypeText("Bursers")
+                                                    }}>                                                                                        
+                                                        <span key="t-profile">Bursers</span>
                                                     </a>
                                                     
                                                     
@@ -651,24 +711,50 @@ const TransactionsEdits =()=> {
                                                 
                                                     <span className="d-none d-xl-inline-block ms-1 prof-name text-left mr-3 pe-4" key="t-henry">
                                                         <span class="text-primary">Filter By Transaction Type</span>
-                                                        <h5 class="mb-0 pb-0 text-black">All Transactions</h5>
+                                                        <h5 class="mb-0 pb-0 text-black">{transactionsText}</h5>
                                                     </span>
                                                     <i className="mdi mdi-chevron-down d-xl-inline-block font-size-20 pl-4 pr-4"></i>
                                                 </button>
 
                                                 <div className="dropdown-menu dropdown-menu-end w-100 text-capitalize">
                                                     {/* <!-- item--> */}
-                                                    <a className="dropdown-item" href="#">                                            
+
+                                                    <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
+                                                        setTransType("")
+                                                        setTransactionsSet("All Transactions")
+                                                    }}>                                            
+                                                        <span key="t-profile">All Transactions</span>
+                                                    </a>
+                                                    <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
+                                                        setTransType("Deposit")
+                                                        setTransactionsSet("Deposit")
+                                                    }}>                                            
                                                         <span key="t-profile">Deposit</span>
                                                     </a>
-                                                    <a className="dropdown-item" href="#">                                            
-                                                        <span key="t-profile">Transafer</span>
+                                                    <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
+                                                        setTransType("Withdrawal_To_Mpesa")
+                                                        setTransactionsSet("Withdrawal To Mpesa")
+                                                    }}>                                            
+                                                        <span key="t-profile">Withdrawal To Mpesa</span>
                                                     </a>
-                                                    <a className="dropdown-item" href="#">                                            
-                                                        <span key="t-lock-screen">Merchants</span>
+                                                    <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
+                                                        setTransType("Merchant_Pay")
+                                                        setTransactionsSet("Merchant Pay")
+                                                    }}>                                           
+                                                        <span key="t-lock-screen">Merchant Pay</span>
                                                     </a>
-                                                    <a className="dropdown-item" href="#">                                            
-                                                        <span key="t-lock-screen">Bursers</span>
+                                                    <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
+                                                        setTransType("Blink_Withdrawal_Charge")
+                                                        setTransactionsSet("Blink Withdrawal Charge")
+                                                    }}>                                            
+                                                        <span key="t-lock-screen">Blink Withdrawal Charge</span>
+                                                    </a>
+
+                                                    <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
+                                                        setTransType("Blink_Deposit_Charge")
+                                                        setTransactionsSet("Blink Deposit Charge")
+                                                    }}>                                            
+                                                        <span key="t-lock-screen">Blink Deposit Charge</span>
                                                     </a>
                                                     
                                                     
@@ -757,7 +843,7 @@ const TransactionsEdits =()=> {
                                 headerWrapperClasses="kev-header"
                                 noDataIndication={ indication }
                                 loading={tableLoadingStatus}
-                                overlay={ overlayFactory({ spinner: true, background: 'rgba(192,192,192,0.3)' }) }
+                                overlay={ overlayFactory({ spinner: true, background: 'rgba(192,192,192,0.1)' }) }
                             /> 
 
                             
