@@ -111,9 +111,9 @@ class AuthService {
    }
 
    //get all transactions
-   getTransactionsByDate(startDate,endDate,pageSize,pageNo,transType,userType){
+   getTransactionsByDate(startDate,endDate,pageSize,pageNo,transType,userType,receiptNumber){
       //alert("the Blinker id brought forward is "+blinkAccountId)
-      return axiosInstance.get(baseUrl + "/api/v2/transactions/searchTransaction?pageNo="+pageNo+"&pageSize="+pageSize+"&fromDateTime="+startDate+"&toDateTime="+endDate+"&transType="+transType+"&userType="+userType);
+      return axiosInstance.get(baseUrl + "/api/v2/transactions/searchTransaction?pageNo="+pageNo+"&pageSize="+pageSize+"&fromDateTime="+startDate+"&toDateTime="+endDate+"&transType="+transType+"&userType="+userType+"&receiptNumber="+receiptNumber);
    }
 
 

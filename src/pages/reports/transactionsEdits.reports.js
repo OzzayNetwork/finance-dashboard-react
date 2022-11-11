@@ -56,6 +56,7 @@ const TransactionsEdits =()=> {
     const[]=useState()
 
     const[listOfTransTypes,setListOfTransaType]=useState([])
+    const[searchReceipt,setSearch]=useState("")
 
     //setting list of schools
     useEffect(()=>{
@@ -72,11 +73,14 @@ const TransactionsEdits =()=> {
         setActiveSchoolText(schoolName.toLowerCase())
     }
 
+    
+    
+
 
     //getting the transactions
     useEffect(()=>{
         setTableLoadingStatus(true)     
-       AuthService.getTransactionsByDate(historyStartDate,historyEndDate,historyPageSize,pageNo,transType,userType).then((res)=>{
+       AuthService.getTransactionsByDate(historyStartDate,historyEndDate,historyPageSize,pageNo,transType,userType,searchReceipt).then((res)=>{
 
         // console.log(res.data.data)
         //console.log(ListItems.theSchools)
@@ -88,6 +92,7 @@ const TransactionsEdits =()=> {
             setTotalTransactions(res.data.totalElements)
             setTheTransactionsHistory(res.data.data) 
             setTableLoadingStatus(false)
+            console.log(res.data.data)
             
 
             if(res.data.data.length===0){
@@ -137,7 +142,7 @@ const TransactionsEdits =()=> {
                   }, 5000);           
         })
 
-    },[historyEndDate,historyStartDate,pageNo,historyPageSize,transType,userType])
+    },[historyEndDate,historyStartDate,pageNo,historyPageSize,transType,userType,searchReceipt])
 
    
     //===================================///
@@ -326,6 +331,11 @@ const TransactionsEdits =()=> {
         textTransfotm:'right'
     }
 
+    //clicking the filters 
+    $('.the-filters .dropdown a').unbind().on('click',function(){
+        $(this).addClass('active').siblings().removeClass('active')
+    })
+
     const columns = [{
         dataField: 'receiptNumber',
         text: 'Receipt No.',
@@ -453,10 +463,32 @@ const TransactionsEdits =()=> {
             const handleCallback = (start, end) => {
             setState({ start, end });
             setHistoryStartDate(start.format('YYYY-MM-DD 00:00:00'))
-            setHistoryEndDate(end.format('YYYY-MM-DD 00:00:00'))
+            setHistoryEndDate(end.format('YYYY-MM-DD 23:59:59'))
         };
 
         const label =start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY');
+
+        //reseting filters
+        const resetFilters=()=>{
+
+            setUserType("")
+            setUserTypeText("All users")
+
+            setTransType("")
+            setTransactionsSet("All Transactions")
+
+            setHistoryStartDate(Moment().subtract(31, 'days').format('YYYY-MM-DD 00:00:00'))
+            setHistoryEndDate(Moment().format('YYYY-MM-DD 23:59:59'))
+
+            var startDate=Moment().subtract(31, 'days').format('YYYY-MM-DD 00:00:00')
+            var endDate=Moment().format('YYYY-MM-DD 23:59:59')
+            setState({
+                start: moment().subtract(29, 'days'),
+                end: moment(),
+            })
+
+            
+        }
                     
         
 
@@ -567,7 +599,23 @@ const TransactionsEdits =()=> {
                                 <div class="col-sm-4 col-md-7 col-lg-8 d-flex align-items-center pr-0 pl-0">
                                     <div className="dataTables_filter   px-3 flex-grow-1">
                                         <label>
-                                            <input type="search" className="form-control form-control-sm emailSearch w-100" placeholder="Search through Records ..." aria-controls="datatable-buttons"/>
+                                            <input 
+                                            type="search" 
+                                            className="form-control form-control-sm emailSearch w-100" 
+                                            onChange={(e)=>{
+                                                setSearch(e.target.value)
+                                                setHistoryEndDate("")
+                                                setHistoryEndDate("")
+
+                                                setUserType("")
+                                                setUserTypeText("All users")
+
+                                                setTransType("")
+                                                setTransactionsSet("All Transactions")
+                                                
+                                            }} 
+                                            placeholder="Search Receipt No."
+                                            aria-controls="datatable-buttons"/>
                                         </label>
                                     </div>
                                 </div>
@@ -621,7 +669,7 @@ const TransactionsEdits =()=> {
 
                                                 <div className="dropdown-menu dropdown-menu-end w-100 text-capitalize">
                                                     {/* <!-- item--> */}
-                                                    <a className="d-flex px-3 pb-2 waves-effect dropdown-item" href="javascript: void(0);">                                            
+                                                    <a className="d-flex px-3 pb-2 waves-effect dropdown-item active" href="javascript: void(0);">                                            
                                                         <span key="t-profile">All Schools</span>
                                                     </a>                                                  
                                                     
@@ -660,7 +708,7 @@ const TransactionsEdits =()=> {
 
                                                 <div className="dropdown-menu dropdown-menu-end w-100 text-capitalize">
                                                     {/* <!-- item--> */}
-                                                    <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
+                                                    <a className="dropdown-item active" href="javascript: void(0);" onClick={()=> {
                                                         setUserType("")
                                                         setUserTypeText("All users")
                                                     }}>                                                                                        
@@ -674,7 +722,7 @@ const TransactionsEdits =()=> {
                                                     </a>
 
                                                     <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
-                                                         setUserType("Student")
+                                                        setUserType("Student")
                                                         setUserTypeText("Blinkers")
                                                     }}>                                                                                        
                                                         <span key="t-profile">Blinkers</span>
@@ -719,7 +767,7 @@ const TransactionsEdits =()=> {
                                                 <div className="dropdown-menu dropdown-menu-end w-100 text-capitalize">
                                                     {/* <!-- item--> */}
 
-                                                    <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
+                                                    <a className="dropdown-item active" href="javascript: void(0);" onClick={()=> {
                                                         setTransType("")
                                                         setTransactionsSet("All Transactions")
                                                     }}>                                            
@@ -753,10 +801,30 @@ const TransactionsEdits =()=> {
                                                     <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
                                                         setTransType("Blink_Deposit_Charge")
                                                         setTransactionsSet("Blink Deposit Charge")
-                                                    }}>                                            
+                                                        }}>                                            
                                                         <span key="t-lock-screen">Blink Deposit Charge</span>
                                                     </a>
+
+                                                    <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
+                                                        setTransType("Manual_Credit")
+                                                        setTransactionsSet("Manual Credit")
+                                                        }}>                                            
+                                                        <span key="t-lock-screen">Manual Credit</span>
+                                                    </a>
+
+                                                    <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
+                                                        setTransType("Manual_Debit")
+                                                        setTransactionsSet("Manual Debit")
+                                                        }}>                                            
+                                                        <span key="t-lock-screen">Manual Debit</span>
+                                                    </a>
                                                     
+                                                    <a className="dropdown-item" href="javascript: void(0);" onClick={()=> {
+                                                        setTransType("CardIssuanceCharge")
+                                                        setTransactionsSet("Card Issuance Charge")
+                                                        }}>                                            
+                                                        <span key="t-lock-screen">Card Issuance Charge</span>
+                                                    </a>
                                                     
                                                 </div>
                                             </div>
@@ -820,7 +888,7 @@ const TransactionsEdits =()=> {
                                     </div>
 
                                     <div class="text-right text-uppercase pr-4">
-                                        <button type="button" class="btn btn-outline-white waves-effect waves-light text-uppercase">
+                                        <button type="button" class="btn btn-outline-white waves-effect waves-light text-uppercase" onClick={resetFilters}>
                                             <i class="mdi mdi-refresh font-size-24 align-middle me-2"></i> Reset Filters
                                         </button>
                                     </div>
