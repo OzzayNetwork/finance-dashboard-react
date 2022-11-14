@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {Helmet} from "react-helmet";
 
+import AccountDetails from "../../components/AccountDetails";
+
 import AuthService from "../../services/auth.service";
 import StdFunctions from "../../services/standard.functions";
 import ListItems from "../../services/listItems";
