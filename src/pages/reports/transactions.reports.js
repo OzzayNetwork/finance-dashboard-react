@@ -78,6 +78,9 @@ const Transactions =()=> {
        
         setActiveSchoolText(schoolName.toLowerCase())
     }
+    $('.can-click').unbind().on('click', function(){
+        alert("clicked")
+    })
 
     
     
@@ -347,14 +350,14 @@ const Transactions =()=> {
         dataField: 'receiptNumber',
         text: 'Receipt No.',
         sort: true,  
-        classes: 'fw-bold text-black cursor-pointer',
+        classes: 'fw-bold text-black cursor-pointer can-click',
         events: {
             onClick: (e, column, columnIndex, row, rowIndex) => {
                 $('.transaction-details-button').click()
-              console.log(row.transactionId);
-              setClickedTransactionId(row.transactionId)
-              console.log(localStorage)
-              setClickedTransactionRow(row)
+                console.log(row.transactionId);
+                setClickedTransactionId(row.transactionId)
+                console.log(localStorage)
+                setClickedTransactionRow(row)
             }
         },
         headerSortingStyle,

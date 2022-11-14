@@ -1840,6 +1840,9 @@
             .the-filters button i{
                 border-right: 1px solid #e8e8e8; 
             }
+            tr.active{
+                background-color: #8080802b;
+            }
             .daterangepicker .ranges li.active{
                  background:orangered !important
             }
@@ -1895,7 +1898,7 @@
               }
               .lds-ripple div {
                 position: absolute;
-                border: 4px solid black;
+                border: 4px solid #a4a5b4;
                 opacity: 1;
                 border-radius: 50%;
                 animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
