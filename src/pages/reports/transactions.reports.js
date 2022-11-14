@@ -3,6 +3,7 @@ import {Helmet} from "react-helmet";
 import AuthService from "../../services/auth.service";
 import StdFunctions from "../../services/standard.functions";
 import ListItems from "../../services/listItems";
+import TransactionDetails from "./transaction.details";
 
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import 'bootstrap-daterangepicker/daterangepicker.css';
@@ -53,6 +54,10 @@ const Transactions =()=> {
     const[userTypeText,setUserTypeText]=useState("All Users")
     const[userType,setUserType]=useState("")
     const[transactionsText,setTransactionsSet]=useState("All Transactions")
+
+    //getting the clickked transaction
+    const[clickedTransactionId,setClickedTransactionId]=useState("")
+    const[clickedTransactionRow,setClickedTransactionRow]=useState({})
 
     const[]=useState()
 
@@ -337,11 +342,21 @@ const Transactions =()=> {
         $(this).addClass('active').siblings().removeClass('active')
     })
 
+    
     const columns = [{
         dataField: 'receiptNumber',
         text: 'Receipt No.',
         sort: true,  
-        classes: 'fw-bold text-black',
+        classes: 'fw-bold text-black cursor-pointer',
+        events: {
+            onClick: (e, column, columnIndex, row, rowIndex) => {
+                $('.transaction-details-button').click()
+              console.log(row.transactionId);
+              setClickedTransactionId(row.transactionId)
+              console.log(localStorage)
+              setClickedTransactionRow(row)
+            }
+        },
         headerSortingStyle,
         sortCaret: (order, column) => {
             if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
@@ -526,6 +541,8 @@ const Transactions =()=> {
     return ( 
         <>
 
+        <TransactionDetails activeTransaction={clickedTransactionId} activeTransactionRow={clickedTransactionRow}/>
+
         {loading ? (
             <div className="content-loader-container bg-black bg-opacity-50">
                 <div className="bg-white p-3 ">
@@ -550,6 +567,7 @@ const Transactions =()=> {
         <Helmet>
         <title>Blink! | All Transatcions</title>
        
+       
         </Helmet>    {/* the modals container */}
         <div className="container-fluid">
 
@@ -557,7 +575,7 @@ const Transactions =()=> {
         <div className="row d-sm-none d-md-flex">
             <div className="col-12">
                 <div className="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 className="mb-sm-0 font-size-18">Transaction Edits </h4>
+                    <h4 className="mb-sm-0 font-size-18">All Transactions </h4>
 
                     <div className="page-title-right d-sm-none d-md-flex">
                         <ol className="breadcrumb m-0">
@@ -572,7 +590,7 @@ const Transactions =()=> {
 
         <div className="row d-sm-none d-md-none ">
             <div className="col-12">
-                <h4 className="text-black pt-4 pb-3 p-3 border-bottom-1px fw-medium ">Transactions Edits</h4>
+                <h4 className="text-black pt-4 pb-3 p-3 border-bottom-1px fw-medium ">All Transactions</h4>
             </div>
         </div>
         {/* <!-- end page title --> */}
@@ -649,6 +667,7 @@ const Transactions =()=> {
                                 </div>
                             </div>
                             <div class="col-12">
+                            <button className="btn btn-primary w-100 text-uppercase text-center mt-3 transaction-details-button d-none" data-bs-toggle="modal" data-bs-target="#transaction-details-modal">Payment Transfer</button>
                                 <div class="d-flex tbl-filter-container justify-content-between align-items-center py-0 my-4">
                                     <div class="d-flex the-filters">
                                         <div>

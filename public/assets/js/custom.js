@@ -175,6 +175,8 @@ window.onhashchange = function() {
         $('.selected-date').text(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'))
     }
 
+   
+
     $('#reportrange').daterangepicker({
         startDate: start,
         endDate: end,
@@ -195,6 +197,11 @@ window.onhashchange = function() {
 $(document).ready(function() {
 
     // customizing tawk
+
+    
+
+
+   
     
     
     $('.selectpicker').selectpicker();
