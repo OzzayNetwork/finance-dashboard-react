@@ -53,15 +53,15 @@ const Home=()=>{
     const[weeklyDeposits,setWeeklyDeposits]=useState(0)
     const[weeklyExpenditure,setWeeklyExpenditure]=useState(0)
     Moment().startOf('isoWeek')
-    const[startOfWeek,setStartOfWeek]=useState(Moment().startOf('week').format('YYYY-MM-DD 00:00:00'))
-    const[endOfWeek,setEndOfWeek]=useState(Moment().endOf('week').format('YYYY-MM-DD 23:59:59'))
+    const[startOfWeek,setStartOfWeek]=useState(Moment().startOf('isoWeek').format('YYYY-MM-DD 00:00:00'))
+    const[endOfWeek,setEndOfWeek]=useState(Moment().endOf('isoWeek').format('YYYY-MM-DD 23:59:59'))
 
     //last week numbers
     const[lastWeekDeposits,setLastWeekDeposits]=useState(0)
     const[lastWeekExpenditure,setLastWeekExpenditure]=useState(0)
     Moment().startOf('isoWeek')
-    const[startOfLastWeek,setStartOfLastWeek]=useState(Moment().subtract(1, 'weeks').startOf('week').format('YYYY-MM-DD 00:00:00'))
-    const[endOfLastWeek,setEndOfLastWeek]=useState(Moment().subtract(1, 'weeks').endOf('week').format('YYYY-MM-DD 23:59:59'))
+    const[startOfLastWeek,setStartOfLastWeek]=useState(Moment().subtract(1, 'weeks').startOf('isoWeek').format('YYYY-MM-DD 00:00:00'))
+    const[endOfLastWeek,setEndOfLastWeek]=useState(Moment().subtract(1, 'weeks').endOf('isoWeek').format('YYYY-MM-DD 23:59:59'))
 
     const[monthlyDeposits,setMonthlyDeposits]=useState(0)
     const[monthlyExpenditure,setMonthlyExpenditure]=useState(0)
@@ -73,6 +73,64 @@ const Home=()=>{
     const[lastMonthExpenditure,setLastMonthExpenditure]=useState(0)
     const[startOfLastMonth,setStartOfLastMonth]=useState(Moment().subtract(1, 'months').startOf('month').format('YYYY-MM-DD 00:00:00'))
     const[endOfLastMonth,setEndOfLastMonth]=useState(Moment().subtract(1, 'months').endOf('month').format('YYYY-MM-DD 23:59:59'))
+
+    // setting the stats loader timer
+    const [toggle, setToggle] = useState(false)
+
+    //Days of the week
+
+    //monday
+    const[startOfMonday,getStartOfMonday]=useState(Moment().startOf('isoWeek').format('YYYY-MM-DD 00:00:00'))
+    const[endOfMonday,getEndOfMonday]=useState(Moment().startOf('isoWeek').format('YYYY-MM-DD 23:59:59'))
+    const[mondayDeposits,setMondayDeposits]=useState(0)
+    const[mondayExpenditure,setMondayExpenditure]=useState(0)
+    const[mondayRevenue,setMondayRevenue]=useState(0)
+
+    //tuesday
+    const[startOfTuesday,getStartOfTuesday]=useState(Moment().startOf('isoWeek').add(1, 'days').format('YYYY-MM-DD 00:00:00'))
+    const[endOfTuesday,getEndOfTuesday]=useState(Moment().startOf('isoWeek').add(1, 'days').format('YYYY-MM-DD 23:59:59'))
+    const[tuesdayDeposits,setTuesdayDeposits]=useState(0)
+    const[tuesdayExpenditure,setTuesdayExpenditure]=useState(0)
+    const[tuesdayRevenue,setTuesdayRevenue]=useState(0)
+    //alert(Moment().startOf('isoWeek').add(1, 'days').format('YYYY-MM-DD 00:00:00'))
+
+    //wednesday
+    const[startOfWed,getStartOfWed]=useState(Moment().startOf('isoWeek').add(2, 'days').format('YYYY-MM-DD 00:00:00'))
+    const[endOfWed,getEndOfWed]=useState(Moment().startOf('isoWeek').add(2, 'days').format('YYYY-MM-DD 23:59:59'))
+    const[wedDeposits,setWedDeposits]=useState(0)
+    const[wedExpenditure,setWedExpenditure]=useState(0)
+    const[wedRevenue,setWedRevenue]=useState(0)
+
+    //thursday
+    const[startOfThus,getStartOfThus]=useState(Moment().startOf('isoWeek').add(3, 'days').format('YYYY-MM-DD 00:00:00'))
+    const[endOfThus,getEndOfThus]=useState(Moment().startOf('isoWeek').add(3, 'days').format('YYYY-MM-DD 23:59:59'))
+    const[thusDeposits,setThusDeposits]=useState(0)
+    const[thusExpenditure,setThusExpenditure]=useState(0)
+    const[thusRevenue,setThusRevenue]=useState(0)
+
+     //Friday
+     const[startOfFriday,getStartOfFriday]=useState(Moment().startOf('isoWeek').add(4, 'days').format('YYYY-MM-DD 00:00:00'))
+     const[endOfFriday,getEndOfFriday]=useState(Moment().startOf('isoWeek').add(4, 'days').format('YYYY-MM-DD 23:59:59'))
+     const[fridayDeposits,setFridayDeposits]=useState(0)
+     const[fridayExpenditure,setFridayExpenditure]=useState(0)
+     const[fridayRevenue,setFridayRevenue]=useState(0)
+
+     //Saturday
+     const[startOfSat,getStartOfSat]=useState(Moment().startOf('isoWeek').add(5, 'days').format('YYYY-MM-DD 00:00:00'))
+     const[endOfSat,getEndOfSat]=useState(Moment().startOf('isoWeek').add(5, 'days').format('YYYY-MM-DD 23:59:59'))
+     const[satDeposits,setSatDeposits]=useState(0)
+     const[satExpenditure,setSatExpenditure]=useState(0)
+     const[satRevenue,setSatRevenue]=useState(0)
+
+     //Sunday
+     const[startOfSun,getStartOfSun]=useState(Moment().startOf('isoWeek').add(6, 'days').format('YYYY-MM-DD 00:00:00'))
+     const[endOfSun,getEndOfSun]=useState(Moment().startOf('isoWeek').add(6, 'days').format('YYYY-MM-DD 23:59:59'))
+     const[sunDeposits,setSunDeposits]=useState(0)
+     const[sunExpenditure,setSunExpenditure]=useState(0)
+     const[sunRevenue,setSunRevenue]=useState(0)
+
+     //end of the days of the week
+   
 
 
     console.log(StdFunctions.adminFName)
@@ -89,6 +147,7 @@ const Home=()=>{
     useEffect(()=>{
         //getStats(transType,toDateTime,fromDateTime)
         console.log("here")
+        //alert("updating")
 
         AuthService.getStats("Today's Deposit","Deposit",todayEndDate,todayStartDate,"Student").then((res)=>{   
             console.log(res.data.data.totals)         
@@ -249,7 +308,198 @@ const Home=()=>{
             console.log(err) 
                     
         })
-    },[])
+    },[toggle])
+
+    //getting the data for the bar chart
+    useEffect(()=>{
+        setTimeout(() => setToggle((prevToggle) => !prevToggle), 100000);
+
+        //monday Numbers
+        AuthService.getStats("Monday's Deposit","Deposit",endOfMonday,startOfMonday,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setMondayDeposits(res.data.data.totals)
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        AuthService.getStats("Monday's Expenditure By Students","Merchant_Pay",endOfMonday,startOfMonday,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setMondayExpenditure(res.data.data.totals)
+                // alert("weekly found")
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        //tuesdya stats
+        AuthService.getStats("Monday's Deposit","Deposit",endOfTuesday,startOfTuesday,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setTuesdayDeposits(res.data.data.totals)
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        AuthService.getStats("Monday's Expenditure By Students","Merchant_Pay",endOfTuesday,startOfTuesday,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setTuesdayExpenditure(res.data.data.totals)
+                // alert("weekly found")
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        //wednesdya stats
+        AuthService.getStats("Wednesday's Deposit","Deposit",endOfWed,startOfWed,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setWedDeposits(res.data.data.totals)
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        AuthService.getStats("Wednesday's Expenditure By Students","Merchant_Pay",endOfWed,startOfWed,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setWedExpenditure(res.data.data.totals)
+                // alert("weekly found")
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        //thursday numbers
+        AuthService.getStats("Thursday's Deposit","Deposit",endOfThus,startOfThus,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setThusDeposits(res.data.data.totals)
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        AuthService.getStats("Thursday's Expenditure By Students","Merchant_Pay",endOfThus,startOfThus,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setThusExpenditure(res.data.data.totals)
+                // alert("weekly found")
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        //Friday numbers
+        AuthService.getStats("Friday's Deposit","Deposit",endOfFriday,startOfFriday,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setFridayDeposits(res.data.data.totals)
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        AuthService.getStats("Friday's Expenditure By Students","Merchant_Pay",endOfFriday,startOfFriday,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setFridayExpenditure(res.data.data.totals)
+                // alert("weekly found")
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+
+        //saturday numbers 
+        AuthService.getStats("Saturday's Deposit","Deposit",endOfSat,startOfSat,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setSatDeposits(res.data.data.totals)
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        AuthService.getStats("Saturday's Expenditure By Students","Merchant_Pay",endOfSat,startOfSat,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setSatExpenditure(res.data.data.totals)
+                // alert("weekly found")
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        //sunday numbers
+        AuthService.getStats("Sundayy's Deposit","Deposit",endOfSun,startOfSun,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setSunDeposits(res.data.data.totals)
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        AuthService.getStats("Sunday's Expenditure By Students","Merchant_Pay",endOfSun,startOfSun,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setSunExpenditure(res.data.data.totals)
+                // alert("weekly found")
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+        //alert("we have been refreshed")
+
+
+    },[toggle])
 
     window.addEventListener("scroll", (event) => {
         let scroll = document.$("scrol-elemetn").getBoundingClientRect().top;
@@ -399,16 +649,16 @@ const Home=()=>{
         },
         series: [{
             name: 'Deposits',
-            data: [4, 4, 6, 15, 12,2,3],
+            data: [mondayDeposits, tuesdayDeposits, wedDeposits, thusDeposits, fridayDeposits,satDeposits,sunDeposits],
             color:'#F35933'
         }, {
             name: 'Expenditure',
-            data: [5, 3, 12, 6, 11,2,3],
+            data: [mondayExpenditure, tuesdayExpenditure, wedExpenditure, thusExpenditure, fridayExpenditure,satExpenditure,sunExpenditure],
             color:'#B7DDFE'
         }, {
             name: 'Blink Income',
             type:'spline',
-            data: [5, 15, 8, 5, 8,5,3],
+            data: [mondayRevenue, tuesdayRevenue, wedRevenue, thusRevenue, fridayRevenue,satRevenue,sunRevenue],
             color:'#138FFA'
         }],
         plotOptions: {
@@ -751,12 +1001,12 @@ const Home=()=>{
 
                                                                 {StdFunctions.amountIsGreaterThan(yesterdaysDeposit,todaysDeposits) ? (
                                                                     <div>
-                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {todaysDeposits-yesterdaysDeposit} </span> Since Previose day</p>
+                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {todaysDeposits-yesterdaysDeposit} </span> Since Yesterday</p>
                                                                     </div>
                                                                 ) : (
                                                                    
                                                                     <div>
-                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {todaysDeposits-yesterdaysDeposit} </span> Since Previose day</p>
+                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {todaysDeposits-yesterdaysDeposit} </span> Since Yesterday</p>
                                                                     </div>
                                                                 )}
                                                             </div>
@@ -811,12 +1061,12 @@ const Home=()=>{
 
                                                                 {StdFunctions.amountIsGreaterThan(yesterdaysDeposit,todaysDeposits) ? (
                                                                     <div>
-                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {StdFunctions.currencyFormat2(weeklyDeposits-lastWeekDeposits)} </span> Since Previose day</p>
+                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {StdFunctions.currencyFormat2(weeklyDeposits-lastWeekDeposits)} </span> Since Last Week</p>
                                                                     </div>
                                                                 ) : (
                                                                    
                                                                     <div>
-                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {StdFunctions.currencyFormat2(weeklyDeposits-lastWeekDeposits)} </span> Since Previose day</p>
+                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {StdFunctions.currencyFormat2(weeklyDeposits-lastWeekDeposits)} </span> Since Last Week</p>
                                                                     </div>
                                                                 )}
                                                             </div>
@@ -874,12 +1124,12 @@ const Home=()=>{
 
                                                                 {StdFunctions.amountIsGreaterThan(yesterdaysDeposit,todaysDeposits) ? (
                                                                     <div>
-                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {StdFunctions.currencyFormat2(monthlyDeposits-lastMonthDeposits)} </span> Since Previose day</p>
+                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {StdFunctions.currencyFormat2(monthlyDeposits-lastMonthDeposits)} </span> Since Last Month</p>
                                                                     </div>
                                                                 ) : (
                                                                    
                                                                     <div>
-                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {StdFunctions.currencyFormat2(monthlyDeposits-lastMonthDeposits)} </span> Since Previose day</p>
+                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {StdFunctions.currencyFormat2(monthlyDeposits-lastMonthDeposits)} </span> Since Last Month</p>
                                                                     </div>
                                                                 )}
                                                             </div>

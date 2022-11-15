@@ -1854,6 +1854,9 @@
                 color: #808080a3;
                 vertical-align: middle;
             }
+            .h-38px{
+                height:38px !important
+            }
             .kev-pagination .pagination-rounded .page-link{
                 height: 40px;
                 width: 40px;
@@ -1863,6 +1866,9 @@
                 display: flex;
                 transition: all 0.4s ease 0s;
                
+            }
+            .border-1{
+                border:1px solid #ced4da !important
             }
             .font-20px{
                 font-size: 20px !important;

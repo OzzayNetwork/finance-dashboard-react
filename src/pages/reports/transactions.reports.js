@@ -68,7 +68,12 @@ const Transactions =()=> {
     const[]=useState()
 
     const[listOfTransTypes,setListOfTransaType]=useState([])
-    const[searchReceipt,setSearch]=useState("")
+
+    //searching
+    const[searchString,setSearch]=useState("")
+    //search by
+    const[searchBy,setSeachBy]=useState("receiptNumber")
+    const[searchByText,setSearchByText]=useState("Receipt Number")
 
     //setting list of schools
     useEffect(()=>{
@@ -85,7 +90,7 @@ const Transactions =()=> {
         setActiveSchoolText(schoolName.toLowerCase())
     }
     $('.can-click').unbind().on('click', function(){
-        alert("clicked")
+        //alert("clicked")
     })
 
     
@@ -94,8 +99,9 @@ const Transactions =()=> {
 
     //getting the transactions
     useEffect(()=>{
+        //alert(searchBy)
         setTableLoadingStatus(true)     
-       AuthService.getTransactionsByDate(historyStartDate,historyEndDate,historyPageSize,pageNo,transType,userType,searchReceipt).then((res)=>{
+       AuthService.getTransactionsByDate(historyStartDate,historyEndDate,historyPageSize,pageNo,transType,userType,searchString,searchBy).then((res)=>{
 
         // console.log(res.data.data)
         //console.log(ListItems.theSchools)
@@ -157,7 +163,7 @@ const Transactions =()=> {
                   }, 5000);           
         })
 
-    },[historyEndDate,historyStartDate,pageNo,historyPageSize,transType,userType,searchReceipt])
+    },[historyEndDate,historyStartDate,pageNo,historyPageSize,transType,userType,searchString,searchBy])
 
    
     //===================================///
@@ -620,7 +626,7 @@ const Transactions =()=> {
                             <div class="row">
                                 <div class="col-sm-4 col-md-3 col-lg-2">
                                     <div class="">
-                                        <select value={historyPageSize} class="form-select" onChange={(event)=>{
+                                        <select value={historyPageSize} class="form-select h-38px" onChange={(event)=>{
                                         setHistoryPageSize(event.target.value)
                                         setPageNo(1)}} >
                                             <option value="10">10 Rows</option>
@@ -632,12 +638,12 @@ const Transactions =()=> {
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 col-md-7 col-lg-8 d-flex align-items-center pr-0 pl-0">
-                                    <div className="dataTables_filter   px-3 flex-grow-1">
+                                <div class="col-sm-8 col-md-9 col-lg-10 d-flex align-items-center pr-0 pl-0 d-flex">
+                                    <div className="dataTables_filter   pl-3 pr-0 flex-grow-1">
                                         <label>
                                             <input 
                                             type="search" 
-                                            className="form-control form-control-sm emailSearch w-100" 
+                                            className="form-control  emailSearch w-100 border-radius-0 border-1" 
                                             onChange={(e)=>{
                                                 setSearch(e.target.value)
                                                 setHistoryEndDate("")
@@ -650,9 +656,34 @@ const Transactions =()=> {
                                                 setTransactionsSet("All Transactions")
                                                 
                                             }} 
-                                            placeholder="Search Receipt No."
+                                            placeholder={"Search By "+searchByText}
                                             aria-controls="datatable-buttons"/>
-                                        </label>
+                                        </label>                                        
+                                    </div>
+                                    <div class="pr-2">
+                                        <select value={searchBy}  class="form-select bg-light h-38px w-auto border-radius-0 border-1 d-none" onChange={(event)=>{
+                                            setSeachBy(event.target.value)
+                                            if(event.target.value=="receiptNumber"){
+                                                setSearchByText("Receipt Number")
+                                            }
+
+                                            if(event.target.value=="accountFrom"){
+                                                setSearchByText("Account From")
+                                            }
+
+                                            if(event.target.value=="receiptNumber"){
+                                                setSearchByText("Receipt Number")
+                                            }
+
+                                            if(event.target.value=="accountTo"){
+                                                setSearchByText("Recepient Blink Acc No.")
+                                            }
+
+                                           }} >
+                                                <option value="receiptNumber">Receipt Number</option>
+                                                <option value="accountFrom">Account From</option>
+                                                <option value="accountTo">Recepient Blink ID</option>                                                
+                                        </select>
                                     </div>
                                 </div>
                             </div>
