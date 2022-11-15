@@ -63,6 +63,8 @@ const Transactions =()=> {
     const[clickedTransactionId,setClickedTransactionId]=useState("")
     const[clickedTransactionRow,setClickedTransactionRow]=useState({})
 
+    const[clickedBlinkAcc,setClickedBlinkAcc]=useState("")
+
     const[]=useState()
 
     const[listOfTransTypes,setListOfTransaType]=useState([])
@@ -374,9 +376,16 @@ const Transactions =()=> {
       }, {
         dataField: 'userAccount.blinkId',
         text: 'Blink ID',
-        classes:'text-uppercase',
+        classes:'text-uppercase cursor-pointer can-click',
         formatter:accFormatter,
         sort: true,  
+        events: {
+            onClick: (e, column, columnIndex, row, rowIndex) => {
+                $('.account-details-button').click()
+                // alert("clicked")
+                setClickedBlinkAcc(row.userAccount.userId)
+            }
+        },
         headerSortingStyle,
         sortCaret: (order, column) => {
             if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
@@ -549,6 +558,7 @@ const Transactions =()=> {
         <>
 
         <TransactionDetails activeTransaction={clickedTransactionId} activeTransactionRow={clickedTransactionRow}/>
+        <AccountDetails activeBlinker={clickedBlinkAcc}/>
 
         {loading ? (
             <div className="content-loader-container bg-black bg-opacity-50">
@@ -674,7 +684,9 @@ const Transactions =()=> {
                                 </div>
                             </div>
                             <div class="col-12">
-                            <button className="btn btn-primary w-100 text-uppercase text-center mt-3 transaction-details-button d-none" data-bs-toggle="modal" data-bs-target="#transaction-details-modal">Payment Transfer</button>
+                                <button className="btn btn-primary w-100 text-uppercase text-center mt-3 transaction-details-button d-none" data-bs-toggle="modal" data-bs-target="#transaction-details-modal">Payment Transfer</button>
+                                <button className="btn btn-primary w-100 text-uppercase text-center mt-3 account-details-button d-none" data-bs-toggle="modal" data-bs-target="#account-details-modal">Account details</button>
+
                                 <div class="d-flex tbl-filter-container justify-content-between align-items-center py-0 my-4">
                                     <div class="d-flex the-filters">
                                         <div>

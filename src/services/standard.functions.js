@@ -15,6 +15,12 @@ class stdFunctions {
       return formatCurrency.format(num)
     }
 
+    //comma separator
+    currencyFormat2=(num)=>{
+        let formatted = num.toLocaleString('en-US');
+        return formatted
+    }
+
     //checking if a transaction is a deposit 
     isDepositTransaction=(transactionType)=>{
         if (transactionType==="Deposit"){

@@ -39,6 +39,41 @@ const Home=()=>{
     const [schoolAdminNos,setSchoolAdminNos]=useState(0)
     const [schoolNos,setSchoolNos]=useState(0)
 
+    //quick stats
+    const[todaysDeposits,setTodayDeposits]=useState(0)
+    const[todaysExpenditure,setTodayExpenditure]=useState(0)
+    const[todayEndDate,setTodayEndDate]=useState(Moment().format('YYYY-MM-DD 23:59:59'))
+    const[todayStartDate,setTodayStartDate]=useState(Moment().format('YYYY-MM-DD 00:00:00'))
+
+    const[yesterdaysDeposit,setYesterdaydeposits]=useState(0)
+    const[yesterdayExpenditure,setYesterdayExpenditure]=useState(0)
+    const[yesterdayEndDate,setYesterdayEndDate]=useState(Moment().subtract(1, 'days').format('YYYY-MM-DD 23:59:59'))
+    const[yesterdayStartDate,setYesterdayStartDate]=useState(Moment().subtract(1, 'days').format('YYYY-MM-DD 00:00:00'))
+
+    const[weeklyDeposits,setWeeklyDeposits]=useState(0)
+    const[weeklyExpenditure,setWeeklyExpenditure]=useState(0)
+    Moment().startOf('isoWeek')
+    const[startOfWeek,setStartOfWeek]=useState(Moment().startOf('week').format('YYYY-MM-DD 00:00:00'))
+    const[endOfWeek,setEndOfWeek]=useState(Moment().endOf('week').format('YYYY-MM-DD 23:59:59'))
+
+    //last week numbers
+    const[lastWeekDeposits,setLastWeekDeposits]=useState(0)
+    const[lastWeekExpenditure,setLastWeekExpenditure]=useState(0)
+    Moment().startOf('isoWeek')
+    const[startOfLastWeek,setStartOfLastWeek]=useState(Moment().subtract(1, 'weeks').startOf('week').format('YYYY-MM-DD 00:00:00'))
+    const[endOfLastWeek,setEndOfLastWeek]=useState(Moment().subtract(1, 'weeks').endOf('week').format('YYYY-MM-DD 23:59:59'))
+
+    const[monthlyDeposits,setMonthlyDeposits]=useState(0)
+    const[monthlyExpenditure,setMonthlyExpenditure]=useState(0)
+    const[startOfMonth,setStartOfMonth]=useState(Moment().startOf('month').format('YYYY-MM-DD 00:00:00'))
+    const[endOfMonth,setEndOfMonth]=useState(Moment().endOf('month').format('YYYY-MM-DD 23:59:59'))
+
+    //last mont numbers
+    const[lastMonthDeposits,setLastMonthDeposits]=useState(0)
+    const[lastMonthExpenditure,setLastMonthExpenditure]=useState(0)
+    const[startOfLastMonth,setStartOfLastMonth]=useState(Moment().subtract(1, 'months').startOf('month').format('YYYY-MM-DD 00:00:00'))
+    const[endOfLastMonth,setEndOfLastMonth]=useState(Moment().subtract(1, 'months').endOf('month').format('YYYY-MM-DD 23:59:59'))
+
 
     console.log(StdFunctions.adminFName)
     useEffect(()=>{
@@ -50,7 +85,176 @@ const Home=()=>{
         setTotalRev(14500)
     },[])
 
+    //getting quick stats
+    useEffect(()=>{
+        //getStats(transType,toDateTime,fromDateTime)
+        console.log("here")
 
+        AuthService.getStats("Today's Deposit","Deposit",todayEndDate,todayStartDate,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setTodayDeposits(res.data.data.totals)
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        AuthService.getStats("Today's Expenditure By Students","Merchant_Pay",todayEndDate,todayStartDate,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setTodayExpenditure(res.data.data.totals)
+                // alert("weekly found")
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        // getting yesterdays numbers
+        AuthService.getStats("Yesterdays Deposit","Deposit",yesterdayEndDate,yesterdayStartDate,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setYesterdaydeposits(res.data.data.totals)
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        AuthService.getStats("Yesterdays Expenditure By Students","Merchant_Pay",yesterdayEndDate,yesterdayStartDate,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setYesterdayExpenditure(res.data.data.totals)
+                // alert("weekly found")
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        AuthService.getStats("Weekly Deposits by Parents","Deposit",endOfWeek,startOfWeek,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setWeeklyDeposits(res.data.data.totals)
+                // alert("weekly found")
+                //alert(startOfWeek)
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+
+        AuthService.getStats("Weekly Expenditure By Students","Merchant_Pay",endOfWeek,startOfWeek,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setWeeklyExpenditure(res.data.data.totals)
+                // alert("weekly found")
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        // last weeks numbers
+        AuthService.getStats("Lats weeks Deposits by Parents","Deposit",endOfLastWeek,startOfLastWeek,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setLastWeekDeposits(res.data.data.totals)                
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+
+        AuthService.getStats("last weeks Expenditure By Students","Merchant_Pay",endOfLastWeek,startOfLastWeek,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setLastWeekExpenditure(res.data.data.totals)
+                // alert("weekly found")
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+
+        AuthService.getStats("This Months Deposits by parents","Deposit",endOfMonth,startOfMonth,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setMonthlyDeposits(res.data.data.totals)
+                // alert(startOfMonth)
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        AuthService.getStats("Monthly Expenditure By Students","Merchant_Pay",endOfMonth,startOfMonth,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setMonthlyExpenditure(res.data.data.totals)
+                // alert("weekly found")
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        //last month numbers
+        AuthService.getStats("This Months Deposits by parents","Deposit",endOfLastMonth,startOfLastMonth,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setLastMonthDeposits(res.data.data.totals)
+                // alert(startOfMonth)
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+
+        AuthService.getStats("Last Months Expenditure By Students","Merchant_Pay",endOfLastMonth,startOfLastMonth,"Student").then((res)=>{   
+            console.log(res.data.data.totals)         
+              if(res.data.statusCode==="OK"){
+                setLastMonthExpenditure(res.data.data.totals)
+                // alert("weekly found")
+              }
+              else{
+              }
+        }).catch((err)=>{
+            console.log(err) 
+                    
+        })
+    },[])
+
+    window.addEventListener("scroll", (event) => {
+        let scroll = document.$("scrol-elemetn").getBoundingClientRect().top;
+        console.log(scroll)
+    });
     // highchart trial
 
    
@@ -534,7 +738,7 @@ const Home=()=>{
 
                                                    
                                                     <h5 className="font-size-14 mb-0 mt-3 text-black fw-semibold">Today's Transactions</h5>
-                                                    <p className="text-grey">26 Sep 2022</p>
+                                                    <p className="text-grey">{Moment().format('MMM Do YYYY')}</p>
                                                 </div>
 
                                                 <div className="row">
@@ -542,17 +746,33 @@ const Home=()=>{
                                                         <div className="text-muted mt-3">
                                                             <div class="px-4">
                                                                 <p className="mb-0">Deposits</p>
-                                                                <h4 className="text-black fw-semibold">KES 20,123</h4>
-                                                                <div>
-                                                                    <p class="text-muted"><span class="text-success me-2 fw-semibold"><i class="mdi mdi-arrow-up"></i> +24,326 </span> Since Previose day</p>
-                                                                </div>
+                                                                <h4 className="text-black fw-semibold">{StdFunctions.kenyaCurrency(todaysDeposits)}</h4>
+                                                               
+
+                                                                {StdFunctions.amountIsGreaterThan(yesterdaysDeposit,todaysDeposits) ? (
+                                                                    <div>
+                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {todaysDeposits-yesterdaysDeposit} </span> Since Previose day</p>
+                                                                    </div>
+                                                                ) : (
+                                                                   
+                                                                    <div>
+                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {todaysDeposits-yesterdaysDeposit} </span> Since Previose day</p>
+                                                                    </div>
+                                                                )}
                                                             </div>
                                                             <div class="bg-dark p-4 mt-4">
                                                                 <p class="text-light mb-0 opacity-75">Expenditure</p>
                                                                 <div>
                                                                     <h5 class="text-white mb-0">
-                                                                        KES 200,300
-                                                                        <small class="text-light opacity-75 pl-2">+20,250</small>
+                                                                        {StdFunctions.kenyaCurrency(todaysExpenditure)}
+                                                                        {StdFunctions.amountIsGreaterThan(yesterdayExpenditure,todaysExpenditure) ? (
+                                                                            <small class="text-light opacity-75 pl-2">{"+"+StdFunctions.currencyFormat2(todaysExpenditure-yesterdayExpenditure)}</small>
+
+                                                                        ) : (
+                                                                        
+                                                                            <small class="text-light opacity-75 pl-2">{StdFunctions.currencyFormat2(todaysExpenditure-yesterdayExpenditure)}</small>
+
+                                                                        )}
                                                                     </h5>
                                                                 </div>
                                                             </div>
@@ -579,7 +799,7 @@ const Home=()=>{
 
                                                    
                                                     <h5 className="font-size-14 mb-0 mt-3 text-black fw-semibold">Weekly Transactions</h5>
-                                                    <p className="text-grey">26 Sep 2022</p>
+                                                    <p className="text-grey">{"From "+Moment(startOfWeek).format('MMM Do YYYY')}</p>
                                                 </div>
 
                                                 <div className="row">
@@ -587,17 +807,34 @@ const Home=()=>{
                                                         <div className="text-muted mt-3">
                                                             <div class="px-4">
                                                                 <p className="mb-0">Deposits</p>
-                                                                <h4 className="text-black fw-semibold">KES 20,123</h4>
-                                                                <div>
-                                                                    <p class="text-muted"><span class="text-success me-2 fw-semibold"><i class="mdi mdi-arrow-up"></i> +24,326 </span> Since Previose day</p>
-                                                                </div>
+                                                                <h4 className="text-black fw-semibold">{StdFunctions.kenyaCurrency(weeklyDeposits)}</h4>
+
+                                                                {StdFunctions.amountIsGreaterThan(yesterdaysDeposit,todaysDeposits) ? (
+                                                                    <div>
+                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {StdFunctions.currencyFormat2(weeklyDeposits-lastWeekDeposits)} </span> Since Previose day</p>
+                                                                    </div>
+                                                                ) : (
+                                                                   
+                                                                    <div>
+                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {StdFunctions.currencyFormat2(weeklyDeposits-lastWeekDeposits)} </span> Since Previose day</p>
+                                                                    </div>
+                                                                )}
                                                             </div>
                                                             <div class="purple-bg p-4 mt-4">
                                                                 <p class="text-light mb-0 opacity-75">Expenditure</p>
                                                                 <div>
                                                                     <h5 class="text-white mb-0">
-                                                                        KES 200,300
-                                                                        <small class="text-light opacity-75 pl-2">+20,250</small>
+                                                                        {StdFunctions.kenyaCurrency(weeklyExpenditure)}
+
+                                                                        {StdFunctions.amountIsGreaterThan(lastWeekExpenditure,weeklyExpenditure) ? (
+                                                                            <small class="text-light opacity-75 pl-2">{"+"+StdFunctions.currencyFormat2(weeklyExpenditure-lastWeekExpenditure)}</small>
+
+                                                                        ) : (
+                                                                        
+                                                                            <small class="text-light opacity-75 pl-2">{StdFunctions.currencyFormat2(weeklyExpenditure-lastWeekExpenditure)}</small>
+
+                                                                        )}
+
                                                                     </h5>
                                                                 </div>
                                                             </div>
@@ -623,8 +860,8 @@ const Home=()=>{
                                                     </div>
 
                                                    
-                                                    <h5 className="font-size-14 mb-0 mt-3 text-black fw-semibold">Today's Transactions</h5>
-                                                    <p className="text-grey">26 Sep 2022</p>
+                                                    <h5 className="font-size-14 mb-0 mt-3 text-black fw-semibold">This Month</h5>
+                                                    <p className="text-grey">{Moment(startOfMonth).format('MMM YYYY')}</p>
                                                 </div>
 
                                                 <div className="row">
@@ -632,17 +869,34 @@ const Home=()=>{
                                                         <div className="text-muted mt-3">
                                                             <div class="px-4">
                                                                 <p className="mb-0">Deposits</p>
-                                                                <h4 className="text-black fw-semibold">KES 20,123</h4>
-                                                                <div>
-                                                                    <p class="text-muted"><span class="text-success me-2 fw-semibold"><i class="mdi mdi-arrow-up"></i> +24,326 </span> Since Previose day</p>
-                                                                </div>
+                                                                <h4 className="text-black fw-semibold">{StdFunctions.kenyaCurrency(monthlyDeposits)}</h4>
+                                                                
+
+                                                                {StdFunctions.amountIsGreaterThan(yesterdaysDeposit,todaysDeposits) ? (
+                                                                    <div>
+                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {StdFunctions.currencyFormat2(monthlyDeposits-lastMonthDeposits)} </span> Since Previose day</p>
+                                                                    </div>
+                                                                ) : (
+                                                                   
+                                                                    <div>
+                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {StdFunctions.currencyFormat2(monthlyDeposits-lastMonthDeposits)} </span> Since Previose day</p>
+                                                                    </div>
+                                                                )}
                                                             </div>
                                                             <div class="bg-dark p-4 mt-4">
                                                                 <p class="text-light mb-0 opacity-75">Expenditure</p>
                                                                 <div>
                                                                     <h5 class="text-white mb-0">
-                                                                        KES 200,300
-                                                                        <small class="text-light opacity-75 pl-2">+20,250</small>
+                                                                       {StdFunctions.kenyaCurrency(monthlyExpenditure)}
+
+                                                                        {StdFunctions.amountIsGreaterThan(lastMonthExpenditure,monthlyExpenditure) ? (
+                                                                            <small class="text-light opacity-75 pl-2">{"+"+StdFunctions.currencyFormat2(monthlyExpenditure-lastMonthExpenditure)}</small>
+
+                                                                        ) : (
+                                                                        
+                                                                            <small class="text-light opacity-75 pl-2">{StdFunctions.currencyFormat2(monthlyExpenditure-lastMonthExpenditure)}</small>
+
+                                                                        )}
                                                                     </h5>
                                                                 </div>
                                                             </div>

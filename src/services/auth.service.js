@@ -78,6 +78,13 @@ class AuthService {
       return axiosInstance.get(baseUrl+"/api/v2/accounts/searchUserAccounts?msisdn="+phoneNum)
    }
 
+   //transactions quick stats
+   getStats(searchTitle,transType,toDateTime,fromDateTime,userType){
+      //return axiosInstance.get(baseUrl+"/api/v2/transactions/getTotalsByTransTypeAndDates?transType="+transType+"&toDateTime="+toDateTime+"&fromDateTime="+fromDateTime+"&toDateTime="+searchTitle)
+
+      return axiosInstance.get(baseUrl+"/api/v2/transactions/getTotalsByTransTypeAndDates?toDateTime="+toDateTime+"&fromDateTime="+fromDateTime+"&searchTitle="+searchTitle+"&transType="+transType+"&userType="+userType)
+   }
+
    //getting account limits
    getAccountLimits(accountId){
       return axiosInstance.get(baseUrl+"/api/v2/blinkerAccountLimits/getAccountLimits/"+accountId)
