@@ -639,6 +639,31 @@ const Transactions =()=> {
                                     </div>
                                 </div>
                                 <div class="col-sm-8 col-md-9 col-lg-10 d-flex align-items-center pr-0 pl-0 d-flex">
+                                <div class="pr-0 d-none">
+                                        <select value={searchBy}  class="form-select bg-light h-38px w-auto border-radius-0 border-1" onChange={(event)=>{
+                                            setSeachBy(event.target.value)
+                                            if(event.target.value=="receiptNumber"){
+                                                setSearchByText("Receipt Number")
+                                            }
+
+                                            if(event.target.value=="accountFrom"){
+                                                setSearchByText("Account From")
+                                            }
+
+                                            if(event.target.value=="receiptNumber"){
+                                                setSearchByText("Receipt Number")
+                                            }
+
+                                            if(event.target.value=="accountTo"){
+                                                setSearchByText("Recepient Blink Acc No.")
+                                            }
+
+                                           }} >
+                                                <option value="receiptNumber">Search By Receipt Number</option>
+                                                <option value="accountFrom">Search By Account From</option>
+                                                <option value="accountTo">Search By Recepient Blink ID</option>                                                
+                                        </select>
+                                    </div>
                                     <div className="dataTables_filter   pl-3 pr-0 flex-grow-1">
                                         <label>
                                             <input 
@@ -661,7 +686,7 @@ const Transactions =()=> {
                                         </label>                                        
                                     </div>
                                     <div class="pr-2">
-                                        <select value={searchBy}  class="form-select bg-light h-38px w-auto border-radius-0 border-1 d-none" onChange={(event)=>{
+                                        <select value={searchBy}  class="form-select bg-light h-38px w-auto border-radius-0 border-1 cursor-pointer d-none" title="Select an Option to search by" onChange={(event)=>{
                                             setSeachBy(event.target.value)
                                             if(event.target.value=="receiptNumber"){
                                                 setSearchByText("Receipt Number")
@@ -680,9 +705,9 @@ const Transactions =()=> {
                                             }
 
                                            }} >
-                                                <option value="receiptNumber">Receipt Number</option>
-                                                <option value="accountFrom">Account From</option>
-                                                <option value="accountTo">Recepient Blink ID</option>                                                
+                                                <option value="receiptNumber">Search By Receipt Number</option>
+                                                <option value="accountFrom">Search By Account From</option>
+                                                <option value="accountTo">Search By Recepient Blink ID</option>                                                
                                         </select>
                                     </div>
                                 </div>
