@@ -686,7 +686,7 @@ const Transactions =()=> {
                                         </label>                                        
                                     </div>
                                     <div class="pr-2">
-                                        <select value={searchBy}  class="form-select bg-light h-38px w-auto border-radius-0 border-1 cursor-pointer d-none" title="Select an Option to search by" onChange={(event)=>{
+                                        <select value={searchBy}  class="form-select bg-light h-38px w-auto border-radius-0 border-1 cursor-pointer" title="Select an Option to search by" onChange={(event)=>{
                                             setSeachBy(event.target.value)
                                             if(event.target.value=="receiptNumber"){
                                                 setSearchByText("Receipt Number")

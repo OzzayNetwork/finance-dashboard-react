@@ -1070,7 +1070,7 @@ const Home=()=>{
                                                                     </div>
                                                                 )}
                                                             </div>
-                                                            <div class="purple-bg p-4 mt-4">
+                                                            <div class="purple-bg bg-primary-blink p-4 mt-4">
                                                                 <p class="text-light mb-0 opacity-75">Expenditure</p>
                                                                 <div>
                                                                     <h5 class="text-white mb-0">

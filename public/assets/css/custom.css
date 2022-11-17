@@ -1895,6 +1895,9 @@
                 align-items: center;
                 justify-content: center;
             }
+            .text-primary-blink-two{
+                color:orange !important
+            }
 
             .lds-ripple {
                 display: inline-block;
@@ -1942,6 +1945,8 @@
                   opacity: 0;
                 }
               }
+
+
                 
                
                   
