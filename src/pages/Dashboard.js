@@ -13,6 +13,7 @@ import SendMoney from "../components/sendMoney.js";
 import ErrorBoundary from "../components/ErrorBoundary.js";
 import Transactions from "./reports/transactions.reports.js";
 import TransactionsEditsReport from "./reports/transactionsEdits.reports.js";
+import Guardians from "./blinkUsers/guardians.js";
 
 import AllBlinkers from "./myBlinkers/allBlinkers.js";
 import BlinkerDetails from "./myBlinkers/blinkerDetails.js";
@@ -58,6 +59,8 @@ const Dashboard=()=>{
                   <Route exact path={"/TransactionsEditsReport"} element={<ErrorBoundary><TransactionsEditsReport/></ErrorBoundary>}></Route>
                   <Route exact path={"/MyBlinkers"} element={<ErrorBoundary><AllBlinkers/></ErrorBoundary>}></Route>
                   <Route exact path={"/BlinkerDetails/:id"} element={<ErrorBoundary><BlinkerDetails/></ErrorBoundary>}></Route>
+                  <Route exact path={"/Guardians"} element={<ErrorBoundary><Guardians/></ErrorBoundary>}></Route>
+
                 </Routes>
 
                 <div className="mx-5 px-5 d-none">

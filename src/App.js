@@ -18,6 +18,7 @@ import TransactionsEditsReport from "./pages/reports/transactionsEdits.reports.j
 import Protected from "./components/protected";
 import AllBlinkers from "./pages/myBlinkers/allBlinkers.js";
 import BlinkerDetails from "./pages/myBlinkers/blinkerDetails.js";
+import Guardians from "./pages/blinkUsers/guardians.js";
 
 import Loader from "./components/loader.js";
 import Home from "./pages/home.js";
@@ -120,6 +121,7 @@ function App() {
                 <Route exact path={"Transactions"} element={<Transactions />}></Route>
                 <Route exact path={"TransactionsEditsReport"} element={<TransactionsEditsReport />}></Route>
                 <Route exact path={"MyBlinkers"} element={<AllBlinkers />}></Route>
+                <Route exact path={"Guardians"} element={<Guardians />}></Route>
                 <Route exact path={"BlinkerDetails/:id"} element={<BlinkerDetails />}></Route>
               </Route>
               <Route path="*" element={<Navigate to="/" />}></Route>
