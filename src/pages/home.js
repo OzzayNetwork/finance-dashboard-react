@@ -1001,12 +1001,12 @@ const Home=()=>{
 
                                                                 {StdFunctions.amountIsGreaterThan(yesterdaysDeposit,todaysDeposits) ? (
                                                                     <div>
-                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {todaysDeposits-yesterdaysDeposit} </span> Since Yesterday</p>
+                                                                        <p class="text-muted"><span class="text-success me-2 fw-semibold"><i class="mdi mdi-arrow-up"></i> {StdFunctions.currencyFormat2(todaysDeposits-yesterdaysDeposit)} </span> Since Yesterday</p>
                                                                     </div>
                                                                 ) : (
                                                                    
                                                                     <div>
-                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {todaysDeposits-yesterdaysDeposit} </span> Since Yesterday</p>
+                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {StdFunctions.currencyFormat2(todaysDeposits-yesterdaysDeposit)} </span> Since Yesterday</p>
                                                                     </div>
                                                                 )}
                                                             </div>
@@ -1066,7 +1066,7 @@ const Home=()=>{
                                                                 ) : (
                                                                    
                                                                     <div>
-                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {StdFunctions.currencyFormat2(weeklyDeposits-lastWeekDeposits)} </span> Since Last Week</p>
+                                                                        <p class="text-muted"><span class="text-success me-2 fw-semibold"><i class="mdi mdi-arrow-up"></i> {StdFunctions.currencyFormat2(weeklyDeposits-lastWeekDeposits)} </span> Since Last Week</p>
                                                                     </div>
                                                                 )}
                                                             </div>
@@ -1129,7 +1129,7 @@ const Home=()=>{
                                                                 ) : (
                                                                    
                                                                     <div>
-                                                                        <p class="text-muted"><span class="text-danger me-2 fw-semibold"><i class="mdi mdi-arrow-down"></i> {StdFunctions.currencyFormat2(monthlyDeposits-lastMonthDeposits)} </span> Since Last Month</p>
+                                                                        <p class="text-muted"><span class="text-success me-2 fw-semibold"><i class="mdi mdi-arrow-up"></i> {StdFunctions.currencyFormat2(monthlyDeposits-lastMonthDeposits)} </span> Since Last Month</p>
                                                                     </div>
                                                                 )}
                                                             </div>
