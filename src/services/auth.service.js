@@ -122,6 +122,9 @@ class AuthService {
       //alert("the Blinker id brought forward is "+blinkAccountId)
       return axiosInstance.get(baseUrl + "/api/v2/transactions/searchTransaction?pageNo="+pageNo+"&pageSize="+pageSize+"&fromDateTime="+startDate+"&toDateTime="+endDate+"&transType="+transType+"&userType="+userType+"&"+searchBy+"="+receiptNumber);
    }
+   getBlinkUsers(userType,pageNo,searchBy,pageSize,searchString){
+      return axiosInstance.get(baseUrl+"/api/v2/accounts/searchUserAccounts?userType="+userType+"&pageSize="+pageSize+"&pageNo="+pageNo+"&"+searchBy+"="+searchString)
+   }
 
 
 
