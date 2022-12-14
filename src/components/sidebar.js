@@ -101,7 +101,7 @@ const Sidebar=()=>{
                              
                               <li><a href="#" class="btn btn-primary text-center mx-4 px-3 text-white  mb-3 "><i class="mdi mdi-plus text-white m-0 p-0"></i>Add A school</a></li>
                                 {theSchools.map((school, index)=>(
-                                        <li><a href="#">{school.institutionName}</a></li>
+                                        <li><a href="#">{school.institutionName.toLowerCase()}</a></li>
                                     ))
                                         
                                 }    
@@ -115,15 +115,34 @@ const Sidebar=()=>{
                                   <span>Blink Users</span>
                               </a>
                               <ul className="sub-menu" aria-expanded="false">
-                                  <li><a href="donation-active.html">Blinkers</a></li>
+                                    <li>
+                                        <Link to="/Blinkers" className={`waves-effect ${ StdFunctions.equalTo(currentWindow,"/Blinkers")? "active" : ""}`}>
+                                            <span>Blinkers</span>
+                                        </Link>
+                                    </li>
                                     <li>
                                         <Link to="/Guardians" className={`waves-effect ${ StdFunctions.equalTo(currentWindow,"/Guardians")? "active" : ""}`}>
                                             <span>Guardians</span>
                                         </Link>
                                     </li>
-                                  <li><a href="donations-mine.html">Merchants</a></li>
-                                  <li><a href="donations-mine.html">Bursers</a></li>
-                                  <li><a href="donations-mine.html">School Admins</a></li>
+
+                                    <li>
+                                        <Link to="/Bursars" className={`waves-effect ${ StdFunctions.equalTo(currentWindow,"/Bursars")? "active" : ""}`}>
+                                            <span>Bursars</span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/Merchants" className={`waves-effect ${ StdFunctions.equalTo(currentWindow,"/Merchants")? "active" : ""}`}>
+                                            <span>Merchants</span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/SchoolAdmin" className={`waves-effect ${ StdFunctions.equalTo(currentWindow,"/SchoolAdmin")? "active" : ""}`}>
+                                            <span>School Admins</span>
+                                        </Link>
+                                    </li>
+
+                                  
                               </ul>
                           </li>
 

@@ -767,25 +767,25 @@ const Home=()=>{
       useEffect(()=>{
         //setGuardiansNos(StdFunctions.getBlinkUsers("Student",1).res.totalElements)
         //console.log(StdFunctions.getBlinkUsers("Student",1).res.totalElements)
-        AuthService.getBlinkUsers("Student",1).then((res)=>{
+        AuthService.getBlinkUsers2("Student",1).then((res)=>{
             console.log(res)
             setBlinkersNos(res.data.totalElements)
             console.log(res.data.totalElements)
         })
 
-        AuthService.getBlinkUsers("TuckShopAttendant",1).then((res)=>{
+        AuthService.getBlinkUsers2("TuckShopAttendant",1).then((res)=>{
             console.log(res)
             setBursersNos(res.data.totalElements)
             console.log(res.data.totalElements)
         })
 
-        AuthService.getBlinkUsers("Parent",1).then((res)=>{
+        AuthService.getBlinkUsers2("Parent",1).then((res)=>{
             console.log(res)
             setGuardiansNos(res.data.totalElements)
             console.log(res.data.totalElements)
         })
 
-        AuthService.getBlinkUsers("SchoolAdmin",1).then((res)=>{
+        AuthService.getBlinkUsers2("SchoolAdmin",1).then((res)=>{
             console.log(res)
             setSchoolAdminNos(res.data.totalElements)
             console.log(res.data.totalElements)
@@ -919,7 +919,7 @@ const Home=()=>{
                             <div className="card">
                                 <div className="card-body">
                                     <div className="row">
-                                        <div  href="#" className="col-3 waves-effect py-3">
+                                        <Link  to="/Guardians" className="col-3 waves-effect py-3">
                                             <div className="text-ceter align-items-center d-flex justify-content-center flex-column px-0">
                                                 <div className="options-cont options-cont-info mb-0">
                                                     <div className="flex-shrink-0 m-0 d-flex justify-content-center align-items-center">
@@ -929,9 +929,9 @@ const Home=()=>{
                                                 <small className="mt-2">Guardians</small>
                                                 <p className="fw-medium text-black text-center text-center mb-0 mt-0"> {guardiansNos}</p>
                                             </div>
-                                        </div>
+                                        </Link>
 
-                                        <div  href="#" className="col-3 waves-effect py-3">
+                                        <Link  to="/Blinkers" className="col-3 waves-effect py-3">
                                             <div className="text-ceter align-items-center d-flex justify-content-center flex-column px-0">
                                                 <div className="options-cont options-cont-danger mb-0">
                                                     <div className="flex-shrink-0 m-0 d-flex justify-content-center align-items-center">
@@ -941,9 +941,9 @@ const Home=()=>{
                                                 <small className="mt-2">Blinkers</small>
                                                 <p className="fw-medium text-black text-center text-center mb-0 mt-0"> {blinkersNos}</p>
                                             </div>
-                                        </div>
+                                        </Link>
 
-                                        <div  href="#" className="col-3 waves-effect py-3">
+                                        <Link  to="/Merchants" className="col-3 waves-effect py-3">
                                             <div className="text-ceter align-items-center d-flex justify-content-center flex-column px-0">
                                                 <div className="options-cont options-cont-success mb-0">
                                                     <div className="flex-shrink-0 m-0 d-flex justify-content-center align-items-center">
@@ -953,9 +953,9 @@ const Home=()=>{
                                                 <small className="mt-2">Merchants</small>
                                                 <p className="fw-medium text-black text-center text-center mb-0 mt-0"> {bursersNos}</p>
                                             </div>
-                                        </div>
+                                        </Link>
 
-                                        <div  href="#" className="col-3 waves-effect py-3">
+                                        <Link to="/SchoolAdmin"  className="col-3 waves-effect py-3">
                                             <div className="text-ceter align-items-center d-flex justify-content-center flex-column px-0">
                                                 <div className="options-cont options-cont-purple mb-0">
                                                     <div className="flex-shrink-0 m-0 d-flex justify-content-center align-items-center">
@@ -965,7 +965,7 @@ const Home=()=>{
                                                 <small className="mt-2">School Admins</small>
                                                 <p className="fw-medium text-black text-center text-center mb-0 mt-0"> {schoolAdminNos}</p>
                                             </div>
-                                        </div>
+                                        </Link>
 
                                        
                                     </div>

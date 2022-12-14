@@ -96,7 +96,7 @@ class AuthService {
    }
 
    //getting system users
-   getBlinkUsers(userType,pageSize){
+   getBlinkUsers2(userType,pageSize){
       return axiosInstance.get(baseUrl+"/api/v2/accounts/searchUserAccounts?pageSize="+pageSize+"&userType="+userType)
    }
 

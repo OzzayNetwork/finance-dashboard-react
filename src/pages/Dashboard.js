@@ -14,6 +14,10 @@ import ErrorBoundary from "../components/ErrorBoundary.js";
 import Transactions from "./reports/transactions.reports.js";
 import TransactionsEditsReport from "./reports/transactionsEdits.reports.js";
 import Guardians from "./blinkUsers/guardians.js";
+import Blinkers from "./blinkUsers/blinkers.js";
+import Bursars from "./blinkUsers/bursers.js";
+import Merchants from "./blinkUsers/merchants.js";
+import SchoolAdmin from "./blinkUsers/schoolAdmins.js";
 
 import AllBlinkers from "./myBlinkers/allBlinkers.js";
 import BlinkerDetails from "./myBlinkers/blinkerDetails.js";
@@ -60,6 +64,12 @@ const Dashboard=()=>{
                   <Route exact path={"/MyBlinkers"} element={<ErrorBoundary><AllBlinkers/></ErrorBoundary>}></Route>
                   <Route exact path={"/BlinkerDetails/:id"} element={<ErrorBoundary><BlinkerDetails/></ErrorBoundary>}></Route>
                   <Route exact path={"/Guardians"} element={<ErrorBoundary><Guardians/></ErrorBoundary>}></Route>
+                  <Route exact path={"/Blinkers"} element={<ErrorBoundary><Blinkers/></ErrorBoundary>}></Route>
+                  <Route exact path={"/Bursars"} element={<ErrorBoundary><Bursars/></ErrorBoundary>}></Route>
+                  <Route exact path={"/SchoolAdmin"} element={<ErrorBoundary><SchoolAdmin/></ErrorBoundary>}></Route>
+
+
+                  <Route exact path={"/Merchants"} element={<ErrorBoundary><Merchants/></ErrorBoundary>}></Route>
 
                 </Routes>
 

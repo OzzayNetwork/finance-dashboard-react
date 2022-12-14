@@ -19,6 +19,10 @@ import Protected from "./components/protected";
 import AllBlinkers from "./pages/myBlinkers/allBlinkers.js";
 import BlinkerDetails from "./pages/myBlinkers/blinkerDetails.js";
 import Guardians from "./pages/blinkUsers/guardians.js";
+import Blinkers from "./pages/blinkUsers/blinkers.js";
+import Bursars from "./pages/blinkUsers/bursers.js";
+import Merchants from "./pages/blinkUsers/merchants.js";
+import SchoolAdmin from "./pages/blinkUsers/schoolAdmins.js";
 
 import Loader from "./components/loader.js";
 import Home from "./pages/home.js";
@@ -123,6 +127,10 @@ function App() {
                 <Route exact path={"MyBlinkers"} element={<AllBlinkers />}></Route>
                 <Route exact path={"Guardians"} element={<Guardians />}></Route>
                 <Route exact path={"BlinkerDetails/:id"} element={<BlinkerDetails />}></Route>
+                <Route exact path={"Blinkers"} element={<Blinkers />}></Route>
+                <Route exact path={"Bursars"} element={<Bursars />}></Route>
+                <Route exact path={"Merchants"} element={<Merchants />}></Route>
+                <Route exact path={"SchoolAdmin"} element={<SchoolAdmin />}></Route>
               </Route>
               <Route path="*" element={<Navigate to="/" />}></Route>
             </>

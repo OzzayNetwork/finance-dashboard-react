@@ -157,6 +157,7 @@ const Guardians=()=>{
                 setGuardiansRegister(res.data.data)
                 console.log(res.data.data)  
                 setTableLoadingStatus(false)
+                setTotalTransactions(res.data.totalElements)
            } 
            if(res.data.data.length===0){
                 // the toast
@@ -241,6 +242,9 @@ const Guardians=()=>{
             )
         }
        
+     }
+     const currencyFormatter=(cell,row)=>{
+        return StdFunctions.kenyaCurrency(cell)
      }
 
      const actionButtons=(cell,row)=>{
@@ -369,6 +373,18 @@ const Guardians=()=>{
             else if (order === 'desc') return (<span class="font-23px"><i class="mdi mdi-menu-up d-none"></i><i class="mdi mdi-menu-down text-primary"></i></span>);
             return null;
           }   
+      },{
+        dataField: 'userProfile.blinkaccounts[0].currentBalance',
+        text: 'Account Balance.',
+        formatter:currencyFormatter,
+        sort: true, 
+        sortCaret: (order, column) => {
+            if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
+            else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);
+            else if (order === 'desc') return (<span class="font-23px"><i class="mdi mdi-menu-up d-none"></i><i class="mdi mdi-menu-down text-primary"></i></span>);
+            return null;
+          }  
+        
       },
       {
         dataField: '',
