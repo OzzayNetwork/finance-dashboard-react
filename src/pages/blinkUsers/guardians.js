@@ -314,6 +314,7 @@ const Guardians=()=>{
         text: 'Guardian',
         sort:true,
         formatter: profileNameFormatter,
+        headerSortingStyle,
        
         sortCaret: (order, column) => {
             if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
@@ -330,6 +331,7 @@ const Guardians=()=>{
         dataField: 'associates.length',
         text: 'Dependants',
         sort:true,
+        headerSortingStyle,
         formatter:addBlinkerText,
         sortCaret: (order, column) => {
             if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);

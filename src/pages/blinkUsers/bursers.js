@@ -330,10 +330,10 @@ const Bursars=()=>{
     // data table columns
     const columns = [{
         dataField: 'userProfile.firstName',
-        text: 'Guardian',
+        text: 'Bursar',
         sort:true,
         formatter: profileNameFormatter,
-       
+        headerSortingStyle, 
         sortCaret: (order, column) => {
             if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
             else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);
@@ -346,6 +346,7 @@ const Bursars=()=>{
         text: 'School',
         formatter:capitalizeString,
         sort:true,
+        headerSortingStyle, 
         sortCaret: (order, column) => {
             if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
             else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);

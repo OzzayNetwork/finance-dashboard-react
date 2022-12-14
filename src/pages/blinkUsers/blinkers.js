@@ -322,9 +322,10 @@ const Students=()=>{
     // data table columns
     const columns = [{
         dataField: 'userProfile.firstName',
-        text: 'Guardian',
+        text: 'Blinker',
         sort:true,
         formatter: profileNameFormatter,
+        headerSortingStyle,
        
         sortCaret: (order, column) => {
             if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
@@ -338,6 +339,7 @@ const Students=()=>{
         text: 'School',
         formatter:capitalizeString,
         sort:true,
+        headerSortingStyle,
         sortCaret: (order, column) => {
             if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
             else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);
@@ -349,6 +351,7 @@ const Students=()=>{
         dataField: 'associates.length',
         text: 'Guardian(s)',
         sort:true,
+        headerSortingStyle,
         formatter:addBlinkerText,
         sortCaret: (order, column) => {
             if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
@@ -397,7 +400,8 @@ const Students=()=>{
         dataField: 'userProfile.blinkaccounts[0].currentBalance',
         text: 'Account Balance.',
         formatter:currencyFormatter,
-        sort: true, 
+        sort: true,
+        headerSortingStyle, 
         sortCaret: (order, column) => {
             if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
             else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);

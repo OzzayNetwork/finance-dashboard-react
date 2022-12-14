@@ -322,9 +322,10 @@ const TuckShopAttendant=()=>{
     // data table columns
     const columns = [{
         dataField: 'userProfile.firstName',
-        text: 'Guardian',
+        text: 'Merchant',
         sort:true,
         formatter: profileNameFormatter,
+        headerSortingStyle, 
        
         sortCaret: (order, column) => {
             if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
@@ -337,6 +338,7 @@ const TuckShopAttendant=()=>{
         dataField: 'userProfile.institution.institutionName',
         text: 'School',
         formatter:capitalizeString,
+        headerSortingStyle, 
         sort:true,
         sortCaret: (order, column) => {
             if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
@@ -390,6 +392,7 @@ const TuckShopAttendant=()=>{
         text: 'Account Balance.',
         formatter:currencyFormatter,
         sort: true, 
+        headerSortingStyle, 
         sortCaret: (order, column) => {
             if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
             else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);

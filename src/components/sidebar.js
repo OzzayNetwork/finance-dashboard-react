@@ -83,8 +83,8 @@ const Sidebar=()=>{
                                   <span>Payment Transfer</span>
                               </a>
                               <ul className="sub-menu" aria-expanded="false">
-                                  <li><a href="donation-active.html">Edit a Transaction</a></li>
-                                  <li><a href="donation-closed.html">Transfer Reports</a></li>
+                                  <li><a href="#">Edit a Transaction</a></li>
+                                  <li><a href="#">Transfer Reports</a></li>
                               </ul>
                           </li>
                         
@@ -163,7 +163,7 @@ const Sidebar=()=>{
                                             Transaction Edits
                                         </Link>
                                     </li>
-                                  <li><a href="donations-mine.html">Collections</a></li>
+                                  <li><a href="#">Collections</a></li>
                               </ul>
                           </li>
 
@@ -173,9 +173,9 @@ const Sidebar=()=>{
                                   <span>My Account</span>
                               </a>
                               <ul className="sub-menu" aria-expanded="false">
-                                  <li><a href="donation-active.html">My Logs</a></li>
-                                  <li><a href="donation-closed.html">Account Details</a></li>
-                                  <li><a href="donations-mine.html">Update account</a></li>
+                                  <li><a href="#">My Logs</a></li>
+                                  <li><a href="#">Account Details</a></li>
+                                  <li><a href="#">Update account</a></li>
                               </ul>
                           </li>
 
@@ -185,10 +185,10 @@ const Sidebar=()=>{
                                   <span>Administration Options</span>
                               </a>
                               <ul className="sub-menu" aria-expanded="false">
-                                  <li><a href="donation-active.html">Deactivate school</a></li>
-                                  <li><a href="donation-closed.html">Add Admin</a></li>
-                                  <li><a href="donations-mine.html">Edit an admin's account</a></li>
-                                  <li><a href="donations-mine.html">All Admins</a></li>
+                                  <li><a href="#">Deactivate school</a></li>
+                                  <li><a href="#">Add Admin</a></li>
+                                  <li><a href="#">Edit an admin's account</a></li>
+                                  <li><a href="#">All Admins</a></li>
                               </ul>
                           </li>
 
