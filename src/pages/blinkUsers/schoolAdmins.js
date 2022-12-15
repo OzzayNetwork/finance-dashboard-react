@@ -206,7 +206,7 @@ const SchoolAdmin=()=>{
                     </div>
                     <div>
                         <p class="mb-0 text-capitalize "><span class="text-black fw-medium">{row?.userProfile?.firstName+" "+row?.userProfile?.lastName}</span></p>
-                        <p class="mb-0 "><small>{row?.blinkId}</small></p>
+                        <p class="mb-0 text-uppercase"><small>{row?.blinkId}</small></p>
                     </div>
                </div>
             </>
