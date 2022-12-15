@@ -392,6 +392,7 @@ const TuckShopAttendant=()=>{
         text: 'Account Balance.',
         formatter:currencyFormatter,
         sort: true, 
+        classes: 'fw-semibold text-black cursor-pointer can-click',
         headerSortingStyle, 
         sortCaret: (order, column) => {
             if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);

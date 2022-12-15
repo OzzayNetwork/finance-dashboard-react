@@ -87,6 +87,20 @@ const Sidebar=()=>{
                                   <li><a href="#">Transfer Reports</a></li>
                               </ul>
                           </li>
+
+                          <li className="d-non">
+                              <a  className="waves-effect has-arrow">
+                                  <i className="mdi mdi-comment-text-multiple"></i>
+                                  <span>Messages</span>
+                              </a>
+                              <ul className="sub-menu text-capitalize" aria-expanded="false">
+
+                             
+                              <li><a href="#" class="btn btn-info text-center mx-4 px-3 text-white  mb-3 "><i class="bx bx-edit-alt text-white m-0 p-0"></i>Write A Message</a></li>
+                              <li><a href="#">Sent Messages</a></li> 
+                                
+                              </ul>
+                          </li>
                         
 
                           <li className="d-non">

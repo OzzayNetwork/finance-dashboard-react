@@ -3,9 +3,11 @@ import {Helmet} from "react-helmet";
 
 import AccountDetails from "../../components/AccountDetails";
 
+
 import AuthService from "../../services/auth.service";
 import StdFunctions from "../../services/standard.functions";
 import ListItems from "../../services/listItems";
+import Associates from "../../components/associates.components";
 
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import 'bootstrap-daterangepicker/daterangepicker.css';
@@ -63,6 +65,9 @@ const Guardians=()=>{
     //search by
     const[searchBy,setSeachBy]=useState("msisdn")
     const[searchByText,setSearchByText]=useState("Phone Number")
+    const[myAssociates,setAssociates]=useState([])
+    const[guardiansName,setGuardiansName]=useState("")
+    const[usertype,setUserType]=useState("Parent")
 
      //===================================///
     //**** Pagination functions start */
@@ -259,7 +264,14 @@ const Guardians=()=>{
                         <a class="dropdown-item" href="tenant-details.html"><i class="font-size-15 mdi mdi-eye-plus-outline me-3"></i>Open</a>
                         <a class="dropdown-item" href="tenant-new.html"><i class="font-size-15 mdi mdi-account-edit me-3"></i>Edit Details</a>
                         <a class="dropdown-item" data-bs-toggle="modal" data-bs-target=".notice-modal" href="#"><i class="font-size-15 mdi mdi-chat me-3"></i>Message Guardian</a>
-                        <a class="dropdown-item" href="#"><i class="font-size-15 mdi mdi-account-arrow-right me-3"></i>View Blinker(s)</a>
+                        <a class="dropdown-item account-details-button2" href="#" data-bs-toggle="modal" data-bs-target="#associates-details-modal" 
+                        
+                            onClick={(event)=>{
+                                setAssociates(row.associates) 
+                                setGuardiansName(row.userProfile.firstName+" "+row.userProfile.lastName)      
+                                  
+                                }} 
+                            ><i class="font-size-15 mdi mdi-account-arrow-right me-3"></i>View Blinker(s)</a>
                     </div>
                 </div>  
             </>
@@ -333,12 +345,20 @@ const Guardians=()=>{
         sort:true,
         headerSortingStyle,
         formatter:addBlinkerText,
+        classes: 'fw-semibold text-black cursor-pointer can-click',
         sortCaret: (order, column) => {
             if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
             else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);
             else if (order === 'desc') return (<span class="font-23px"><i class="mdi mdi-menu-up d-none"></i><i class="mdi mdi-menu-down text-primary"></i></span>);
             return null;
           } ,
+          events: {
+            onClick: (e, column, columnIndex, row, rowIndex) => {
+                $('.account-details-button').click()
+                setAssociates(row.associates) 
+                setGuardiansName(row.userProfile.firstName+" "+row.userProfile.lastName) 
+            }
+        },
         
       }, {
         dataField: 'userProfile.dateCreated',
@@ -377,9 +397,10 @@ const Guardians=()=>{
           }   
       },{
         dataField: 'userProfile.blinkaccounts[0].currentBalance',
-        text: 'Account Balance.',
+        text: 'Wallet Bal..',
         formatter:currencyFormatter,
         sort: true, 
+        classes: 'fw-semibold text-black cursor-pointer can-click',
         sortCaret: (order, column) => {
             if (!order) return (<span class="font-23px"><i class="mdi mdi-menu-up "></i><i class="mdi mdi-menu-down"></i></span>);
             else if (order === 'asc') return (<span class="font-23px"><i class="mdi mdi-menu-up text-primary"></i><i class="mdi mdi-menu-down d-none"></i></span>);
@@ -399,6 +420,8 @@ const Guardians=()=>{
    
     return(
         <>
+            <button  data-bs-toggle="modal" data-bs-target="#associates-details-modal"  class="btn btn-primary d-none account-details-button">Click</button>
+            <Associates clickedAccountType={blinkUserType} clickedAAssociates={myAssociates} clickedName={guardiansName} clickedUserType={usertype} />
             <Helmet>
                 <title>Blink! Admin | Blink Users</title>
             </Helmet> 
