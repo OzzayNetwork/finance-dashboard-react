@@ -369,6 +369,24 @@
             .email-overlay .card {
                 border-radius: 0px;
             }
+
+            .p-relative{
+                position: relative !important;
+            }
+            .email-fullscreen{
+                border-radius: 0px;
+                height: 100%;
+                width: 100%;
+                max-width: 100% !important;
+                position: initial !important;
+               
+            }
+            .email-overlay-fullscreen{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 5rem;
+            }
             
             .email-overlay>.header-item {
                 height: 50px;

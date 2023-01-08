@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import {Link,useLocation,matchRoutes} from "react-router-dom";
 import StdFunctions from "../services/standard.functions";
 import AuthService from "../services/auth.service";
+import NewMessage from "../pages/messages/newMessage.js";
 
 // import $ from 'jquery';
 
@@ -33,6 +34,7 @@ const Sidebar=()=>{
   else{
     return (
         <>
+        <NewMessage/>
          <div className="vertical-menu">
   
               <div data-simplebar className="h-100">
@@ -96,7 +98,7 @@ const Sidebar=()=>{
                               <ul className="sub-menu text-capitalize" aria-expanded="false">
 
                              
-                              <li><a href="#" class="btn btn-info text-center mx-4 px-3 text-white  mb-3 "><i class="bx bx-edit-alt text-white m-0 p-0"></i>Write A Message</a></li>
+                              <li><a href="#" class="btn btn-info text-center mx-4 px-3 text-white  mb-3 write-msg-btn"><i class="bx bx-edit-alt text-white m-0 p-0"></i>Write A Message</a></li>
                               <li><a href="#">Sent Messages</a></li> 
                                 
                               </ul>
