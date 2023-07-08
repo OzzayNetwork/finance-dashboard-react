@@ -69,7 +69,7 @@ const Sidebar=()=>{
   
                           <li className={`${ StdFunctions.equalTo(currentWindow,"/")? "mm-active" : ""}`}>
                               <Link to="/" className={`waves-effect ${ StdFunctions.equalTo(currentWindow,"/")? "active" : ""}`}>
-                                  <i className="mdi mdi-view-grid-outline"></i><span>Home</span>
+                                  <i className="mdi mdi-view-grid-outline"></i><span>Dashboard</span>
                               </Link>
                           </li>
 

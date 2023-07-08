@@ -133,21 +133,25 @@ const Header=()=>{
                 </span>
               </Link>
 
-              <Link to="/" className="logo logo-light">
+              <Link to="/" className="logo logo-light d-flex">
                 <span className="logo-sm">
                   <img
-                    src="assets/images/logo-files/blink-icon.svg"
+                    src="assets/images/logo-files/homa-bay.png"
                     alt=""
                     height="40"
                   />
                 </span>
                 <span className="logo-lg">
                   <img
-                    src="assets/images/logo-files/blink-white.svg"
+                    src="assets/images/logo-files/homa-bay.png"
                     alt=""
                     height="50"
                   />
                 </span>
+                <div class="portal-title">
+                    <h4 class="text-white">Finance Dashboard</h4>
+                    <h6 class="text-muted mb-0 text-white opacity-75">Homabay County</h6>
+                  </div>
               </Link>
             </div>
             

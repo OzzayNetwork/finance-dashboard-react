@@ -139,13 +139,13 @@
             }
             
             body[data-sidebar=dark] .mm-active .active i {
-                color: white !important;
+                color: #ffeb3b !important;
             }
             
             body[data-sidebar=dark] .mm-active .active {
-                color: #ffffff!important;
-                border-right-color: #FE5E37 !important;
-                background: #222222;
+                color: #ffeb3b!important;
+                border-right-color: #ffeb3b !important;
+                background: #244ea3;
             }
             
             .breadcrumb-item+.breadcrumb-item::before {
@@ -889,7 +889,7 @@
                 width: 82px;
             }
             .logo-lg img{
-                width: 95px;
+                margin-right: 12px;
             }
             
             table.logs-table tr td:last-child {
@@ -912,14 +912,14 @@
             }
             
             body[data-sidebar=dark] .navbar-brand-box {
-                background: #0a0a0a;
+                background: #00226c;
                 border-bottom: 1px solid #8080801c;
             }
             
             
             body[data-sidebar=dark] .vertical-menu {
-                background: #0A0A0A;
-                background: #0A0A0A;
+                background: #00226c;
+                background: #023382;
             }
             
             .navbar-brand-box .logo-sm {
@@ -929,13 +929,13 @@
             }
             
             body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu>ul ul {
-                background-color: #212529;
+                background-color: #1c469a;
                
             }
             
             
             body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu>ul>li:hover>a {
-                background: #262626;
+                background: #00226c;
                 color: #fff
             }
             
@@ -1967,6 +1967,16 @@
               }
               .tbody, td, tfoot, th, thead, tr{
                 vertical-align:middle
+              }
+              .portal-title{
+                height: 70px;
+                display: flex;
+                flex-flow: column;
+                padding-top: 15px;
+              }
+              .portal-title h4{
+                font-size: 13px;
+                font-weight: 700;
               }
 
 
