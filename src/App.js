@@ -24,6 +24,9 @@ import Bursars from "./pages/blinkUsers/bursers.js";
 import Merchants from "./pages/blinkUsers/merchants.js";
 import SchoolAdmin from "./pages/blinkUsers/schoolAdmins.js";
 
+// mapping js
+import MapView from "./pages/mapping/map.js";
+
 import Loader from "./components/loader.js";
 import Home from "./pages/home.js";
 import Header from "./components/header.js";
@@ -131,6 +134,7 @@ function App() {
                 <Route exact path={"Bursars"} element={<Bursars />}></Route>
                 <Route exact path={"Merchants"} element={<Merchants />}></Route>
                 <Route exact path={"SchoolAdmin"} element={<SchoolAdmin />}></Route>
+                <Route exact path={"MapView"} element={<MapView />}></Route>
               </Route>
               <Route path="*" element={<Navigate to="/" />}></Route>
             </>

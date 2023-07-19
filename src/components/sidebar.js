@@ -44,6 +44,7 @@ const Sidebar=()=>{
                       {/* <!-- Left Menu Start --> */}
                       
                       <ul className="metismenu list-unstyled" id="side-menu">
+                      <li class="menu-title" key="t-menu">Enforcement and Revenue Monitor </li>
 
                         <div className="px-3 pt-3 side-card">
                             <div className="card bg-primary bg-primary-blink blink-card-bg blink-card-bg2 mx-0 mx-sm-3 rad-sm-8px overflow-hidden">
@@ -74,19 +75,40 @@ const Sidebar=()=>{
                           </li>
 
                           <li>
+
+                                <Link to="/MapView" className={`waves-effect ${ StdFunctions.equalTo(currentWindow,"/MapView")? "active" : ""}`}>
+                                    <i className="mdi mdi-map-marker-outline"></i><span>Live Map</span>
+                                </Link>
+                             
+                          </li>
+
+                          <li>
                               <a to="/" className={`waves-effect ${ StdFunctions.equalTo(currentWindow,"/Applications")? "active" : ""}`}>
-                                  <i className="mdi mdi-paperclip"></i><span>Applications</span>
+                                  <i className="mdi mdi-star-outline"></i><span>Collection Zones</span>
                               </a>
                           </li>
+                         
 
                           <li className="d-non">
                               <a  className="waves-effect has-arrow">
-                                  <i className="mdi mdi-transfer"></i>
-                                  <span>Payment Transfer</span>
+                                  <i className="mdi mdi-account-cash-outline"></i>
+                                  <span>Collectors & Enforcers</span>
                               </a>
                               <ul className="sub-menu" aria-expanded="false">
-                                  <li><a href="#">Edit a Transaction</a></li>
-                                  <li><a href="#">Transfer Reports</a></li>
+                              <li><a href="#">Live Reports</a></li>
+                                  <li><a href="#">Daily Reports</a></li>
+                                  <li><a href="#">Monthly Reports</a></li>
+                              </ul>
+                          </li>
+                         
+                          <li className="d-non">
+                              <a  className="waves-effect has-arrow">
+                                  <i className="mdi mdi-account-group"></i>
+                                  <span>All Users</span>
+                              </a>
+                              <ul className="sub-menu" aria-expanded="false">
+                                  <li><a href="#">Active Accounts</a></li>
+                                  <li><a href="#">Archived Accounts</a></li>
                               </ul>
                           </li>
 

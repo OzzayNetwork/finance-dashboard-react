@@ -149,7 +149,7 @@ const Header=()=>{
                   />
                 </span>
                 <div class="portal-title">
-                    <h4 class="text-white">Finance Dashboard</h4>
+                    <h4 class="text-white">ERM Portal</h4>
                     <h6 class="text-muted mb-0 text-white opacity-75">Homabay County</h6>
                   </div>
               </Link>
