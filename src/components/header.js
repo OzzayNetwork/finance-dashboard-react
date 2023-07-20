@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import {Link,useLocation,matchRoutes} from "react-router-dom"
 import StdFunctions from "../services/standard.functions"
 import ChatWidget from "./chatWidget";
+import { GoogleMap, useJsApiLoader,useLoadScript,Marker } from '@react-google-maps/api';
 import $ from 'jquery';
 
 
