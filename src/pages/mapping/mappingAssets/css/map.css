@@ -78,7 +78,7 @@
 }
 
 .gm-style .gm-style-iw-c button {
-    display: none !important;
+    /* display: none !important; */
 }
 
 .gm-style .gm-style-iw-c {
@@ -1159,6 +1159,9 @@ strong {
 .rating-symbol-foreground {
     font-size: 14px;
 }
+
+
+
 
 
 /* Attendants Page */

@@ -9,11 +9,12 @@ import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css
 import Moment from 'moment'
 import {Link,useLocation,matchRoutes} from "react-router-dom";
 import './mappingAssets/css/map.css';
+import mapStyles from './mapStyles'
 // import {Marker,GoogleMap,useLoadScript } from '@react-google-maps/api';
 
 import { GoogleMap, useJsApiLoader,useLoadScript,Marker } from '@react-google-maps/api';
 import {MarkerF} from '@react-google-maps/api'
-import { InfoWindow } from "@react-google-maps/api";
+import {LoadScript,InfoWindow } from '@react-google-maps/api';
 
 // bootstrap datatable
 import BootstrapTable from 'react-bootstrap-table-next';
@@ -30,10 +31,68 @@ import $ from 'jquery';
 const MapView =()=> {
     const [loading, setLoading] = useState(false);
     const [selectedMarker, setSelectedMarker] = useState(null);
+   
+    const [ selected, setSelected ] = useState({});
+   
+   
+   
 
-    //styling the diffrent icons
+    const onSelect = item => {
+        setSelected(item);
+        //alert(item.name)
+    }
 
-    // ianctive attendant maker
+  
+
+   
+    //array returning multiple locations
+    const locations = [
+        {
+          name: "Location 1",
+          location: { 
+            lat: -0.5391841900615606, 
+            lng: 34.45690188295447 
+          },
+        },
+        {
+          name: "Location 2",
+          location: { 
+            lat: -0.40607414040125894, 
+            lng: 34.17256775075519
+          },
+        },
+        {
+          name: "Location 3",
+          location: { 
+            lat: -0.4336737430376215, 
+            lng:34.89661544690229
+          },
+        },
+        {
+          name: "Location 4",
+          location: { 
+            lat: -0.5274469423889167, 
+            lng: 34.73737120604792
+          },
+        },
+        {
+          name: "Location 5",
+          location: { 
+            lat: -0.5623293280215187, 
+            lng: 34.25008520275887
+          },
+        }
+      ];
+
+      const options={
+        styles:mapStyles,
+        disableDefaultUI:true,
+        zoomControl:true,
+        scrollwheel: true,
+        mapTypeControl: false,
+        fullscreenControl: true,
+        streetViewControl: true,
+      }
     
     const {isLoaded}=useLoadScript({
         googleMapsApiKey:"AIzaSyAGPbYfcYqdbSBeXdIpH5iWrznfU886Qk8",
@@ -46,7 +105,68 @@ const MapView =()=> {
             zoom={10} 
             center={center}
             mapContainerClassName='h-100'
-            >    
+            options={options}
+            >  
+
+            
+
+            {/* multiple inactive users   */}
+            {
+            locations.map(item => {
+                return (
+                <MarkerF 
+                    key={item.name} 
+                    position={item.location}
+                    onClick={() => onSelect(item)}
+                    icon={{
+                        url: InActiveIcon,
+                        scaledSize: new window.google.maps.Size(60, 60)
+                    }}
+                />
+                )
+                })
+            }
+            {/* end of inactive users */}
+
+            {/* clicking inactive user maker */}
+
+            {
+                selected.location && 
+                (
+                <InfoWindow
+                    position={selected.location}
+                    clickable={true}
+                    options={{
+                        pixelOffset: new window.google.maps.Size(0, -65)
+                        }}
+                    
+                    onCloseClick={() => setSelected({})}
+                    >
+                    <>
+                        <p class="d-none">agent|agent num</p>
+                        <h6 class="text-capitalize d-flex align-items-center">
+                            <span class="offline-agent mr-2 me-2"></span> 
+                            <span>Alex Wanjala<small><strong>(INACTIVE)</strong></small></span>
+                        </h6>
+                        <p class="pb-0 mb-0">Last seen at <strong>Tom Mboya Street</strong> at <strong>2:06 PM</strong></p>
+                        <p>Most recent activity: <strong>Queried Car plate Number KBW 2589T at 11:41PM</strong></p>
+
+                        <div>
+                            <div class="listview__header text-align-left text-capitalize text-left mb-2">
+                                Collected <strong>KES 25,000</strong> towards the <strong>KES 450,000</strong> Target.
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success"  style={{width:'25%'}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+
+                    </>
+
+                </InfoWindow>
+                )
+            }
+
+            {/* end of clicking inactive user maker */}
             <MarkerF 
             position={center}
            
