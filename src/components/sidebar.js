@@ -76,7 +76,7 @@ const Sidebar=()=>{
 
                           <li>
 
-                                <Link to="/MapView" className={`waves-effect ${ StdFunctions.equalTo(currentWindow,"/MapView")? "active" : ""}`}>
+                                <Link to="/MapView2" className={`waves-effect ${ StdFunctions.equalTo(currentWindow,"/MapView2")? "active" : ""}`}>
                                     <i className="mdi mdi-map-marker-outline"></i><span>Live Map</span>
                                 </Link>
                              

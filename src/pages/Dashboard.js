@@ -13,6 +13,7 @@ import SendMoney from "../components/sendMoney.js";
 import ErrorBoundary from "../components/ErrorBoundary.js";
 import Transactions from "./reports/transactions.reports.js";
 import MapView from "./mapping/map.js";
+import MapView2 from "./mapping/map2.js";
 import TransactionsEditsReport from "./reports/transactionsEdits.reports.js";
 import Guardians from "./blinkUsers/guardians.js";
 import Blinkers from "./blinkUsers/blinkers.js";
@@ -70,6 +71,7 @@ const Dashboard=()=>{
                   <Route exact path={"/SchoolAdmin"} element={<ErrorBoundary><SchoolAdmin/></ErrorBoundary>}></Route>
 
                   <Route exact path={"/MapView"} element={<ErrorBoundary><MapView/></ErrorBoundary>}></Route>
+                  <Route exact path={"/MapView2"} element={<ErrorBoundary><MapView2/></ErrorBoundary>}></Route>
                   <Route exact path={"/Merchants"} element={<ErrorBoundary><Merchants/></ErrorBoundary>}></Route>
 
                 </Routes>

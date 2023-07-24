@@ -26,6 +26,7 @@ import SchoolAdmin from "./pages/blinkUsers/schoolAdmins.js";
 
 // mapping js
 import MapView from "./pages/mapping/map.js";
+import MapView2 from "./pages/mapping/map2";
 
 import Loader from "./components/loader.js";
 import Home from "./pages/home.js";
@@ -135,6 +136,7 @@ function App() {
                 <Route exact path={"Merchants"} element={<Merchants />}></Route>
                 <Route exact path={"SchoolAdmin"} element={<SchoolAdmin />}></Route>
                 <Route exact path={"MapView"} element={<MapView />}></Route>
+                <Route exact path={"MapView2"} element={<MapView2 />}></Route>
               </Route>
               <Route path="*" element={<Navigate to="/" />}></Route>
             </>
