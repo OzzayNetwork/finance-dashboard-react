@@ -1,4 +1,4 @@
-import React, {useState, useEffect,useMemo,useCallback,setData} from 'react';
+import React, {useState, useEffect,useMemo} from 'react';
 import {Helmet} from "react-helmet";
 import AuthService from "../../services/auth.service";
 import StdFunctions from "../../services/standard.functions";
@@ -99,16 +99,7 @@ const MapView =()=> {
     const onSelect = item => {
         setSelected(item);
         //alert(item.name)
-        // alert("mark")
     }
-
-  
-
-    //   const onSelect = useCallback((item) => {
-    //     if (selected) {
-    //         setSelected(item)
-    //     }
-    //   }, [selected]);
 
   
 
@@ -158,9 +149,10 @@ const MapView =()=> {
         googleMapsApiKey:"AIzaSyAGPbYfcYqdbSBeXdIpH5iWrznfU886Qk8",
     });
 
-   
 
-   
+    useEffect(()=>{
+        InitMap()
+    },[selected])
 
     function InitMap(){
             
@@ -172,11 +164,11 @@ const MapView =()=> {
                 options={options}
             >
                 {
-                    inactiveAgents?.map(item => {
+                    inactiveAgents.map(item => {
                     return (
-                    <MarkerF
-                        key={item?.name} 
-                        position={item?.location}
+                    <MarkerF 
+                        key={item.name} 
+                        position={item.location}
                         onClick={() => onSelect(item)}
                         icon={{
                             url: InActiveIcon,
@@ -191,7 +183,7 @@ const MapView =()=> {
                     selected.location && 
                     (
                     <InfoWindow
-                        position={selected?.location}
+                        position={selected.location}
                         clickable={true}
                         options={{
                             pixelOffset: new window.google.maps.Size(0, -65)
@@ -203,7 +195,7 @@ const MapView =()=> {
                             <p class="d-none">agent|agent num</p>
                             <h6 class="text-capitalize d-flex align-items-center">
                                 <span class="offline-agent mr-2 me-2"></span> 
-                                <span>{selected?.name}<small><strong>(INACTIVE)</strong></small></span>
+                                <span>{selected.name}<small><strong>(INACTIVE)</strong></small></span>
                             </h6>
                             <p class="pb-0 mb-0">Last seen at <strong>Tom Mboya Street</strong> at <strong>2:06 PM</strong></p>
                             <p>Most recent activity: <strong>Queried Car plate Number KBW 2589T at 11:41PM</strong></p>
@@ -227,11 +219,6 @@ const MapView =()=> {
 
         )       
      }
-
-     const MemodMap = React.memo(InitMap)
-
-
-   
    
 
    
@@ -296,7 +283,7 @@ const MapView =()=> {
                         </div>
                         <div class="card-body">
                             <div id="map" class="w-100 mt-1 h-100 live-map-cont main-map-container">
-                                <MemodMap></MemodMap>
+                                <InitMap></InitMap>
                             </div>
                         </div>
 

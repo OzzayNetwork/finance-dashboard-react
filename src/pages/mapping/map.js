@@ -33,6 +33,7 @@ const MapView =()=> {
     const [selectedMarker, setSelectedMarker] = useState(null);
    
     const [ selected, setSelected ] = useState({});
+    
    
    
    
@@ -106,6 +107,7 @@ const MapView =()=> {
             center={center}
             mapContainerClassName='h-100'
             options={options}
+            onClick={() => setSelected({})}
             >  
 
             
