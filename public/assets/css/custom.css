@@ -1978,6 +1978,26 @@
                 font-size: 13px;
                 font-weight: 700;
               }
+              .font-30{
+                font-size: 30px !important;
+              }
+              .offcanvas-header{
+                border-bottom: 1px solid #d3d3d373;
+              }
+              .bg-money{
+                background-color: #0f6757 !important;
+              }
+              .bg-darker-money{
+                background-color: #0a4b3c !important;
+              }
+              .bg-money.border-top{
+                border-top: 1px solid #eff2f71f!important;
+              }
+              .bg-money .progress-bar {
+                
+                background-color: #51b4a6;
+               
+            }
 
 
                 

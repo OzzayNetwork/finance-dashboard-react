@@ -110,7 +110,7 @@ const BlinkerDetails =(props)=> {
                 {loadTransations ? (
                     <div class="modal-loader d-flex w-100 bg-white flex-column justify-items-center align-items-center p-5 position-absolute top-0 h-100 left-0 bottom-0 right-0">
                         <div class="lds-ripple"><div></div><div></div></div>
-                        <h6 class="text-uppercase pt-3">Loading ...</h6>
+                        <h6 class="text-uppercase pt-3 text-danger">Loading ...</h6>
                     </div>
                     ):(
                         <></>

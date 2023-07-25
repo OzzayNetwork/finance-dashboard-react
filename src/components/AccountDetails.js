@@ -66,7 +66,7 @@ const AccountDetails =(props)=> {
                     <div></div>
                     <div></div>
                   </div>
-                  <h6 class="text-uppercase pt-3">Loading ...</h6>
+                  <h6 class="text-uppercase pt-3 text-danger">Loading ...</h6>
                 </div>
               ) : (
                 <></>

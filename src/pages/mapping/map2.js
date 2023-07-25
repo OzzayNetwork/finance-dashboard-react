@@ -8,13 +8,14 @@ import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
 import Moment from 'moment'
 import {Link,useLocation,matchRoutes} from "react-router-dom";
-import './mappingAssets/css/map.css';
+import './mappingAssets/css/map.css'
 import mapStyles from './mapStyles'
+import ClickedAgent from '../../components/ClickedAgentTodayHighlights'
 // import {Marker,GoogleMap,useLoadScript } from '@react-google-maps/api';
 
 import { GoogleMap, useJsApiLoader,useLoadScript,Marker } from '@react-google-maps/api';
 import {MarkerF} from '@react-google-maps/api'
-import {LoadScript,InfoWindow } from '@react-google-maps/api';
+import {LoadScript,InfoWindowF } from '@react-google-maps/api';
 
 // bootstrap datatable
 import BootstrapTable from 'react-bootstrap-table-next';
@@ -85,14 +86,39 @@ const InitMap = React.memo(({ locations }) => {
     }
   
     const [selected, setSelected] = useState({})
+    const [clickeMarker,setClickedMarker]=useState({})
   
     // Memoize the onSelect function using useCallback
     const onSelect = useCallback((item) => {
       setSelected(item)
     }, [])
+
+     // Memoize the onSelect function using useCallback
+     const markerClicked = useCallback((item) => {
+        setClickedMarker(item)
+        //alert("clicked")
+        item.animation=(2)
+        $('.openMapCanvas').click()
+        
+        
+      }, [])
+  
+
+    // const onMarkerLeave = useCallback((item)=>{
+    //     setSelected({})
+    //   //  $('.gm-style .gm-style-iw-c button').click()
+    // },[])
+
+    
+
+    
   
     return(
-        <GoogleMap
+       
+
+<>
+
+<GoogleMap
             center={mapCenter}
             zoom={mapZoom}
             mapContainerClassName='h-100'
@@ -102,9 +128,12 @@ const InitMap = React.memo(({ locations }) => {
                 inactiveAgents?.map(item => {
                 return (
                 <MarkerF
+                    animation={4}
                     key={item?.name} 
                     position={item?.location}
-                    onClick={() => onSelect(item)}
+                    onMouseOver={() => onSelect(item)}
+                    onMouseOut={()=>setSelected({})}
+                    onClick={()=>markerClicked(item)}
                     icon={{
                         url: InActiveIcon,
                         scaledSize: new window.google.maps.Size(60, 60)
@@ -117,7 +146,7 @@ const InitMap = React.memo(({ locations }) => {
             {
                 selected.location && 
                 (
-                <InfoWindow
+                <InfoWindowF
                     position={selected?.location}
                     clickable={true}
                     options={{
@@ -146,13 +175,18 @@ const InitMap = React.memo(({ locations }) => {
 
                     </>
 
-                </InfoWindow>
+                </InfoWindowF>
                 )
             }
 
         </GoogleMap>
+        <ClickedAgent></ClickedAgent>
+   
+</>
 
     ) 
+
+    
   })
 
 const MapView =()=> {
@@ -312,13 +346,21 @@ const MapView =()=> {
                             <div id="map" class="w-100 mt-1 h-100 live-map-cont main-map-container">
                                 <InitMap></InitMap>
                             </div>
+
+                            <div>
+                            <button class="btn btn-primary openMapCanvas d-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mapCanvas">
+    open Marker Conent Canavas
+  </button>
+                            </div>
                         </div>
 
                     </div>
                 </div>
             </div>
         
-        </div>       
+        </div>
+
+            
     
     </>
 );
