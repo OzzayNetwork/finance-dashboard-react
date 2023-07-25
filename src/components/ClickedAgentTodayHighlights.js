@@ -4,18 +4,83 @@ import AuthService from "../services/auth.service";
 import StdFunctions from "../services/standard.functions";
 import Moment from 'moment'
 import { Link, useLocation, matchRoutes } from "react-router-dom";
+
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
+
+import highchartsMore from "highcharts/highcharts-more";
+
+
 import $ from 'jquery';
 
 // import   JquerryAccordion   from "./customPlugins/jquerryAccordion";
 const ClickedAgentTodayHighlights = (props) => {
 
-   
+    const hourlyCollectionsChart = {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: null,
+            align: 'left'
+        },
+        subtitle: {
+           text:null,
+            align: 'left'
+        },
+        xAxis: {
+            categories: ['12AM', '1AM', '2AM', '3AM', '4AM', '5AM','6AM','7AM','8AM','9AM','10AM','11AM','12PM','1Pm','2PM', '3PM', '4PM', '5PM','6PM','7PM','8PM','9PM','10PM','11PM',],
+            crosshair: true,
+            accessibility: {
+                description: 'Hours of The Day'
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Collected Revenue',
+                text:null
+            }
+        },
+        tooltip: {
+            valuePrefix: 'KES ',
+             shared: true,
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.1,
+                borderWidth: 0,
+                borderRadius: {
+                    radius: 0
+                },
+            },
+            
+           
+        },
+        series: [
+            {
+                name: 'Last Monday',
+                color:"#51b4a6",
+                data: [406292, 260000, 107000, 68300, 27500, 14500,406292, 260000, 107000, 68300, 27500, 14500,406292, 260000, 107000, 68300, 27500, 14500,406292, 260000, 107000, 68300, 27500, 14500]
+            },
+            {
+                name: 'Today',
+                color:"#0f6757",
+                data: [51086, 136000, 5500, 141000, 107180, 77000,51086, 136000, 5500, 141000, 107180, 77000,51086, 136000, 5500, 141000, 107180, 77000,51086, 136000, 5500, 141000, 107180, 77000]
+            }
+        ]
+      }
+
+
     return (
         <>
             <Helmet>
                 <title>Blink! | Account Details</title>
             </Helmet>
             {/* the modals container */}
+            <button class="btn btn-primary openMapCanvas d-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mapCanvas">
+                open Marker Conent Canavas
+            </button>
 
             <div class="offcanvas offcanvas-start" tabindex="-1" id="mapCanvas" aria-labelledby="offcanvasExampleLabel">
                 <div class="offcanvas-header border-bottom-1">
@@ -181,85 +246,14 @@ const ClickedAgentTodayHighlights = (props) => {
 
                                 </div>
 
-
-                                <ul class="verti-timeline list-unstyled ">
-                                    <li class="event-list ">
-                                        <div class="event-timeline-dot ">
-                                            <i class="mdi mdi-bell-ring font-size-18 text-warning "></i>
-                                        </div>
-                                        <div class="d-flex ">
-
-                                            <div class="flex-grow-1 ">
-                                                <span class="text-muted ">
-                                                    Received Order Request at (5:26 AM)
-                                                </span>
-                                                <div>
-                                                    Standard media Mombasa road
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="event-list">
-                                        <div class="event-timeline-dot ">
-                                            <i class="mdi mdi-square font-size-18 text-black "></i>
-                                        </div>
-                                        <div class="d-flex ">
-
-                                            <div class="flex-grow-1 ">
-                                                <span class="text-muted ">
-                                                    Base Location (5:26 AM)
-                                                </span>
-                                                <div>
-                                                    90 Degrees by TSAVO, Nairobi, Kenya
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="event-list ">
-                                        <div class="event-timeline-dot ">
-                                            <i class="mdi mdi-circle font-size-18 text-primary "></i>
-                                        </div>
-                                        <div class="d-flex ">
-
-                                            <div class="flex-grow-1 ">
-                                                <span class="text-muted ">
-                                                    Drop Off Point
-                                                </span>
-                                                <div>
-                                                    Tulip House, Mombasa Road, Nairobi, Kenya
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div class="card-body bg-info bg-light d-flex mb-4 mt-4">
-                                    <p class=" mb-0 ">
-                                        <i class="mdi mdi-water text-info align-middle me-3 font-size-24 ml-5 mr-5 "></i>
-                                    </p>
-                                    <div>
-                                        <p class="text-muted mb-0 ">Water Quantity</p>
-                                        <p class="mb-0 ">
-                                            <strong class="fw-semibold">
-                                                <span class="">5,000 Li</span>
-                                            </strong>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="card-body bg-light d-flex mb-4 mt-4">
-                                    <p class=" mb-0 ">
-                                        <i class="mdi mdi-cash-multiple text-success align-middle me-3 font-size-24 ml-5 mr-5 "></i>
-                                    </p>
-                                    <div>
-                                        <p class="text-muted mb-0 ">Total Charges</p>
-                                        <p class="mb-0 ">
-                                            <strong class="fw-semibold">
-                                                <span class="">KES 1,200</span>
-                                            </strong>
-                                        </p>
-                                    </div>
-                                </div>
-
                             </div>
+                        </div>
+                    </div>
+
+                    <div className='card shadow-none border'>
+                        <div className='card-body p-3'>
+                            <div class="d-flex"><div class="overflow-hidden me-auto"><h5 class="font-size-14 text-truncate mb-4"><a href="javascript: void(0);" class="text-body">Alex's Hourly Collections</a></h5><p class="text-muted text-truncate mb-0 d-none">23 KM</p></div><div class="align-self-end ms-2 d-none"><p class="text-muted mb-0"><i class="mdi mdi-clock text-muted align-middle me-1"></i> ETA 20 Min</p></div></div>
+                            <HighchartsReact highcharts={Highcharts} options={hourlyCollectionsChart} />
                         </div>
                     </div>
                 </div>
