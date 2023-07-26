@@ -1965,6 +1965,7 @@
                   opacity: 0;
                 }
               }
+             
               .tbody, td, tfoot, th, thead, tr{
                 vertical-align:middle
               }
