@@ -187,7 +187,7 @@ const ClickedAgentTodayHighlights = (props) => {
                                     <small className='mx-2'><i className='mdi mdi mdi-circle font-size-16 text-danger text-uppercase'></i> Inactive</small>
                                 </h5>
                             </div>
-                            <p class="text-truncate mb-0 text-uppercase">Last Seen Zone <strong className='text-black fw-semibold'>Oyugis Bus Park</strong> </p>
+                            <p class="text-truncate mb-0 text-uppercase">Revenue Collector</p>
                         </div>
 
 
@@ -371,6 +371,7 @@ const ClickedAgentTodayHighlights = (props) => {
                             </div>
                         </div>
                     </div>
+                    
 
                     <div className='card shadow-none border'>
                         <div className='card-body p-3'>
