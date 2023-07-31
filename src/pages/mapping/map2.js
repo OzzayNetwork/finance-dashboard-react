@@ -22,7 +22,22 @@ import BootstrapTable from 'react-bootstrap-table-next';
 
 // importing map icons
 import ActiveIcon from "./mappingAssets/images/active-agent.svg";
-import InActiveIcon from "./mappingAssets/images/inactive-agent.svg";
+import InActiveIcon from "./mappingAssets/images/collector/inactive.svg";
+
+import inactiveInspector from "./mappingAssets/images/inspectors/inactive.svg"
+import activeInspector from "./mappingAssets/images/inspectors/active.svg"
+import idleInspector from "./mappingAssets/images/inspectors/idle.svg"
+import loggedOutInspector from "./mappingAssets/images/inspectors/loggedOut.svg"
+
+import inactiveEnforcer from "./mappingAssets/images/enforcer/inactive.svg"
+import activeEnforcer from "./mappingAssets/images/enforcer/active.svg"
+import idleEnforcer from "./mappingAssets/images/enforcer/idle.svg"
+import loggedOutEnforcer from "./mappingAssets/images/enforcer/loggedOut.svg"
+
+import inactiveCollector from "./mappingAssets/images/collector/inactive.svg"
+import activeCollector from "./mappingAssets/images/collector/active.svg"
+import idleCollector from "./mappingAssets/images/collector/idle.svg"
+import loggedOutCollector from "./mappingAssets/images/collector/loggedOut.svg"
 
 
 
@@ -135,7 +150,7 @@ const InitMap = React.memo(({ locations }) => {
                                 onMouseOut={() => setSelected({})}
                                 onClick={() => markerClicked(item)}
                                 icon={{
-                                    url: InActiveIcon,
+                                    url: activeInspector,
                                     scaledSize: new window.google.maps.Size(60, 60)
                                 }}
                             />

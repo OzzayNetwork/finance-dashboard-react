@@ -203,6 +203,20 @@ const ClickedAgentTodayHighlights = (props) => {
                         <div class="card-body p-3">
                             <div class="">
 
+                                <div class="row mb-4">
+                                    <div className='col-6'>
+                                        <button type="button" class="btn btn-info waves-effect waves-light w-100">
+                                            <i class="bx bxs-phone-outgoing font-size-16 align-middle me-2"></i> Call Agent
+                                        </button>
+                                    </div>
+
+                                    <div className='col-6'>
+                                        <button type="button" class="btn btn-danger  waves-effect waves-light w-100">
+                                            <i class="mdi mdi-bell-ring font-size-16 align-middle me-2"></i> Alert Agent
+                                        </button>
+                                    </div>
+                                </div>
+
                                 <div class="d-flex">
                                     <div class="overflow-hidden me-auto">
                                         <h5 class="card-title text-truncate mb-4"><a href="javascript: void(0);" class="text-body">Today's Summary</a></h5>
@@ -374,11 +388,45 @@ const ClickedAgentTodayHighlights = (props) => {
                         </div>
                     </div>
 
+                    <div className='card shadow-none border'>
+                        <div className='card-body p-3'>
+                            <div class="d-flex"><div class="overflow-hidden me-auto"><h5 class="card-title text-truncate mb-4"><a href="javascript: void(0);" class="text-body">Collections By Zones/Collection point</a></h5><p class="text-muted text-truncate mb-0 d-none">23 KM</p></div><div class="align-self-end ms-2 d-none"><p class="text-muted mb-0"><i class="mdi mdi-clock text-muted align-middle me-1"></i> ETA 20 Min</p></div></div>
+                            <div className='row'>
+                            <div class="col-6">
+                                <div class="alert alert-info border-info border-2" role="alert">
+                                    <div>
+                                        <p class="text-muted mb- ">Kadongo Market</p>
+                                        <h5 class="mb-0 "><strong class="fw-semibold"><span class="the-clicked-address "></span>KES 2,890</strong>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="alert alert-info border-info border-2" role="alert">
+                                    <div>
+                                        <p class="text-muted mb- ">Kadongo Bus Park</p>
+                                        <h5 class="mb-0 "><strong class="fw-semibold"><span class="the-clicked-address "></span>KES 2,890</strong>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div className='card shadow-none border border-warning border-2'>
                         <div className='card-body p-3'>
                             <div class="d-flex"><div class="overflow-hidden me-auto"><h5 class="card-title text-truncate mb-4"><a href="javascript: void(0);" class="text-body">Todays Rating</a></h5><p class="text-muted text-truncate mb-0 d-none">23 KM</p></div><div class="align-self-end ms-2 d-none"><p class="text-muted mb-0"><i class="mdi mdi-clock text-muted align-middle me-1"></i> ETA 20 Min</p></div></div>
                             <div>
                                 <h1 class="display-5 fw-bold">4.0</h1>
+                                <div className='mb-3'>
+                                    <span className='mdi mdi-star font-25 me-3 text-warning'></span>
+                                    <span className='mdi mdi-star font-25 me-3 text-warning'></span>
+                                    <span className='mdi mdi-star font-25 me-3 text-warning'></span>
+                                    <span className='mdi mdi-star font-25 me-3 text-warning'></span>
+                                    <span className='mdi mdi-star font-25 me-3 text-light'></span>
+                                </div>
                                 <div>
                                     <table class="table borderless text-capitalize">
                                         <tbody>
@@ -414,15 +462,15 @@ const ClickedAgentTodayHighlights = (props) => {
                                                     </div>
                                                 </td>
                                             </tr>
-                                            </tbody>
-                                            </table>
-                                        </div>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </>
-            );
+            </div>
+        </>
+    );
 }
-            export default ClickedAgentTodayHighlights;
+export default ClickedAgentTodayHighlights;
