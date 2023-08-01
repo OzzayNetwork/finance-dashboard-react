@@ -11,11 +11,12 @@ import { Link, useLocation, matchRoutes } from "react-router-dom";
 import './mappingAssets/css/map.css'
 import mapStyles from './mapStyles'
 import ClickedAgent from '../../components/ClickedAgentTodayHighlights'
+import ClickedZone from '../../components/ClickedZoneTodayHighlights'
 // import {Marker,GoogleMap,useLoadScript } from '@react-google-maps/api';
 
 import { GoogleMap, useJsApiLoader, useLoadScript, Marker } from '@react-google-maps/api';
 import { MarkerF } from '@react-google-maps/api'
-import { LoadScript, InfoWindowF } from '@react-google-maps/api';
+import { LoadScript, InfoWindowF,InfoWindow } from '@react-google-maps/api';
 
 // bootstrap datatable
 import BootstrapTable from 'react-bootstrap-table-next';
@@ -82,7 +83,9 @@ import $ from 'jquery';
 
 const InitMap = React.memo(({ locations }) => {
 
-    const [mapZoom, setMapZoom] = useState(10)
+    const [mapref, setMapRef] = React.useState (null);
+
+    const [mapZoom, setMapZoom] = useState(12)
     const [mapCenter, setMapCenter] = useState({ lat: -0.5306294206232787, lng: 34.46123164921829 })
 
     const [collectionZone,setCollectionZone]=useState([
@@ -116,7 +119,7 @@ const InitMap = React.memo(({ locations }) => {
             },
         },
         {
-            name: "Komodi Barrier",
+            name: "Fishing Beach",
             type:"Fishing Beach",
             icon:fishingInfo,
             location: {
@@ -192,10 +195,16 @@ const InitMap = React.memo(({ locations }) => {
     const [selected, setSelected] = useState({})
     const [clickeMarker, setClickedMarker] = useState({})
 
+    const[selectedZone,setSelectedZone]=useState({})
+
     // Memoize the onSelect function using useCallback
     const onSelect = useCallback((item) => {
         setSelected(item)
     }, [])
+
+    const onZoneSelected=useCallback((item)=>{
+        setSelectedZone(item)
+    },[])
 
     // Memoize the onSelect function using useCallback
     const markerClicked = useCallback((item) => {
@@ -207,11 +216,38 @@ const InitMap = React.memo(({ locations }) => {
 
     }, [])
 
+    const zoneClicked = useCallback((item) => {
+        setClickedMarker(item)
+        //alert("clicked")
+        item.animation = (2)
+        $('.openZoneCanvas').click()
+        // alert("opening zone canvas")
+
+
+    }, [])
+
 
     // const onMarkerLeave = useCallback((item)=>{
     //     setSelected({})
     //   //  $('.gm-style .gm-style-iw-c button').click()
     // },[])
+
+    //store new map center here
+    const handleMapCenterChange = () => {
+        if (mapref) {
+        const newCenter = mapref.getCenter ();
+        console.log (newCenter);
+        }
+        console.log("changing")
+        console.log(mapref.getZoom ())
+        // setMapZoom(mapref.getZoom ())
+        // setMapCenter(mapref.getCenter ())
+    };
+
+    const handleMapLoad = map => {
+        setMapRef (map);
+       
+        };
 
 
 
@@ -223,6 +259,8 @@ const InitMap = React.memo(({ locations }) => {
         <>
 
             <GoogleMap
+                // onLoad= {handleMapLoad}
+                // onCenterChanged= {handleMapCenterChange}
                 center={mapCenter}
                 zoom={mapZoom}
                 mapContainerClassName='h-100'
@@ -269,11 +307,12 @@ const InitMap = React.memo(({ locations }) => {
                                 <p>Most recent activity: <strong>Queried Car plate Number KBW 2589T at 11:41PM</strong></p>
 
                                 <div>
+                                    <h5 className='text-black'>96%</h5>
+                                    <div class="progress border-radius-0">
+                                        <div class="progress-bar progress-bar-success" style={{ width: '25%' }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
                                     <div class="listview__header text-align-left text-capitalize text-left mb-2">
                                         Collected <strong>KES 25,000</strong> towards the <strong>KES 450,000</strong> Target.
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-success" style={{ width: '25%' }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
 
@@ -284,16 +323,17 @@ const InitMap = React.memo(({ locations }) => {
                 }
 
                 {/* collection zones markers */}
+                
                 {
-                    collectionZone?.map(item => {
+                    collectionZone.map(item => {
                         return (
                             <MarkerF
                                 animation={4}
                                 key={item?.name}
                                 position={item?.location}
-                                onMouseOver={() => onSelect(item)}
-                                onMouseOut={() => setSelected({})}
-                                onClick={() => markerClicked(item)}
+                                onMouseOver={() => onZoneSelected(item)}
+                                onMouseOut={() => setSelectedZone({})}
+                                onClick={() => zoneClicked(item)}
                                 icon={{
                                     url: item?.icon,
                                     scaledSize: new window.google.maps.Size(60, 60)
@@ -304,10 +344,10 @@ const InitMap = React.memo(({ locations }) => {
                 }
 
                 {
-                    selected.location &&
+                    selectedZone.location &&
                     (
                         <InfoWindowF
-                            position={selected?.location}
+                            position={selectedZone?.location}
                             clickable={true}
                             options={{
                                 pixelOffset: new window.google.maps.Size(0, -65)
@@ -319,19 +359,34 @@ const InitMap = React.memo(({ locations }) => {
                                 <p class="d-none">agent|agent num</p>
                                 <h6 class="text-capitalize d-flex align-items-center">
                                     <span class="offline-agent mr-2 me-2"></span>
-                                    <span>{selected?.name}<small><strong>(INACTIVE)</strong></small></span>
+                                    <div>
+                                        <span>{selectedZone?.name} </span>                                   
+                                        <p class="pb-0 mb-0">{selectedZone?.type}</p>
+                                    </div>
                                 </h6>
-                                <p class="pb-0 mb-0">Last seen at <strong>Tom Mboya Street</strong> at <strong>2:06 PM</strong></p>
+                                
                                 <p>Most recent activity: <strong>Queried Car plate Number KBW 2589T at 11:41PM</strong></p>
 
-                                <div>
+                                <div className='mb-3'>
+                                    <h5 className='text-black'>45% Collection Perfomance</h5>                                    
+                                    <div class="progress border-radius-0">
+                                        <div class="progress-bar bg-warning" style={{ width: '45%' }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
                                     <div class="listview__header text-align-left text-capitalize text-left mb-2">
                                         Collected <strong>KES 25,000</strong> towards the <strong>KES 450,000</strong> Target.
                                     </div>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-success" style={{ width: '25%' }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+
+                                <div>
+                                    <h5 className='text-black'>25% Inactive</h5>                                    
+                                    <div class="progress border-radius-0">
+                                        <div class="progress-bar bg-danger" style={{ width: '75%' }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="listview__header text-align-left text-capitalize text-left mb-2">
+                                        <strong>34/54</strong> Revenue Agents are active, please alert the inactive ones.
                                     </div>
                                 </div>
+
 
                             </>
 
@@ -342,6 +397,7 @@ const InitMap = React.memo(({ locations }) => {
 
             </GoogleMap>
             <ClickedAgent></ClickedAgent>
+           <ClickedZone></ClickedZone>
 
         </>
 
@@ -353,6 +409,8 @@ const InitMap = React.memo(({ locations }) => {
 const MapView = () => {
     const [loading, setLoading] = useState(false);
     const [selectedMarker, setSelectedMarker] = useState(null);
+   
+    
 
 
 

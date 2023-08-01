@@ -10,6 +10,9 @@
             left: 0;
             
            }
+           .progress{
+            background-color: #88858552 !important;
+           }
            .border-danger {
             /* border:2px solid red; */
             position: relative;

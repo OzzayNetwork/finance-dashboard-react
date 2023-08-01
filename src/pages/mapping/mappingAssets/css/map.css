@@ -919,7 +919,7 @@ strong {
 }
 
 .live-map-cont {
-    height: calc(100vh - 266px) !important;
+    height: calc(100vh - 215px) !important;
 }
 
 @media only screen and (max-width: 1199.98px) {
