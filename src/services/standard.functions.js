@@ -31,6 +31,16 @@ class stdFunctions {
         }
     }
 
+    //remove spaces from a string
+    removeSpaces=(str)=>{
+        return str.replace(/\s+/g, '');
+    }
+
+    //remove spaces and special characters from a string
+    removeSpacesAndSpecialCharacters=(str)=>{
+        return str.replace(/[^a-z0-9]/gi, '')
+    }
+
     //is money transfer
     isMoneyTransfer=(str)=>{
         if(str==="Money_transfer"){

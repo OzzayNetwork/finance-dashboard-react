@@ -15,6 +15,7 @@ import $ from 'jquery';
 
 // import   JquerryAccordion   from "./customPlugins/jquerryAccordion";
 const ClickedZoneTodayHighlights = (props) => {
+   
 
     const hourlyCollectionsChart = {
         chart: {
