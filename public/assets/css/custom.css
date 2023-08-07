@@ -2010,6 +2010,13 @@
                 font-size: 25px;
             }
 
+            .text-danger{
+                color: #f94144 !important;
+            }
+            .text-success{
+                color: #27ae60 !important;
+            }
+
 
                 
                
